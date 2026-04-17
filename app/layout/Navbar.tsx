@@ -5,12 +5,20 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
+/**
+ * Navigation links configuration
+ */
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/test", label: "Test" },
 ]
 
-export function NavBar() {
+/**
+ * Navbar component
+ *
+ * Fixed header with logo, navigation links (right-aligned), and theme toggle.
+ */
+export function NavBar(): React.ReactElement {
   const pathname = usePathname()
 
   return (
@@ -33,7 +41,7 @@ export function NavBar() {
             />
           </div>
           <span className="text-xl font-medium text-(--color-text-primary) leading-none">
-            Next.js Template
+            Template
           </span>
         </Link>
 

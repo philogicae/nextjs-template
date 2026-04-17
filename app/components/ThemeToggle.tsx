@@ -1,30 +1,27 @@
 "use client"
 
 import { Button } from "@heroui/react"
-import { useEffect, useState } from "react"
+import { useThemeStore } from "@stores"
+import { useEffect } from "react"
 
-export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(true)
-  const [mounted, setMounted] = useState(false)
+/**
+ * ThemeToggle Component
+ *
+ * Toggles between light and dark themes using Zustand state management.
+ * Theme preference is persisted to localStorage.
+ *
+ * @example
+ * <ThemeToggle />
+ */
+export function ThemeToggle(): React.ReactElement {
+  const { isDark, mounted, toggleTheme, setMounted } = useThemeStore()
 
+  // Sync mounted state on client side to prevent hydration mismatch
   useEffect(() => {
     setMounted(true)
-    const html = document.documentElement
-    const isDarkMode = html.classList.contains("dark")
-    setIsDark(isDarkMode)
-  }, [])
+  }, [setMounted])
 
-  const toggleTheme = () => {
-    const html = document.documentElement
-    if (isDark) {
-      html.classList.remove("dark")
-      setIsDark(false)
-    } else {
-      html.classList.add("dark")
-      setIsDark(true)
-    }
-  }
-
+  // Prevent hydration mismatch by rendering a placeholder until mounted
   if (!mounted) {
     return <div className="w-10 h-10 rounded-md bg-(--color-bg-surface)" />
   }

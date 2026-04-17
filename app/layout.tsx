@@ -3,6 +3,11 @@ import { NavBar } from "@layout/Navbar"
 import type { Metadata, Viewport } from "next"
 import { Roboto } from "next/font/google"
 
+/**
+ * Root layout for the Next.js application.
+ * Configures fonts, metadata, and global viewport settings.
+ */
+
 const font = Roboto({
   subsets: ["latin"],
   variable: "--font-local",
@@ -48,7 +53,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}) {
+}): React.ReactElement {
   return (
     <html
       lang="en"

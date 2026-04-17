@@ -3,8 +3,12 @@
 import { Button } from "@heroui/react"
 import { useEffect, useState } from "react"
 
-// Subtle grid pattern
-function BackgroundGrid() {
+/**
+ * Background Grid Component
+ *
+ * Renders a subtle grid pattern for visual decoration.
+ */
+function BackgroundGrid(): React.ReactElement {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.03]">
       <div
@@ -19,7 +23,12 @@ function BackgroundGrid() {
   )
 }
 
-export default function LandingPage() {
+/**
+ * Landing Page Component
+ *
+ * The main homepage showcasing the template features with animated elements.
+ */
+export default function LandingPage(): React.ReactElement {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
