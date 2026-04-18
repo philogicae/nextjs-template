@@ -60,13 +60,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={font.variable} suppressHydrationWarning>
       <head>
-        {/* Resource hints for faster connections */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
         {/* Theme initialization - prevents flash of incorrect theme */}
         <script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Theme init script - static, controlled content

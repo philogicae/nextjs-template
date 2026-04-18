@@ -184,7 +184,7 @@ const Logo = memo(function Logo(): React.ReactElement {
           fill
           className="object-contain p-0.5"
           priority
-          unoptimized
+          sizes="(max-width: 640px) 24px, (max-width: 768px) 32px, 40px"
         />
       </div>
       <span className="text-xs sm:text-base md:text-xl font-medium text-(--color-text-primary) leading-none truncate">
