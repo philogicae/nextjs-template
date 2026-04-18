@@ -138,14 +138,14 @@ const CounterControls = memo(function CounterControls({
         onPress={onDecrement}
         variant="outline"
         size="sm"
-        className="font-medium h-7 sm:h-8 min-w-[2rem] sm:min-w-[2.25rem] px-1.5 sm:px-2 text-xs"
+        className="font-medium h-7 sm:h-8 min-w-8 sm:min-w-9 px-1.5 sm:px-2 text-xs"
       >
         -1
       </Button>
       <Button
         onPress={onIncrement}
         size="sm"
-        className="bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-black dark:text-white font-medium h-7 sm:h-8 min-w-[2rem] sm:min-w-[2.25rem] px-1.5 sm:px-2 text-xs"
+        className="bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-black dark:text-white font-medium h-7 sm:h-8 min-w-8 sm:min-w-9 px-1.5 sm:px-2 text-xs"
       >
         +1
       </Button>
@@ -153,7 +153,7 @@ const CounterControls = memo(function CounterControls({
         onPress={handleIncrementBy}
         variant="outline"
         size="sm"
-        className="font-medium h-7 sm:h-8 min-w-[2rem] sm:min-w-[2.25rem] px-1.5 sm:px-2 text-xs"
+        className="font-medium h-7 sm:h-8 min-w-8 sm:min-w-9 px-1.5 sm:px-2 text-xs"
       >
         +5
       </Button>
