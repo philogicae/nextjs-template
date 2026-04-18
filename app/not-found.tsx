@@ -8,9 +8,9 @@ import Link from "next/link"
  */
 export default function NotFound(): React.ReactElement {
   return (
-    <div className="min-h-screen w-full bg-(--color-bg-primary) flex items-center justify-center px-4">
-      <Card className="max-w-md w-full p-8 text-center border border-(--color-border-default)">
-        <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-(--color-bg-surface) flex items-center justify-center">
+    <div className="relative flex-1 w-full bg-(--color-bg-primary) flex items-center justify-center px-4 py-20 pt-[calc(var(--navbar-height)+var(--space-xl))]">
+      <Card className="max-w-md w-full p-6 sm:p-8 text-center border border-(--color-border-default) bg-(--color-bg-surface)/50 shadow-none">
+        <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-(--color-bg-primary) border border-(--color-border-default) flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -19,6 +19,8 @@ export default function NotFound(): React.ReactElement {
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="text-(--color-text-accent)"
           >
             <title>404 Error</title>
@@ -29,10 +31,10 @@ export default function NotFound(): React.ReactElement {
           </svg>
         </div>
 
-        <h1 className="text-4xl font-bold text-(--color-text-primary) mb-2">
+        <h1 className="text-4xl sm:text-5xl font-bold text-(--color-text-primary) mb-2 tracking-tight">
           404
         </h1>
-        <p className="text-(--color-text-secondary) mb-6">
+        <p className="text-sm sm:text-base text-(--color-text-secondary) mb-6">
           Page not found. The page you&apos;re looking for doesn&apos;t exist or
           has been moved.
         </p>

@@ -8,10 +8,11 @@ A modern, production-ready Next.js template featuring the latest technologies an
 - **React 19** - Latest React features and improvements
 - **TypeScript** - Full type safety with strict configuration
 - **Tailwind CSS 4** - Utility-first styling with CSS variables
-- **HeroUI** - Beautiful, accessible UI components
+- **HeroUI v3** - Beautiful, accessible UI components
 - **Zustand** - Lightweight state management with persistence
 - **Dark Mode** - Built-in theme switching with state persistence
 - **Biome** - Fast linting and code formatting
+- **Mobile-first** - Fully responsive layout (hero, playground, 404)
 - **Path Aliases** - Clean imports with `@components`, `@layout`, `@utils`, `@stores`
 
 ## Getting Started
@@ -42,7 +43,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - `pnpm dev` - Start development server with Turbo
 - `pnpm build` - Build for production
 - `pnpm start` - Start production server
-- `pnpm lint` - Run Biome linter and formatter
+- `pnpm lint` - Run Biome linter and formatter (auto-fix)
 - `pnpm upgrade` - Update all dependencies
 - `pnpm clean` - Clean build artifacts and reinstall
 
@@ -50,29 +51,34 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ```
 app/
-├── api/               # API routes
-│   └── hello/         # Example API with GET/POST
-│       └── route.ts
-├── skills.md/         # Serves SKILLS.md as raw text
-│   └── route.ts
-├── components/        # React components
-│   └── ThemeToggle.tsx
-├── layout/            # Layout components
-│   └── Navbar.tsx
-├── stores/            # Zustand state stores
-│   ├── theme.ts       # Theme store with persistence
-│   ├── counter.ts     # Demo counter store
-│   └── index.ts       # Store exports
-├── utils/             # Utility functions
-│   └── tw.ts
-├── test/              # API test page with Zustand demo
-│   └── page.tsx
-├── globals.css        # Global styles and design tokens
-├── layout.tsx         # Root layout
-├── page.tsx           # Home page
-└── not-found.tsx      # 404 page
+├── api/                   # API routes
+│   └── hello/
+│       └── route.ts       # Example GET/POST endpoint
+├── skills.md/
+│   └── route.ts           # Serves SKILLS.md as raw text
+├── components/            # Reusable UI components
+│   ├── Container.tsx      # Page width wrapper
+│   ├── FeatureCard.tsx    # Landing page feature card
+│   ├── StatusBadge.tsx    # Status indicator with colored dot
+│   ├── ThemeToggle.tsx    # Dark/light theme switch
+│   └── index.ts           # Barrel exports
+├── layout/                # Layout-level components
+│   ├── Navbar.tsx         # Responsive navbar with mobile menu
+│   └── Footer.tsx         # Site footer with links
+├── stores/                # Zustand state stores
+│   ├── theme.ts           # Theme store with persistence
+│   ├── counter.ts         # Demo counter store
+│   └── index.ts           # Barrel exports
+├── utils/                 # Utility functions
+│   └── tw.ts              # cn() class merger
+├── test/
+│   └── page.tsx           # Interactive API + state playground
+├── globals.css            # Global styles and design tokens
+├── layout.tsx             # Root layout (Navbar + main + Footer)
+├── page.tsx               # Landing page
+└── not-found.tsx          # 404 page
 
-public/                # Static assets
+public/                    # Static assets
 ├── images/
 │   ├── logo.gif
 │   ├── apple-touch-icon.png
@@ -82,8 +88,8 @@ public/                # Static assets
 ├── manifest.json
 └── robots.txt
 
-SKILLS.md              # Agent Skills definition
-AGENTS.md              # AI agent configuration
+SKILLS.md                  # Agent Skills definition
+AGENTS.md                  # AI agent configuration
 ```
 
 ## AI Agent Configuration
@@ -91,14 +97,18 @@ AGENTS.md              # AI agent configuration
 This project includes configuration files for AI coding assistants:
 
 ### AGENTS.md
+
 Standardized instructions for AI coding assistants following the [AGENTS.md standard](https://agents.md/). See [AGENTS.md](./AGENTS.md) for:
+
 - Code style and conventions
 - Project architecture
 - Component patterns
 - Development workflows
 
 ### SKILLS.md
+
 Agent Skills definition following the [Agent Skills specification](https://agentskills.io/specification). See [SKILLS.md](./SKILLS.md) for:
+
 - Skill metadata and compatibility
 - Common tasks and patterns
 - Technology stack details
@@ -122,12 +132,13 @@ Edit `app/globals.css` to customize colors, spacing, and other design tokens:
 
 ### Path Aliases
 
-Configure path aliases in `tsconfig.json`:
+Configured in `tsconfig.json`:
 
 ```json
 {
   "paths": {
     "@components/*": ["./app/components/*"],
+    "@components": ["./app/components"],
     "@layout/*": ["./app/layout/*"],
     "@utils/*": ["./app/utils/*"],
     "@stores/*": ["./app/stores/*"],
@@ -136,12 +147,30 @@ Configure path aliases in `tsconfig.json`:
 }
 ```
 
-## API Testing
+> Note: `@layout` (barrel) is intentionally **not** aliased because it would conflict with `app/layout.tsx`. Use `@layout/Navbar` / `@layout/Footer` for explicit paths.
 
-Visit `/test` to test the API endpoints and Zustand state management. The test page provides a UI for testing:
-- GET/POST requests to `/api/hello`
-- GET request to `/skills.md` (returns the raw SKILLS.md content)
-- Zustand state management with counter demo (increment, decrement, undo)
+### Reusable Components
+
+```tsx
+import { Container, FeatureCard, StatusBadge, ThemeToggle } from "@components";
+
+<Container size="md">
+  <FeatureCard icon="▲" name="Next.js 16" description="App Router" />
+  <StatusBadge status="success" />
+</Container>;
+```
+
+### HeroUI Button Variants
+
+HeroUI v3 Button variants: `primary` (default), `secondary`, `tertiary`, `outline`, `ghost`, `danger`, `danger-soft`.
+
+## API Playground
+
+Visit `/test` to test the API endpoints and Zustand state management. The page provides:
+
+- GET/POST requests to `/api/hello` with live status badges
+- GET request to `/skills.md` (returns raw SKILLS.md content)
+- Zustand counter demo (increment, decrement, +5, reset, undo)
 
 ## License
 

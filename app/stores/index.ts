@@ -9,4 +9,4 @@
  */
 
 export { useCounterStore } from "./counter"
-export { useInitTheme, useThemeStore } from "./theme"
+export { useThemeStore } from "./theme"

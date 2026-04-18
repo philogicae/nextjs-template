@@ -1,10 +1,10 @@
 # Next.js Template
 
-Next.js 16 + HeroUI + Tailwind CSS v4 + TypeScript + Zustand.
+Next.js 16 + HeroUI v3 + Tailwind CSS v4 + TypeScript + Zustand.
 
 ## Project Overview
 
-- **Framework**: Next.js 16 (App Router)
+- **Framework**: Next.js 16 (App Router, Turbopack)
 - **UI**: HeroUI v3
 - **Styling**: Tailwind CSS v4 (CSS-first config)
 - **State**: Zustand with persist middleware
@@ -22,7 +22,8 @@ Next.js 16 + HeroUI + Tailwind CSS v4 + TypeScript + Zustand.
 
 **File Organization**
 
-- Components: `/app/components/` or `/app/layout/`
+- Reusable components: `/app/components/`
+- Layout-level components: `/app/layout/`
 - Pages: `/app/[route]/page.tsx`
 - Utilities: `/app/utils/`
 - API routes: `/app/api/[endpoint]/route.ts`
@@ -36,30 +37,41 @@ Next.js 16 + HeroUI + Tailwind CSS v4 + TypeScript + Zustand.
 
 ## Component Patterns
 
-**Client Components**
+**Client vs Server**
 
 - Add `"use client"` only when using hooks, browser APIs, or event handlers
-- Default to Server Components
+- Default to Server Components (`Footer`, `Container`, `FeatureCard`, `StatusBadge` are server components)
 
 **Styling**
 
 - Tailwind utility classes
 - CSS variables: `--color-bg-primary`, `--color-text-primary`, etc.
-- Use `cn()` from `@utils/tw.ts` for class merging
+- Use `cn()` from `@utils/tw` for class merging
+
+**HeroUI v3 cheatsheet**
+
+- `Button` variants: `primary` (default), `secondary`, `tertiary`, `outline`, `ghost`, `danger`, `danger-soft`
+- `Button` loading prop: `isPending` (not `isLoading`)
+- `Card` subcomponents: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter` (no `CardBody`)
 
 **Example**
 
 ```tsx
 "use client";
+import { Container } from "@components";
 import { Button } from "@heroui/react";
 import { useState } from "react";
 
 export function Example() {
   const [state, setState] = useState("");
   return (
-    <div className="bg-(--color-bg-surface) p-4">
-      <Button onPress={() => setState("x")}>Click</Button>
-    </div>
+    <Container size="md">
+      <div className="bg-(--color-bg-surface) p-4">
+        <Button variant="outline" onPress={() => setState("x")}>
+          Click
+        </Button>
+      </div>
+    </Container>
   );
 }
 ```
@@ -71,6 +83,10 @@ export function Example() {
 - File-based App Router
 - Dynamic: `[id]/page.tsx`
 - Groups: `(group)/page.tsx`
+
+**Root Layout**
+
+`app/layout.tsx` wraps every page with `<NavBar />`, `<main>`, and `<Footer />`. Pages should not render their own footer.
 
 **API Routes**
 
@@ -84,13 +100,26 @@ export function Example() {
 - Use `fetch()` with proper caching
 - Client: `useEffect` + `fetch()`
 
+## Path Aliases
+
+```json
+"@components/*": ["./app/components/*"],
+"@components":   ["./app/components"],
+"@layout/*":     ["./app/layout/*"],
+"@utils/*":      ["./app/utils/*"],
+"@stores/*":     ["./app/stores/*"],
+"@stores":       ["./app/stores"]
+```
+
+> `@layout` barrel is intentionally **absent** — it collides with `app/layout.tsx`. Import from `@layout/Navbar` or `@layout/Footer`.
+
 ## Development
 
 ```bash
-pnpm dev      # Dev server
+pnpm dev      # Dev server (Turbopack)
 pnpm build    # Production build
 pnpm start    # Start production
-pnpm lint     # Biome lint/format
+pnpm lint     # Biome lint/format (auto-fix)
 pnpm upgrade  # Update deps
 pnpm clean    # Clean reinstall
 ```
@@ -99,30 +128,37 @@ pnpm clean    # Clean reinstall
 
 ```
 app/
-├── api/              # API routes
-│   └── hello/
-├── skills.md/        # Serves SKILLS.md raw
-├── components/       # React components
-├── layout/           # Layout components
-├── stores/           # Zustand stores
-│   ├── theme.ts      # Theme + persist
-│   ├── counter.ts    # Demo store
-│   └── index.ts      # Exports
-├── utils/            # Utilities
-├── globals.css       # CSS variables
-├── layout.tsx        # Root layout
-├── page.tsx          # Home
-├── test/             # API test page
-└── not-found.tsx     # 404
-public/               # Static assets
-SKILLS.md             # Agent Skills def
-AGENTS.md             # Agent instructions
+├── api/hello/             # Example API route
+├── skills.md/             # Serves SKILLS.md raw
+├── components/            # Reusable UI
+│   ├── Container.tsx
+│   ├── FeatureCard.tsx
+│   ├── StatusBadge.tsx
+│   ├── ThemeToggle.tsx
+│   └── index.ts           # Barrel
+├── layout/
+│   ├── Navbar.tsx         # Responsive navbar + mobile menu
+│   └── Footer.tsx
+├── stores/
+│   ├── theme.ts           # Theme + persist
+│   ├── counter.ts         # Demo store
+│   └── index.ts           # Barrel
+├── utils/
+│   └── tw.ts              # cn()
+├── globals.css            # Design tokens
+├── layout.tsx             # Root layout
+├── page.tsx               # Landing
+├── test/page.tsx          # API + state playground
+└── not-found.tsx          # 404
+public/                    # Static assets
+SKILLS.md                  # Agent Skills def
+AGENTS.md                  # Agent instructions
 ```
 
 ## Dependencies
 
 - `next`, `react`, `react-dom`
-- `@heroui/react`
+- `@heroui/react`, `@heroui/styles`
 - `zustand`
 - `tailwindcss`, `tailwind-merge`, `clsx`
 - `typescript`, `@biomejs/biome`
@@ -139,15 +175,18 @@ AGENTS.md             # Agent instructions
 CSS vars in `globals.css`:
 
 - `--color-bg-primary`, `--color-bg-surface`
-- `--color-text-primary`, `--color-text-secondary`
-- `--color-accent-cyan`
+- `--color-text-primary`, `--color-text-secondary`, `--color-text-muted`, `--color-text-accent`
+- `--color-accent-cyan`, `--color-accent-cyan-hover`
+- `--color-border-default`, `--color-border-subtle`
+- Spacing: `--space-xs` .. `--space-2xl`
+- Layout: `--navbar-height`
 
 ## Common Tasks
 
 **Add Page**
 
 1. Create `app/about/page.tsx`
-2. Add to `navLinks` in `app/layout/Navbar.tsx`
+2. Add entry to `navLinks` in `@/app/layout/Navbar.tsx` (serves both desktop + mobile menu)
 
 **Add API Route**
 
@@ -173,6 +212,8 @@ export const useMyStore = create<State>()((set) => ({
 }));
 ```
 
+Then re-export from `app/stores/index.ts`.
+
 **Import Stores**
 
 ```ts
@@ -182,8 +223,15 @@ import { useThemeStore, useCounterStore } from "@stores";
 ## Build & Deploy
 
 - Build: `pnpm build` → `.next/`
-- Static export: Configure in `next.config.js`
+- Static export: Configure in `next.config.mjs`
 - Requires: Node.js 20+
+
+## Responsiveness
+
+- Root layout is a flex column; main fills available height so the footer always sits at the bottom.
+- `Navbar` collapses to a hamburger menu below `md` (the nav links become a dropdown).
+- Pages use the `Container` component for consistent horizontal padding and max-width.
+- Hero CTAs stack full-width on mobile; grids step from 2 → 3 → 5 columns.
 
 ## AI Agent Integration
 

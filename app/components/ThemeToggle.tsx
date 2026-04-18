@@ -2,7 +2,6 @@
 
 import { Button } from "@heroui/react"
 import { useThemeStore } from "@stores"
-import { useEffect } from "react"
 
 /**
  * ThemeToggle Component
@@ -10,19 +9,18 @@ import { useEffect } from "react"
  * Toggles between light and dark themes using Zustand state management.
  * Theme preference is persisted to localStorage.
  *
+ * The initial theme class is set by a script in layout.tsx before hydration,
+ * preventing flash of incorrect theme. This component only renders after
+ * the store has rehydrated to avoid hydration mismatches.
+ *
  * @example
  * <ThemeToggle />
  */
 export function ThemeToggle(): React.ReactElement {
-  const { isDark, mounted, toggleTheme, setMounted } = useThemeStore()
+  const { isDark, _hasHydrated, toggleTheme } = useThemeStore()
 
-  // Sync mounted state on client side to prevent hydration mismatch
-  useEffect(() => {
-    setMounted(true)
-  }, [setMounted])
-
-  // Prevent hydration mismatch by rendering a placeholder until mounted
-  if (!mounted) {
+  // Prevent hydration mismatch by rendering a placeholder until rehydrated
+  if (!_hasHydrated) {
     return <div className="w-10 h-10 rounded-md bg-(--color-bg-surface)" />
   }
 

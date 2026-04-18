@@ -1,6 +1,6 @@
 ---
 name: nextjs-template
-description: Next.js 16 template with HeroUI, Tailwind CSS v4, TypeScript, Zustand, Biome. For new Next.js projects, React apps with TypeScript, or production-ready web foundations.
+description: Next.js 16 template with HeroUI v3, Tailwind CSS v4, TypeScript, Zustand, Biome. For new Next.js projects, React apps with TypeScript, or production-ready web foundations.
 license: MIT
 compatibility: Node.js 20+, pnpm
 metadata:
@@ -16,12 +16,13 @@ metadata:
     - Zustand + persist
     - Biome linting
     - Dark mode
-    - API test page
+    - Mobile-first responsive
+    - API playground page
 ---
 
 # Next.js Template
 
-Modern Next.js template with latest web technologies.
+Modern Next.js template with latest web technologies, mobile-first UI, and reusable components.
 
 ## When to Use
 
@@ -48,31 +49,39 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```
 app/
-├── api/                # API routes
-│   └── hello/
-├── skills.md/          # Serves SKILLS.md raw
-├── components/         # React components
-├── layout/             # Layout components
-├── stores/             # Zustand stores
-│   ├── theme.ts        # Theme + persist
-│   ├── counter.ts      # Demo store
-│   └── index.ts        # Exports
-├── utils/              # Utilities
-├── globals.css         # CSS variables
-├── layout.tsx          # Root layout
-├── page.tsx            # Home page
-├── test/               # API test page
-└── not-found.tsx       # 404 page
-public/                 # Static assets
-SKILLS.md               # Agent Skills def
-AGENTS.md               # Agent config
+├── api/                   # API routes
+│   └── hello/route.ts
+├── skills.md/route.ts     # Serves SKILLS.md raw
+├── components/            # Reusable UI
+│   ├── Container.tsx      # Page width wrapper
+│   ├── FeatureCard.tsx    # Feature grid card
+│   ├── StatusBadge.tsx    # Status dot + label
+│   ├── ThemeToggle.tsx    # Theme switch
+│   └── index.ts           # Barrel
+├── layout/                # Layout-level
+│   ├── Navbar.tsx         # Responsive navbar
+│   └── Footer.tsx         # Site footer
+├── stores/                # Zustand
+│   ├── theme.ts           # Theme + persist
+│   ├── counter.ts         # Demo store
+│   └── index.ts           # Barrel
+├── utils/
+│   └── tw.ts              # cn()
+├── globals.css            # Design tokens
+├── layout.tsx             # Root layout
+├── page.tsx               # Landing
+├── test/page.tsx          # API + state playground
+└── not-found.tsx          # 404
+public/                    # Static assets
+SKILLS.md                  # Agent Skills
+AGENTS.md                  # Agent config
 ```
 
 ## Technologies
 
 **Framework**
 
-- Next.js 16 (App Router)
+- Next.js 16 (App Router, Turbopack)
 - React 19 (Server Components default)
 - TypeScript strict mode
 
@@ -80,12 +89,14 @@ AGENTS.md               # Agent config
 
 - Tailwind CSS v4 (CSS-first)
 - CSS variables: `--color-bg-primary`, etc.
-- `cn()` utility from `@utils/tw.ts`
+- `cn()` utility from `@utils/tw`
 
 **UI**
 
-- HeroUI v3 components
+- HeroUI v3 components (`Button`, `Card`, `CardHeader`, `CardContent`, `CardFooter`, ...)
+- Button variants: `primary`, `secondary`, `tertiary`, `outline`, `ghost`, `danger`, `danger-soft`
 - Dark mode toggle in `ThemeToggle.tsx`
+- Mobile hamburger menu in `Navbar.tsx`
 
 **State**
 
@@ -113,6 +124,18 @@ AGENTS.md               # Agent config
 - Add `"use client"` for hooks, browser APIs, events
 - Default to Server Components
 
+**Imports (barrel aliases)**
+
+```ts
+import { Container, FeatureCard, StatusBadge, ThemeToggle } from "@components";
+import { NavBar } from "@layout/Navbar"; // @layout/* only (no barrel)
+import { Footer } from "@layout/Footer";
+import { useCounterStore, useThemeStore } from "@stores";
+import { cn } from "@utils/tw";
+```
+
+> `@layout` barrel alias is intentionally absent: it would conflict with `app/layout.tsx`. Always use `@layout/Navbar` / `@layout/Footer`.
+
 **Styling**
 
 ```tsx
@@ -126,7 +149,7 @@ AGENTS.md               # Agent config
 **Add Page**
 
 1. Create `app/about/page.tsx`
-2. Add to `navLinks` in `Navbar.tsx`
+2. Add to `navLinks` in `app/layout/Navbar.tsx` (used by both desktop nav + mobile dropdown)
 3. Run `pnpm dev`
 
 **Add API Route**
@@ -176,8 +199,21 @@ export const useMyStore = create<State>()((set) => ({
 }));
 ```
 
+Then re-export from `app/stores/index.ts`.
+
+**Use Reusable Components**
+
+```tsx
+import { Container, FeatureCard, StatusBadge } from "@components";
+
+<Container size="md">
+  <FeatureCard icon="▲" name="Next.js" description="App Router" />
+  <StatusBadge status="success" />
+</Container>;
+```
+
 **Test APIs**
-Visit `/test` for API testing interface:
+Visit `/test` for the playground:
 
 - `GET /api/hello` - Hello message
 - `POST /api/hello` - Echo JSON
@@ -189,7 +225,7 @@ Visit `/test` for API testing interface:
 pnpm dev      # Dev server
 pnpm build    # Production
 pnpm start    # Start prod
-pnpm lint     # Lint/format
+pnpm lint     # Lint/format (auto-fix)
 pnpm upgrade  # Update deps
 pnpm clean    # Clean reinstall
 ```

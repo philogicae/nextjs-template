@@ -1,5 +1,7 @@
 import "./globals.css"
+import { Footer } from "@layout/Footer"
 import { NavBar } from "@layout/Navbar"
+import { getThemeScript } from "@utils/theme-script"
 import type { Metadata, Viewport } from "next"
 import { Roboto } from "next/font/google"
 
@@ -55,14 +57,19 @@ export default function RootLayout({
   children: React.ReactNode
 }): React.ReactElement {
   return (
-    <html
-      lang="en"
-      className={`${font.variable} dark`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-screen w-full overflow-x-hidden">
+    <html lang="en" className={font.variable} suppressHydrationWarning>
+      <head>
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: Theme init script - static, controlled content
+          dangerouslySetInnerHTML={{
+            __html: getThemeScript(),
+          }}
+        />
+      </head>
+      <body className="min-h-screen w-full overflow-x-hidden flex flex-col">
         <NavBar />
-        <main className="w-full">{children}</main>
+        <main className="w-full flex-1 flex flex-col">{children}</main>
+        <Footer />
       </body>
     </html>
   )

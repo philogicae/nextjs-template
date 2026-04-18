@@ -21,6 +21,7 @@
     ],
     "paths": {
       "@components/*": ["./app/components/*"],
+      "@components": ["./app/components"],
       "@layout/*": ["./app/layout/*"],
       "@utils/*": ["./app/utils/*"],
       "@stores/*": ["./app/stores/*"],
