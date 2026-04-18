@@ -16,7 +16,8 @@
     "build": "next build --turbo",
     "start": "next start -H 0.0.0.0 -p 3000",
     "upgrade": "pnpm update && pnpm prune",
-    "clean": "rimraf .next && rimraf out && rimraf node_modules && pnpm install"
+    "clean": "rimraf .next && rimraf out && rimraf node_modules && pnpm install",
+    "repomix": "pnpx repomix --style markdown --remove-empty-lines"
   },
   "dependencies": {
     "@heroui/react": "^3.0.3",

@@ -1,9 +1,14 @@
+"use client"
+
 import { cn } from "@utils/tw"
+import { memo } from "react"
 
 /**
  * StatusBadge Component
  *
  * Displays a compact status indicator with a colored dot and label.
+ *
+ * Memoized to prevent unnecessary re-renders when parent updates.
  */
 type Status = "idle" | "loading" | "success" | "error"
 
@@ -39,7 +44,7 @@ interface StatusBadgeProps {
   className?: string
 }
 
-export function StatusBadge({
+export const StatusBadge = memo(function StatusBadge({
   status,
   label,
   className,
@@ -48,7 +53,7 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border border-(--color-border-default) bg-(--color-bg-surface)/60 px-2.5 py-0.5 text-xs font-medium",
+        "inline-flex items-center gap-1 rounded-full border border-(--color-border-default) bg-(--color-bg-surface)/60 px-1.5 py-0.5 text-[9px] sm:text-xs font-medium",
         style.text,
         className
       )}
@@ -57,4 +62,4 @@ export function StatusBadge({
       {label ?? style.label}
     </span>
   )
-}
+})

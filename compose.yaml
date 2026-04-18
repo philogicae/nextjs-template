@@ -19,4 +19,7 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+    env_file:
+      - path: ./.env
+        required: false
     <<: *default-logging

@@ -13,9 +13,10 @@ import { Roboto } from "next/font/google"
 const font = Roboto({
   subsets: ["latin"],
   variable: "--font-local",
-  weight: "400",
+  weight: ["400", "500", "700"],
   preload: true,
   display: "swap",
+  adjustFontFallback: true,
 })
 
 export const metadata: Metadata = {
@@ -59,6 +60,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={font.variable} suppressHydrationWarning>
       <head>
+        {/* Resource hints for faster connections */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        {/* Theme initialization - prevents flash of incorrect theme */}
         <script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Theme init script - static, controlled content
           dangerouslySetInnerHTML={{
@@ -66,9 +75,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen w-full overflow-x-hidden flex flex-col">
+      <body className="min-h-screen w-full overflow-x-hidden flex flex-col antialiased">
         <NavBar />
-        <main className="w-full flex-1 flex flex-col">{children}</main>
+        <main className="w-full flex-1 flex flex-col relative">{children}</main>
         <Footer />
       </body>
     </html>
