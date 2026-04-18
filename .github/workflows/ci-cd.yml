@@ -1,4 +1,4 @@
-name: Lint
+name: CI-CD
 
 on:
   push:
@@ -12,27 +12,42 @@ concurrency:
 
 jobs:
   lint:
-    name: Biome
+    name: Next.js checks ⚡
     runs-on: ubuntu-latest
-    timeout-minutes: 5
-
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
         with:
           run_install: false
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 25
           cache: pnpm
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
       - name: Run Biome CI
         run: pnpm biome ci app
+
+  build:
+    name: Next.js build 🏗️
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          run_install: false
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 25
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build Next.js app
+        run: pnpm build
