@@ -55,6 +55,7 @@
 
 - Refactor: standardize counter button min-width values in playground
 - Refactor: reduce component sizes and spacing for more compact UI
+- Refactor: make Docker Compose configuration fully customizable via .env
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -65,3 +66,4 @@
 - Remove Google Fonts preconnect links from layout (not used)
 - Replace unoptimized prop with responsive sizes in Navbar Logo
 - Clean up robots.txt formatting (remove empty sitemap reference)
+- Chore: update changelog
