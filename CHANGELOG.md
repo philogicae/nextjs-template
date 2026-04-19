@@ -12,13 +12,13 @@
 - Enhance /test page with API testing and Zustand demo
 - Update README with project structure and clone instructions
 - Feat: add reusable UI components, Footer, responsive layout, and fix theme persistence
-Adds Container, FeatureCard, StatusBadge components with @components barrel exports;
-adds Footer integrated into root layout; adds mobile hamburger menu to Navbar;
-updates landing, playground, and 404 pages for mobile-first responsiveness;
-refreshes AGENTS.md/README.md/SKILLS.md with HeroUI v3 patterns.
-Fixes dark/light mode to properly restore user preference on return visits
-by adding an inline theme initialization script that reads localStorage
-before hydration, preventing flash of incorrect theme.
+  Adds Container, FeatureCard, StatusBadge components with @components barrel exports;
+  adds Footer integrated into root layout; adds mobile hamburger menu to Navbar;
+  updates landing, playground, and 404 pages for mobile-first responsiveness;
+  refreshes AGENTS.md/README.md/SKILLS.md with HeroUI v3 patterns.
+  Fixes dark/light mode to properly restore user preference on return visits
+  by adding an inline theme initialization script that reads localStorage
+  before hydration, preventing flash of incorrect theme.
 - Feat: comprehensive UI/UX overhaul with performance optimizations and new utilities
 - Add error.tsx error boundary and loading.tsx skeleton UI
 - Rename /test to /playground with memoized components and improved state management
@@ -32,6 +32,20 @@ before hydration, preventing flash of incorrect theme.
 - Add API route caching with unstable_cache in skills.md/route.ts
 - Update all documentation (AGENTS.md, SKILLS.md, README.md) with accurate structure
 - Biome linting passes on all 23 files, TypeScript strict mode validated
+- Feat: major template overhaul - next-themes, no barrel exports, AGENTS.md v2, Docker
+
+- Replace custom Zustand theme store with next-themes (providers.tsx)
+- Remove barrel export pattern from components/ and stores/
+- Rewrite AGENTS.md with customization checklist and structured guidance
+- Add CHECKLIST.md for project bootstrap tracking
+- Add CHANGELOG.md and git-cliff config (cliff.toml)
+- Refactor Dockerfile with multi-stage build and node-caged base
+- Simplify globals.css design tokens (violet-cyan duotone)
+- Update all components with explicit React.ReactElement return types
+- Add Skeleton.tsx component and update ThemeToggle for next-themes
+- Update next.config.mjs with security headers and caching
+- Delete app/stores/theme.ts and app/utils/theme-script.ts (obsolete)
+- Update tsconfig.json path aliases (remove @components barrel)
 
 ### 💼 Changes
 
@@ -40,6 +54,7 @@ before hydration, preventing flash of incorrect theme.
 ### 🚜 Refactor
 
 - Refactor: standardize counter button min-width values in playground
+- Refactor: reduce component sizes and spacing for more compact UI
 
 ### ⚙️ Miscellaneous Tasks
 
