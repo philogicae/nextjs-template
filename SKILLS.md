@@ -76,7 +76,7 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 ├── next.config.mjs        # Security headers, image formats — review
 ├── biome.json             # Lint/format config
 ├── package.json           # name/description/repo — CUSTOMIZE
-├── Dockerfile / compose.yaml     # Ready to use — rename `nextjs-template` only
+├── Dockerfile / compose.yaml     # Ready to use — override names/port via .env
 ├── README.md              # REWRITE for the new project
 ├── AGENTS.md              # In-repo agent conventions — keep in sync as you modify the project
 ├── SKILLS.md              # REWRITE to describe the new app (see §5) or delete if the app needs no agent surface
@@ -127,7 +127,7 @@ Work through these in order. Do **not** ship any of the template's demo branding
 
 **Docker / CI**
 
-- `Dockerfile` is a multi-stage build (`base` → `deps` → `builder` → slim `runner`) that serves the Next.js standalone bundle (`node server.js`) as a non-root user with a `HEALTHCHECK`; `compose.yaml` is production-ready. Only rename the hardcoded `nextjs-template` service/image name. Base image is [`platformatic/node-caged:25-alpine`](https://hub.docker.com/r/platformatic/node-caged) — Node.js with V8 pointer compression enabled (~50% memory reduction for pointer-heavy workloads).
+- `Dockerfile` is a multi-stage build (`base` → `deps` → `builder` → slim `runner`) that serves the Next.js standalone bundle (`node server.js`) as a non-root user with a `HEALTHCHECK`; `compose.yaml` is production-ready. Project/container/image names and host port are configurable via `.env` (`DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT`, all defaulting to `nextjs-template` / `3000`). Base image is [`platformatic/node-caged:25-alpine`](https://hub.docker.com/r/platformatic/node-caged) — Node.js with V8 pointer compression enabled (~50% memory reduction for pointer-heavy workloads).
 - `.github/workflows/ci-cd.yml` is ready to use out of the box; no changes needed.
 
 ## 4. Delete demo-only code

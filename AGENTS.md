@@ -31,7 +31,7 @@ If any of these still reference the template, fix them before writing product co
 - [ ] `public/` — `favicon.ico`, `images/logo.gif`, `images/apple-touch-icon.png`, `images/192x192.png`, `images/512x512.png`, `manifest.json`, `robots.txt` (note: `public/images/` ships empty; assets are referenced by `app/layout.tsx`, `app/layout/Navbar.tsx`, and `public/manifest.json` and must be supplied)
 - [ ] `.env.example` — real variables only
 - [ ] `LICENSE`, `README.md` — update for the new project
-- [ ] `Dockerfile` + `compose.yaml` — production-ready; only rename the hardcoded `nextjs-template` service/image name. Base image: [`platformatic/node-caged:25-alpine`](https://hub.docker.com/r/platformatic/node-caged) — Node.js with V8 pointer compression enabled (~50% memory reduction for pointer-heavy workloads)
+- [ ] `Dockerfile` + `compose.yaml` — production-ready; project/container/image names and host port are configurable via `.env` (`DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT`, all defaulting to `nextjs-template` / `3000`). Base image: [`platformatic/node-caged:25-alpine`](https://hub.docker.com/r/platformatic/node-caged) — Node.js with V8 pointer compression enabled (~50% memory reduction for pointer-heavy workloads)
 - [x] `.github/workflows/ci-cd.yml` — ready to use out of the box, no edits needed
 
 ## Demo code to remove

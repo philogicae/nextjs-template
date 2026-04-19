@@ -1,4 +1,4 @@
-name: nextjs-template
+name: ${DOCKER_PROJECT_NAME:-nextjs-template}
 
 x-logging: &default-logging
   logging:
@@ -9,14 +9,14 @@ x-logging: &default-logging
 
 services:
   app:
-    container_name: nextjs-template
+    container_name: ${DOCKER_CONTAINER_NAME:-nextjs-template}
     build:
       context: .
       dockerfile: Dockerfile
-    image: nextjs-template
+    image: ${DOCKER_IMAGE_NAME:-nextjs-template}:${DOCKER_IMAGE_TAG:-latest}
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "${DOCKER_PORT:-3000}:3000"
     environment:
       - NODE_ENV=production
     env_file:

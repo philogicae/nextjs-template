@@ -88,7 +88,7 @@ Choose one path:
 ## 6. Environment & infrastructure
 
 - [ ] `.env.example` → prune placeholders, add real variables, document each
-- [ ] `compose.yaml` → rename the hardcoded `nextjs-template` service / `container_name` / `image`
+- [ ] `compose.yaml` → no edits needed; set `DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT` in `.env` to override the `nextjs-template` / `3000` defaults
 - [ ] `Dockerfile` → no change needed unless you customize the build (multi-stage, standalone output, non-root runner with HEALTHCHECK)
 - [ ] `.github/workflows/ci-cd.yml` → ready to use as-is; review only if you add tests or deploy targets
 - [ ] `next.config.mjs` → tighten `images.remotePatterns` to your actual image hosts and add a page-level CSP header if your app needs one (SVG responses already get a strict per-image CSP)

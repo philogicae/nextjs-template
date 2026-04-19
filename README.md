@@ -145,7 +145,7 @@ A multi-stage `Dockerfile` (`base` → `deps` → `builder` → slim `runner`) a
 docker compose up --build       # Build and run on :3000
 ```
 
-`compose.yaml` sets `NODE_ENV=production` and optionally loads a local `.env` file. Rename the hardcoded `nextjs-template` service/image name for your project.
+`compose.yaml` sets `NODE_ENV=production` and optionally loads a local `.env` file. Project name, container name, image name/tag, and host port are all configurable via `.env` (`DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT`) — defaults fall back to `nextjs-template` / `3000`.
 
 ### GitHub Actions
 
