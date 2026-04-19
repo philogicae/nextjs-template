@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useSyncExternalStore } from "react"
 
 /**
  * useMediaQuery Hook
  *
- * Reactively tracks CSS media query matches.
- * Useful for responsive design logic in components.
+ * Reactively tracks CSS media query matches using `useSyncExternalStore`,
+ * which avoids an initial-render hydration mismatch and gets the correct
+ * client value on the first paint.
  *
  * @example
  * const isMobile = useMediaQuery('(max-width: 768px)')
@@ -16,44 +17,23 @@ import { useEffect, useState } from "react"
  * @returns Boolean indicating if the media query matches
  */
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(false)
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      const media = window.matchMedia(query)
+      media.addEventListener("change", onChange)
+      return () => media.removeEventListener("change", onChange)
+    },
+    [query]
+  )
 
-  useEffect(() => {
-    // Check if window is available (SSR safety)
-    if (typeof window === "undefined") {
-      return
-    }
+  const getSnapshot = useCallback(
+    () => window.matchMedia(query).matches,
+    [query]
+  )
 
-    const media = window.matchMedia(query)
-
-    // Set initial value
-    setMatches(media.matches)
-
-    // Create listener
-    const listener = (event: MediaQueryListEvent): void => {
-      setMatches(event.matches)
-    }
-
-    // Add listener (with fallback for older browsers)
-    if (media.addEventListener) {
-      media.addEventListener("change", listener)
-    } else {
-      // Legacy fallback
-      media.addListener(listener)
-    }
-
-    // Cleanup
-    return () => {
-      if (media.removeEventListener) {
-        media.removeEventListener("change", listener)
-      } else {
-        // Legacy fallback
-        media.removeListener(listener)
-      }
-    }
-  }, [query])
-
-  return matches
+  // Server snapshot: conservatively `false` — components should not render
+  // breakpoint-dependent markup on the server.
+  return useSyncExternalStore(subscribe, getSnapshot, () => false)
 }
 
 /**

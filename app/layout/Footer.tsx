@@ -1,4 +1,5 @@
 import { Container } from "@components/Container"
+import { siteConfig } from "@config/site"
 
 /**
  * Footer Component
@@ -8,22 +9,26 @@ import { Container } from "@components/Container"
  */
 export function Footer(): React.ReactElement {
   const year = new Date().getFullYear()
+  const github = siteConfig.social.find((s) => s.label === "GitHub")?.href
+  const x = siteConfig.social.find((s) => s.label === "X")?.href
 
   return (
     <footer className="relative border-t border-(--color-border-default) bg-(--color-bg-primary)/60 backdrop-blur-sm">
       <Container size="full" className="py-2 sm:py-3 md:py-4">
         <div className="flex items-center justify-between gap-2 text-[10px] sm:text-xs md:text-sm text-(--color-text-muted)">
           <div className="flex items-center gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1">
-            <span>&copy; {year} Next.js Template</span>
+            <span>
+              &copy; {year} {siteConfig.name}
+            </span>
             <span className="hidden sm:inline text-(--color-border-subtle)">
               •
             </span>
-            <span className="hidden sm:inline">MIT License</span>
+            <span className="hidden sm:inline">{siteConfig.license}</span>
           </div>
 
           <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3">
             <a
-              href="https://github.com/philogicae/nextjs-template"
+              href={github ?? "#"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -41,7 +46,7 @@ export function Footer(): React.ReactElement {
               </svg>
             </a>
             <a
-              href="https://x.com/philogicae"
+              href={x ?? "#"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X (Twitter)"

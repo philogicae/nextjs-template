@@ -1,9 +1,10 @@
 import "./globals.css"
+import { siteConfig } from "@config/site"
 import { Footer } from "@layout/Footer"
 import { NavBar } from "@layout/Navbar"
-import { getThemeScript } from "@utils/theme-script"
 import type { Metadata, Viewport } from "next"
 import { Roboto } from "next/font/google"
+import { Providers } from "./providers"
 
 /**
  * Root layout for the Next.js application.
@@ -20,11 +21,10 @@ const font = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: "Next.js Template",
-  description:
-    "A modern Next.js template with HeroUI, Tailwind CSS, and TypeScript",
-  applicationName: "Next.js Template",
-  keywords: ["Next.js", "React", "TypeScript", "Tailwind CSS", "HeroUI"],
+  title: siteConfig.name,
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  keywords: [...siteConfig.keywords],
   robots: {
     index: true,
     follow: true,
@@ -35,17 +35,22 @@ export const metadata: Metadata = {
     apple: "/images/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Next.js Template",
-    description:
-      "A modern Next.js template with HeroUI, Tailwind CSS, and TypeScript",
+    title: siteConfig.name,
+    description: siteConfig.description,
     type: "website",
   },
 }
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0f1a" },
+    {
+      media: "(prefers-color-scheme: light)",
+      color: siteConfig.themeColor.light,
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: siteConfig.themeColor.dark,
+    },
   ],
   colorScheme: "dark light",
   width: "device-width",
@@ -60,18 +65,22 @@ export default function RootLayout({
   return (
     <html lang="en" className={font.variable} suppressHydrationWarning>
       <head>
-        {/* Theme initialization - prevents flash of incorrect theme */}
-        <script
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: Theme init script - static, controlled content
-          dangerouslySetInnerHTML={{
-            __html: getThemeScript(),
-          }}
-        />
+        {/*
+         * Opt out of Dark Reader / Night Eye / Midnight Lizard style
+         * extensions — this site ships its own dark mode. Without this they
+         * re-color every element (cyan becomes yellow, text-transparent
+         * gradients break, Logo classes get rewritten causing hydration
+         * mismatches).
+         * See https://github.com/darkreader/darkreader#how-to-exclude-a-website
+         */}
+        <meta name="darkreader-lock" />
       </head>
-      <body className="min-h-screen w-full overflow-x-hidden flex flex-col antialiased">
-        <NavBar />
-        <main className="w-full flex-1 flex flex-col relative">{children}</main>
-        <Footer />
+      <body className="antialiased">
+        <Providers>
+          <NavBar />
+          <main>{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

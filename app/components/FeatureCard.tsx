@@ -1,16 +1,5 @@
-"use client"
-
 import { cn } from "@utils/tw"
-import { memo } from "react"
 
-/**
- * FeatureCard Component
- *
- * A compact card displaying a feature with an icon, name, and optional
- * description. Used on the landing page feature grid.
- *
- * Memoized to prevent unnecessary re-renders when parent updates.
- */
 interface FeatureCardProps {
   icon: React.ReactNode
   name: string
@@ -18,7 +7,8 @@ interface FeatureCardProps {
   className?: string
 }
 
-export const FeatureCard = memo(function FeatureCard({
+/** Compact card with icon, name, and optional description. */
+export function FeatureCard({
   icon,
   name,
   description,
@@ -49,4 +39,4 @@ export const FeatureCard = memo(function FeatureCard({
       )}
     </div>
   )
-})
+}

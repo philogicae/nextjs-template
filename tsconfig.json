@@ -5,6 +5,8 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -21,11 +23,10 @@
     ],
     "paths": {
       "@components/*": ["./app/components/*"],
-      "@components": ["./app/components"],
+      "@config/*": ["./app/config/*"],
       "@layout/*": ["./app/layout/*"],
-      "@utils/*": ["./app/utils/*"],
       "@stores/*": ["./app/stores/*"],
-      "@stores": ["./app/stores"]
+      "@utils/*": ["./app/utils/*"]
     }
   },
   "include": [

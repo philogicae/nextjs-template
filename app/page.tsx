@@ -1,4 +1,6 @@
-import { Container, FeatureCard } from "@components"
+import { Container } from "@components/Container"
+import { FeatureCard } from "@components/FeatureCard"
+import { siteConfig } from "@config/site"
 import { Button } from "@heroui/react"
 import Link from "next/link"
 
@@ -60,10 +62,10 @@ function AnimatedSection({
  */
 export default function LandingPage(): React.ReactElement {
   return (
-    <div className="relative w-full bg-(--color-bg-primary) flex-1 flex flex-col">
+    <div className="relative w-full flex-1 flex flex-col">
       <BackgroundDecor />
 
-      <section className="relative w-full flex-1 flex flex-col justify-center px-4 sm:px-0 pt-[calc(var(--navbar-height-mobile)+var(--space-xs))] pb-4 sm:py-[calc(var(--navbar-height)+var(--space-lg))]">
+      <section className="relative w-full flex-1 flex flex-col justify-center px-4 py-8 sm:py-12">
         <Container size="md">
           <AnimatedSection delay={100} className="mb-4 sm:mb-6">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-(--color-text-primary) tracking-tight">
@@ -87,7 +89,7 @@ export default function LandingPage(): React.ReactElement {
               <Link href="/playground" className="w-40 sm:w-auto">
                 <Button
                   size="sm"
-                  className="w-full sm:w-auto h-8 sm:h-10 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-black dark:text-white font-medium shadow-lg shadow-(--color-accent-cyan)/20"
+                  className="w-full sm:w-auto h-8 sm:h-10 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-semibold shadow-lg shadow-(--color-accent-cyan)/20"
                 >
                   Try the Playground
                 </Button>
@@ -119,7 +121,7 @@ export default function LandingPage(): React.ReactElement {
                 </Button>
               </a>
               <a
-                href="https://github.com/philogicae/nextjs-template"
+                href={siteConfig.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-40 sm:w-auto"
@@ -146,7 +148,7 @@ export default function LandingPage(): React.ReactElement {
                 </Button>
               </a>
               <a
-                href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fphilogicae%2Fnextjs-template"
+                href={`https://vercel.com/new/clone?repository-url=${encodeURIComponent(siteConfig.url)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-40 sm:w-auto"

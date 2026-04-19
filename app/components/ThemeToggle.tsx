@@ -1,18 +1,13 @@
 "use client"
 
 import { Button } from "@heroui/react"
-import { useThemeStore } from "@stores"
-import { memo, useCallback } from "react"
+import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
 
-/**
- * Sun Icon Component (memoized)
- */
-const SunIcon = memo(function SunIcon(): React.ReactElement {
+function SunIcon(): React.ReactElement {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -33,17 +28,12 @@ const SunIcon = memo(function SunIcon(): React.ReactElement {
       <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
     </svg>
   )
-})
+}
 
-/**
- * Moon Icon Component (memoized)
- */
-const MoonIcon = memo(function MoonIcon(): React.ReactElement {
+function MoonIcon(): React.ReactElement {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -56,55 +46,39 @@ const MoonIcon = memo(function MoonIcon(): React.ReactElement {
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
     </svg>
   )
-})
+}
 
 /**
- * ThemeToggle Component
- *
- * Toggles between light and dark themes using Zustand state management.
- * Theme preference is persisted to localStorage.
- *
- * The initial theme class is set by a script in layout.tsx before hydration,
- * preventing flash of incorrect theme. This component only renders after
- * the store has rehydrated to avoid hydration mismatches.
- *
- * Performance optimizations:
- * - Uses Zustand selectors to only subscribe to needed state
- * - Memoized icon components to prevent unnecessary re-renders
- * - useCallback for the toggle handler
- *
- * @example
- * <ThemeToggle />
+ * Toggles between light and dark themes via `next-themes`, which handles
+ * class application, localStorage persistence, and pre-hydration FOUC
+ * prevention.
  */
 export function ThemeToggle(): React.ReactElement {
-  // Use selectors to only subscribe to specific state slices
-  // This prevents re-renders when other store properties change
-  const isDark = useThemeStore((state) => state.isDark)
-  const _hasHydrated = useThemeStore((state) => state._hasHydrated)
-  const toggleTheme = useThemeStore((state) => state.toggleTheme)
+  const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  // Memoize the toggle handler
-  const handleToggle = useCallback(() => {
-    toggleTheme()
-  }, [toggleTheme])
+  useEffect(() => setMounted(true), [])
 
-  // Prevent hydration mismatch by rendering a placeholder until rehydrated
-  if (!_hasHydrated) {
-    return (
-      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-md bg-(--color-bg-surface)" />
-    )
-  }
+  const isDark = mounted && resolvedTheme === "dark"
 
   return (
     <Button
       isIconOnly
       variant="ghost"
       size="sm"
-      onPress={handleToggle}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      onPress={() => setTheme(isDark ? "light" : "dark")}
+      aria-label={
+        mounted
+          ? isDark
+            ? "Switch to light mode"
+            : "Switch to dark mode"
+          : "Toggle theme"
+      }
       className="h-8 w-8 sm:h-10 sm:w-10 min-w-0"
     >
-      {isDark ? <SunIcon /> : <MoonIcon />}
+      <span suppressHydrationWarning>
+        {mounted ? isDark ? <SunIcon /> : <MoonIcon /> : <MoonIcon />}
+      </span>
     </Button>
   )
 }

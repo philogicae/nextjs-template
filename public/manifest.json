@@ -4,8 +4,8 @@
   "description": "A modern Next.js template with HeroUI, Tailwind CSS, and TypeScript",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0f1a",
-  "theme_color": "#0a0f1a",
+  "background_color": "#07060d",
+  "theme_color": "#07060d",
   "orientation": "portrait-primary",
   "icons": [
     {

@@ -59,22 +59,15 @@ export function useDebounce<T>(value: T, delay = 300): T {
 export function useDebouncedCallback<
   T extends (...args: Parameters<T>) => ReturnType<T>,
 >(callback: T, delay = 300): (...args: Parameters<T>) => void {
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const callbackRef = useRef(callback)
 
-  const debouncedCallback = useCallback(
-    (...args: Parameters<T>) => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
+  // Keep latest callback without invalidating the debounced function's identity.
+  useEffect(() => {
+    callbackRef.current = callback
+  })
 
-      timeoutRef.current = setTimeout(() => {
-        callback(...args)
-      }, delay)
-    },
-    [callback, delay]
-  )
-
-  // Cleanup on unmount
+  // Cleanup on unmount.
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
@@ -83,7 +76,17 @@ export function useDebouncedCallback<
     }
   }, [])
 
-  return debouncedCallback
+  return useCallback(
+    (...args: Parameters<T>) => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+      timeoutRef.current = setTimeout(() => {
+        callbackRef.current(...args)
+      }, delay)
+    },
+    [delay]
+  )
 }
 
 /**

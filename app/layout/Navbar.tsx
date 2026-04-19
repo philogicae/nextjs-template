@@ -1,74 +1,91 @@
 "use client"
 
 import { ThemeToggle } from "@components/ThemeToggle"
+import { siteConfig } from "@config/site"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
-/** Navigation links defined outside component to prevent re-creation. */
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/playground", label: "Playground" },
-  { href: "/skills.md", label: "SKILLS.md" },
-] as const
+const navLinks = siteConfig.nav
 
 interface NavLinkProps {
   href: string
   label: string
   isActive: boolean
-  isExternalRoute: boolean
+  external: boolean
   onClick?: () => void
   mobile?: boolean
 }
 
-const NavLink = memo(function NavLink({
+function NavLink({
   href,
   label,
   isActive,
-  isExternalRoute,
+  external,
   onClick,
   mobile = false,
 }: NavLinkProps): React.ReactElement {
-  const baseClasses = mobile
-    ? "px-3 py-2 rounded-md text-sm font-medium transition-colors"
-    : "px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+  const className = [
+    mobile ? "px-3 py-2 rounded-md" : "px-4 py-2 rounded-lg",
+    "text-sm font-medium transition-colors",
+    isActive
+      ? "bg-(--color-bg-surface) text-(--color-text-primary)"
+      : "text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50",
+  ].join(" ")
 
-  const activeClasses = isActive
-    ? "bg-(--color-bg-surface) text-(--color-text-primary)"
-    : "text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50"
-
-  const linkClasses = `${baseClasses} ${activeClasses}`
-
-  if (isExternalRoute) {
+  if (external) {
     return (
-      <a href={href} className={linkClasses}>
+      <a href={href} className={className}>
         {label}
       </a>
     )
   }
-
   return (
-    <Link href={href} onClick={onClick} className={linkClasses}>
+    <Link href={href} onClick={onClick} className={className}>
       {label}
     </Link>
   )
-})
-
-interface MobileMenuButtonProps {
-  mobileOpen: boolean
-  onToggle: () => void
 }
 
-const MobileMenuButton = memo(function MobileMenuButton({
-  mobileOpen,
+function NavList({
+  pathname,
+  mobile = false,
+  onItemClick,
+}: {
+  pathname: string
+  mobile?: boolean
+  onItemClick?: () => void
+}): React.ReactElement {
+  return (
+    <>
+      {navLinks.map((link) => (
+        <NavLink
+          key={link.href}
+          href={link.href}
+          label={link.label}
+          isActive={pathname === link.href}
+          external={"external" in link && link.external === true}
+          onClick={onItemClick}
+          mobile={mobile}
+        />
+      ))}
+    </>
+  )
+}
+
+function MobileMenuButton({
+  open,
   onToggle,
-}: MobileMenuButtonProps): React.ReactElement {
+}: {
+  open: boolean
+  onToggle: () => void
+}): React.ReactElement {
   return (
     <button
       type="button"
       aria-label="Toggle navigation menu"
-      aria-expanded={mobileOpen}
+      aria-expanded={open}
       onClick={onToggle}
       className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50 transition-colors"
     >
@@ -83,8 +100,8 @@ const MobileMenuButton = memo(function MobileMenuButton({
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <title>{mobileOpen ? "Close menu" : "Open menu"}</title>
-        {mobileOpen ? (
+        <title>{open ? "Close menu" : "Open menu"}</title>
+        {open ? (
           <>
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
@@ -99,85 +116,15 @@ const MobileMenuButton = memo(function MobileMenuButton({
       </svg>
     </button>
   )
-})
-
-interface MobileNavProps {
-  pathname: string
-  onClose: () => void
 }
 
-const MobileNav = memo(function MobileNav({
-  pathname,
-  onClose,
-}: MobileNavProps): React.ReactElement {
-  const links = useMemo(
-    () =>
-      navLinks.map((link) => ({
-        ...link,
-        isActive: pathname === link.href,
-        isExternalRoute: link.href === "/skills.md",
-      })),
-    [pathname]
-  )
-
-  return (
-    <nav className="md:hidden border-t border-(--color-border-default) bg-(--color-bg-primary)/95 backdrop-blur-xl">
-      <div className="flex flex-col px-3 py-2 gap-0.5">
-        {links.map((link) => (
-          <NavLink
-            key={link.href}
-            href={link.href}
-            label={link.label}
-            isActive={link.isActive}
-            isExternalRoute={link.isExternalRoute}
-            onClick={onClose}
-            mobile
-          />
-        ))}
-      </div>
-    </nav>
-  )
-})
-
-interface DesktopNavProps {
-  pathname: string
-}
-
-const DesktopNav = memo(function DesktopNav({
-  pathname,
-}: DesktopNavProps): React.ReactElement {
-  const links = useMemo(
-    () =>
-      navLinks.map((link) => ({
-        ...link,
-        isActive: pathname === link.href,
-        isExternalRoute: link.href === "/skills.md",
-      })),
-    [pathname]
-  )
-
-  return (
-    <nav className="hidden md:flex items-center gap-1">
-      {links.map((link) => (
-        <NavLink
-          key={link.href}
-          href={link.href}
-          label={link.label}
-          isActive={link.isActive}
-          isExternalRoute={link.isExternalRoute}
-        />
-      ))}
-    </nav>
-  )
-})
-
-const Logo = memo(function Logo(): React.ReactElement {
+function Logo(): React.ReactElement {
   return (
     <Link
       href="/"
       className="flex items-center gap-1.5 sm:gap-2 md:gap-3 hover:opacity-80 transition-opacity min-w-0"
     >
-      <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 shrink-0 rounded-md sm:rounded-lg md:rounded-xl bg-[#0a0f1a] border-2 border-(--color-border-default) flex items-center justify-center overflow-hidden relative">
+      <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 shrink-0 rounded-md sm:rounded-lg md:rounded-xl bg-[#07060d] border-2 border-(--color-border-default) flex items-center justify-center overflow-hidden relative">
         <Image
           src="/images/logo.gif"
           alt=""
@@ -187,36 +134,30 @@ const Logo = memo(function Logo(): React.ReactElement {
           sizes="(max-width: 640px) 24px, (max-width: 768px) 32px, 40px"
         />
       </div>
-      <span className="text-xs sm:text-base md:text-xl font-medium text-(--color-text-primary) leading-none truncate">
-        Next.js Template
+      <span className="text-xs sm:text-base md:text-xl font-medium text-(--color-text-primary) leading-tight truncate py-0.5">
+        {siteConfig.name}
       </span>
     </Link>
   )
-})
+}
 
 /**
  * Fixed header with logo, navigation, theme toggle, and mobile menu.
- *
- * Performance optimizations:
- * - memo() for pure components
- * - useCallback for event handlers
- * - useMemo for computed link states
- * - Separate mobile/desktop nav components
  */
 export function NavBar(): React.ReactElement {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
 
+  // Close menu on route change.
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
 
-  // Close menu when clicking outside
+  // Close menu when clicking/tapping outside.
   useEffect(() => {
     if (!mobileOpen) return
-
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+    const handle = (event: MouseEvent | TouchEvent) => {
       if (
         headerRef.current &&
         !headerRef.current.contains(event.target as Node)
@@ -224,42 +165,43 @@ export function NavBar(): React.ReactElement {
         setMobileOpen(false)
       }
     }
-
-    document.addEventListener("mousedown", handleClickOutside)
-    document.addEventListener("touchstart", handleClickOutside)
-
+    document.addEventListener("mousedown", handle)
+    document.addEventListener("touchstart", handle)
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-      document.removeEventListener("touchstart", handleClickOutside)
+      document.removeEventListener("mousedown", handle)
+      document.removeEventListener("touchstart", handle)
     }
   }, [mobileOpen])
 
-  const toggleMobile = useCallback(() => {
-    setMobileOpen((v) => !v)
-  }, [])
-
-  const closeMobile = useCallback(() => {
-    setMobileOpen(false)
-  }, [])
+  const toggleMobile = useCallback(() => setMobileOpen((v) => !v), [])
+  const closeMobile = useCallback(() => setMobileOpen(false), [])
 
   return (
     <header
       ref={headerRef}
-      className="fixed top-0 left-0 right-0 z-50 bg-(--color-bg-primary)/80 backdrop-blur-xl border-b border-(--color-border-default)"
+      className="sticky top-0 z-50 bg-(--color-bg-primary)/80 backdrop-blur-xl border-b border-(--color-border-default)"
     >
       <div className="flex items-center justify-between h-(--navbar-height-mobile) sm:h-(--navbar-height) px-3 sm:px-4 md:px-6 w-full">
         <Logo />
 
         <div className="flex items-center gap-1 sm:gap-2 md:gap-4">
-          <DesktopNav pathname={pathname} />
+          <nav className="hidden md:flex items-center gap-1">
+            <NavList pathname={pathname} />
+          </nav>
 
           <ThemeToggle />
 
-          <MobileMenuButton mobileOpen={mobileOpen} onToggle={toggleMobile} />
+          <MobileMenuButton open={mobileOpen} onToggle={toggleMobile} />
         </div>
       </div>
 
-      {mobileOpen && <MobileNav pathname={pathname} onClose={closeMobile} />}
+      {mobileOpen && (
+        <nav className="md:hidden border-t border-(--color-border-default) bg-(--color-bg-primary)/95 backdrop-blur-xl">
+          <div className="flex flex-col px-3 py-2 gap-0.5">
+            <NavList pathname={pathname} mobile onItemClick={closeMobile} />
+          </div>
+        </nav>
+      )}
     </header>
   )
 }

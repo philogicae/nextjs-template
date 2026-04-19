@@ -1,6 +1,7 @@
 "use client"
 
-import { Container, StatusBadge } from "@components"
+import { Container } from "@components/Container"
+import { StatusBadge } from "@components/StatusBadge"
 import {
   Button,
   Card,
@@ -8,7 +9,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@heroui/react"
-import { useCounterStore } from "@stores"
+import { useCounterStore } from "@stores/counter"
 import { memo, useCallback, useMemo, useState } from "react"
 
 interface ApiResponse {
@@ -102,7 +103,7 @@ const EndpointCard = memo(function EndpointCard({
           onPress={onRun}
           isPending={isPending}
           size="sm"
-          className="w-full bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-black dark:text-white font-medium h-7 text-[10px] sm:text-xs"
+          className="w-full bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-semibold h-7 text-[10px] sm:text-xs"
         >
           {isPending ? "Sending..." : "Send"}
         </Button>
@@ -145,7 +146,7 @@ const CounterControls = memo(function CounterControls({
       <Button
         onPress={onIncrement}
         size="sm"
-        className="bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-black dark:text-white font-medium h-7 sm:h-8 min-w-8 sm:min-w-9 px-1.5 sm:px-2 text-xs"
+        className="bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-semibold h-7 sm:h-8 min-w-8 sm:min-w-9 px-1.5 sm:px-2 text-xs"
       >
         +1
       </Button>
@@ -258,7 +259,7 @@ export default function PlaygroundPage(): React.ReactElement {
   }, [runRequest])
 
   return (
-    <div className="relative w-full bg-(--color-bg-primary) flex-1 flex flex-col px-4 sm:px-0 py-[calc(var(--navbar-height-mobile)+var(--space-sm))] sm:py-[calc(var(--navbar-height)+var(--space-xl))] pb-(--space-md) sm:pb-(--space-2xl)">
+    <div className="relative w-full flex-1 flex flex-col px-4 py-6 sm:py-10">
       <Container size="xl" className="flex-1 flex flex-col justify-center">
         <div className="mb-4 sm:mb-6 md:mb-8">
           <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-(--color-text-primary) mb-1 sm:mb-2">

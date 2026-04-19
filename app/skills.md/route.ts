@@ -1,28 +1,20 @@
-import { readFileSync } from "node:fs"
+import { readFile } from "node:fs/promises"
 import { join } from "node:path"
 import { unstable_cache } from "next/cache"
 
 /**
- * Cached file reader for SKILLS.md
- * Caches the content for 1 hour to avoid unnecessary file reads
+ * Cached file reader for SKILLS.md.
+ * Uses async fs/promises and caches the content for 1 hour to avoid
+ * repeated disk reads. Revalidate on demand with `revalidateTag("skills-md")`.
  */
 const getSkillsContent = unstable_cache(
-  async (): Promise<string> => {
-    const skillsPath = join(process.cwd(), "SKILLS.md")
-    return readFileSync(skillsPath, "utf-8")
-  },
+  async (): Promise<string> =>
+    readFile(join(process.cwd(), "SKILLS.md"), "utf-8"),
   ["skills-md-content"],
   { revalidate: 3600, tags: ["skills-md"] }
 )
 
-/**
- * GET handler - Returns the raw SKILLS.md file content
- *
- * Accessible at: /skills.md
- * Returns: Raw markdown text
- *
- * Cached for 1 hour for optimal performance.
- */
+/** Serves SKILLS.md as raw markdown at `/skills.md`. */
 export async function GET(): Promise<Response> {
   try {
     const content = await getSkillsContent()

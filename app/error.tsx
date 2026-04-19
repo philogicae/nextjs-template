@@ -1,6 +1,7 @@
 "use client"
 
 import { Button, Card, CardContent, CardHeader } from "@heroui/react"
+import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 /**
@@ -22,14 +23,14 @@ export default function ErrorBoundary({
   error,
   reset,
 }: ErrorBoundaryProps): React.ReactElement {
+  const router = useRouter()
+
   useEffect(() => {
-    // Log error to an error reporting service
-    // eslint-disable-next-line no-console
     console.error("Application error:", error)
   }, [error])
 
   return (
-    <div className="relative flex-1 w-full bg-(--color-bg-primary) flex items-center justify-center px-4 py-12 sm:py-20 pt-[calc(var(--navbar-height-mobile)+var(--space-lg))] sm:pt-[calc(var(--navbar-height)+var(--space-xl))]">
+    <div className="relative flex-1 w-full flex items-center justify-center px-4 py-12 sm:py-20">
       <Card className="max-w-md sm:max-w-lg w-full border border-rose-500/30 bg-(--color-bg-surface)/50 shadow-none">
         <CardHeader className="p-4 sm:p-6 pb-2">
           <div className="flex items-center gap-2 sm:gap-3">
@@ -82,7 +83,7 @@ export default function ErrorBoundary({
             <Button
               onPress={reset}
               size="sm"
-              className="bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-black dark:text-white font-medium h-8 sm:h-9 text-xs sm:text-sm"
+              className="bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-medium h-8 sm:h-9 text-xs sm:text-sm"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +109,7 @@ export default function ErrorBoundary({
             <Button
               variant="outline"
               size="sm"
-              onPress={() => (window.location.href = "/")}
+              onPress={() => router.push("/")}
               className="border-(--color-border-default) hover:bg-(--color-bg-surface) font-medium h-8 sm:h-9 text-xs sm:text-sm"
             >
               <svg

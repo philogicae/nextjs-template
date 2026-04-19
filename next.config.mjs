@@ -1,16 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Standalone output produces a minimal production server bundle
+  // (~70% smaller Docker images). See Dockerfile `runner` stage.
+  output: "standalone",
   trailingSlash: false,
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
 
-  // Image optimization
+  // Image optimization.
+  //
+  // SECURITY: `dangerouslyAllowSVG` + wildcard `remotePatterns` is an XSS
+  // footgun. We mitigate by forcing a strict CSP on image responses.
+  // Tighten `remotePatterns` to your actual image hosts in production.
   images: {
     formats: ["image/avif", "image/webp"],
-    minimumCacheTTL: 86400, // 24 hours
+    minimumCacheTTL: 86400,
     dangerouslyAllowSVG: true,
     contentDispositionType: "inline",
+    contentSecurityPolicy:
+      "default-src 'self'; script-src 'none'; style-src 'unsafe-inline'; sandbox;",
     remotePatterns: [
       {
         protocol: "https",
@@ -21,40 +30,13 @@ const nextConfig = {
 
   // Turbopack optimizations (top-level)
   turbopack: {
-    resolveExtensions: [
-      ".mdx",
-      ".tsx",
-      ".ts",
-      ".jsx",
-      ".js",
-      ".mjs",
-      ".json",
-    ],
+    resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
   },
 
   // Experimental features for performance
   experimental: {
-    // Optimize package imports for faster builds and smaller bundles
-    optimizePackageImports: [
-      "@heroui/react",
-      "@heroui/styles",
-    ],
-    // Optimize CSS
+    optimizePackageImports: ["@heroui/react", "@heroui/styles"],
     optimizeCss: true,
-  },
-
-  // Webpack optimizations (used when not using Turbopack)
-  webpack: (config, { isServer, dev }) => {
-    // Optimize builds
-    if (!dev && !isServer) {
-      // Enable tree shaking
-      config.optimization = {
-        ...config.optimization,
-        usedExports: true,
-        sideEffects: false,
-      }
-    }
-    return config
   },
 
   // Headers for caching and security
@@ -79,10 +61,8 @@ const nextConfig = {
             key: "X-Frame-Options",
             value: "SAMEORIGIN",
           },
-          {
-            key: "X-XSS-Protection",
-            value: "1; mode=block",
-          },
+          // X-XSS-Protection intentionally omitted: deprecated/harmful
+          // on modern browsers. Use a Content-Security-Policy instead.
           {
             key: "Referrer-Policy",
             value: "origin-when-cross-origin",

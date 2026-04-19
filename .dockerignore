@@ -1,0 +1,36 @@
+# Dependencies & build artifacts
+node_modules
+.next
+out
+dist
+build
+*.tsbuildinfo
+
+# Version control & CI
+.git
+.github
+.gitignore
+
+# Editor / OS
+.vscode
+.idea
+.DS_Store
+*.swp
+
+# Logs & env
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.local
+.env.*.local
+
+# Misc / docs
+README.md
+LICENSE
+AGENTS.md
+CHECKLIST.md
+SKILLS.md.bak
+coverage
+.turbo

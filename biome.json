@@ -1,5 +1,17 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "files": {
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.next",
+      "!**/out",
+      "!**/dist",
+      "!**/build",
+      "!**/pnpm-lock.yaml",
+      "!**/*.md"
+    ]
+  },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
