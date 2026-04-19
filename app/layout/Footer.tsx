@@ -14,8 +14,8 @@ export function Footer(): React.ReactElement {
 
   return (
     <footer className="relative border-t border-(--color-border-default) bg-(--color-bg-primary)/60 backdrop-blur-sm">
-      <Container size="full" className="py-2 sm:py-3 md:py-4">
-        <div className="flex items-center justify-between gap-2 text-[10px] sm:text-xs md:text-sm text-(--color-text-muted)">
+      <Container size="full" className="py-1 sm:py-1.5 md:py-2">
+        <div className="flex items-center justify-between gap-2 text-[9px] sm:text-[11px] md:text-xs text-(--color-text-muted)">
           <div className="flex items-center gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1">
             <span>
               &copy; {year} {siteConfig.name}
@@ -32,12 +32,12 @@ export function Footer(): React.ReactElement {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="hover:text-(--color-text-primary) transition-colors p-1"
+              className="hover:text-(--color-text-primary) transition-colors p-0.5"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
+                width="11"
+                height="11"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
@@ -50,12 +50,12 @@ export function Footer(): React.ReactElement {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X (Twitter)"
-              className="hover:text-(--color-text-primary) transition-colors p-1"
+              className="hover:text-(--color-text-primary) transition-colors p-0.5"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
+                width="11"
+                height="11"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >

@@ -27,8 +27,8 @@ function NavLink({
   mobile = false,
 }: NavLinkProps): React.ReactElement {
   const className = [
-    mobile ? "px-3 py-2 rounded-md" : "px-4 py-2 rounded-lg",
-    "text-sm font-medium transition-colors",
+    mobile ? "px-2 py-1.5 rounded-md" : "px-3 py-1.5 rounded-lg",
+    "text-xs font-medium transition-colors",
     isActive
       ? "bg-(--color-bg-surface) text-(--color-text-primary)"
       : "text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50",
@@ -87,12 +87,12 @@ function MobileMenuButton({
       aria-label="Toggle navigation menu"
       aria-expanded={open}
       onClick={onToggle}
-      className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50 transition-colors"
+      className="md:hidden inline-flex items-center justify-center w-8 h-8 rounded-lg text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50 transition-colors"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="22"
-        height="22"
+        width="16"
+        height="16"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -122,19 +122,19 @@ function Logo(): React.ReactElement {
   return (
     <Link
       href="/"
-      className="flex items-center gap-1.5 sm:gap-2 md:gap-3 hover:opacity-80 transition-opacity min-w-0"
+      className="flex items-center gap-1 sm:gap-1.5 md:gap-2 hover:opacity-80 transition-opacity min-w-0"
     >
-      <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 shrink-0 rounded-md sm:rounded-lg md:rounded-xl bg-[#07060d] border-2 border-(--color-border-default) flex items-center justify-center overflow-hidden relative">
+      <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 shrink-0 rounded-md sm:rounded-lg md:rounded-xl bg-[#07060d] border-2 border-(--color-border-default) flex items-center justify-center overflow-hidden relative">
         <Image
           src="/images/logo.gif"
           alt=""
           fill
           className="object-contain p-0.5"
           priority
-          sizes="(max-width: 640px) 24px, (max-width: 768px) 32px, 40px"
+          sizes="(max-width: 640px) 20px, (max-width: 768px) 24px, 32px"
         />
       </div>
-      <span className="text-xs sm:text-base md:text-xl font-medium text-(--color-text-primary) leading-tight truncate py-0.5">
+      <span className="text-sm md:text-lg font-medium text-(--color-text-primary) leading-tight truncate">
         {siteConfig.name}
       </span>
     </Link>

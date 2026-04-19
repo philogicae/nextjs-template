@@ -67,8 +67,8 @@ html.dark {
   --space-2xl: 3rem;
 
   /* Layout */
-  --navbar-height: 4rem;
-  --navbar-height-mobile: 2.5rem;
+  --navbar-height: 3rem;
+  --navbar-height-mobile: 2rem;
 }
 
 .dark {

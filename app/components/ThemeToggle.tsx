@@ -14,7 +14,7 @@ function SunIcon(): React.ReactElement {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-4 h-4 sm:w-5 sm:h-5 text-(--color-text-accent)"
+      className="w-3 h-3 sm:w-4 sm:h-4 text-(--color-text-accent)"
     >
       <title>Sun icon</title>
       <circle cx="12" cy="12" r="5" />
@@ -40,7 +40,7 @@ function MoonIcon(): React.ReactElement {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-4 h-4 sm:w-5 sm:h-5 text-(--color-text-secondary)"
+      className="w-3 h-3 sm:w-4 sm:h-4 text-(--color-text-secondary)"
     >
       <title>Moon icon</title>
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
@@ -74,7 +74,7 @@ export function ThemeToggle(): React.ReactElement {
             : "Switch to dark mode"
           : "Toggle theme"
       }
-      className="h-8 w-8 sm:h-10 sm:w-10 min-w-0"
+      className="h-6 w-6 sm:h-8 sm:w-8 min-w-0"
     >
       <span suppressHydrationWarning>
         {mounted ? isDark ? <SunIcon /> : <MoonIcon /> : <MoonIcon />}

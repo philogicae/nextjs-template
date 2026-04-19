@@ -68,7 +68,7 @@ export default function LandingPage(): React.ReactElement {
       <section className="relative w-full flex-1 flex flex-col justify-center px-4 py-8 sm:py-12">
         <Container size="md">
           <AnimatedSection delay={100} className="mb-4 sm:mb-6">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-(--color-text-primary) tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-(--color-text-primary) tracking-tight">
               Build Faster and Smarter with{" "}
               <span className="bg-linear-to-r from-(--color-text-accent) to-cyan-400 bg-clip-text text-transparent">
                 Modern Stack
@@ -77,7 +77,7 @@ export default function LandingPage(): React.ReactElement {
           </AnimatedSection>
 
           <AnimatedSection delay={200} className="mb-6 sm:mb-8">
-            <p className="text-sm sm:text-base md:text-lg text-(--color-text-secondary) text-center max-w-xl mx-auto leading-relaxed px-2">
+            <p className="text-xs sm:text-sm md:text-base text-(--color-text-secondary) text-center max-w-xl mx-auto leading-relaxed px-2">
               An Agent-ready Next.js template with HeroUI & Biome.
               <br />
               Start building in minutes.
@@ -89,7 +89,7 @@ export default function LandingPage(): React.ReactElement {
               <Link href="/playground" className="w-40 sm:w-auto">
                 <Button
                   size="sm"
-                  className="w-full sm:w-auto h-8 sm:h-10 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-semibold shadow-lg shadow-(--color-accent-cyan)/20"
+                  className="w-full sm:w-auto h-6 sm:h-8 px-2 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-semibold shadow-lg shadow-(--color-accent-cyan)/20"
                 >
                   Try the Playground
                 </Button>
@@ -98,17 +98,17 @@ export default function LandingPage(): React.ReactElement {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full sm:w-auto h-8 sm:h-10 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm border-(--color-border-default) hover:bg-(--color-bg-surface)"
+                  className="w-full sm:w-auto h-6 sm:h-8 px-2 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs border-(--color-border-default) hover:bg-(--color-bg-surface)"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="11"
+                    height="11"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
-                    className="mr-1.5 sm:mr-2"
+                    className="mr-1 sm:mr-1.5"
                   >
                     <title>Skills</title>
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -129,17 +129,17 @@ export default function LandingPage(): React.ReactElement {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full sm:w-auto h-8 sm:h-10 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm border-(--color-border-default) hover:bg-(--color-bg-surface)"
+                  className="w-full sm:w-auto h-6 sm:h-8 px-2 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs border-(--color-border-default) hover:bg-(--color-bg-surface)"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="11"
+                    height="11"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
-                    className="mr-1.5 sm:mr-2"
+                    className="mr-1 sm:mr-1.5"
                   >
                     <title>GitHub</title>
                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
@@ -156,15 +156,15 @@ export default function LandingPage(): React.ReactElement {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full sm:w-auto h-8 sm:h-10 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm border-(--color-border-default) hover:bg-(--color-bg-surface)"
+                  className="w-full sm:w-auto h-6 sm:h-8 px-2 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs border-(--color-border-default) hover:bg-(--color-bg-surface)"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="11"
+                    height="11"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="mr-1.5 sm:mr-2"
+                    className="mr-1 sm:mr-1.5"
                   >
                     <title>Vercel</title>
                     <path d="M24 22.525H0l12-21.05 12 21.05z" />
