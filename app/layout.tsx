@@ -2,9 +2,13 @@ import "./globals.css"
 import { siteConfig } from "@config/site"
 import { Footer } from "@layout/Footer"
 import { NavBar } from "@layout/Navbar"
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata, Viewport } from "next"
 import { Roboto } from "next/font/google"
 import { Providers } from "./providers"
+
+const isVercel = !!process.env.VERCEL
 
 /**
  * Root layout for the Next.js application.
@@ -96,6 +100,12 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </Providers>
+        {isVercel && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   )

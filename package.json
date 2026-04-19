@@ -1,7 +1,7 @@
 {
   "name": "nextjs-template",
   "description": "A modern Next.js template with HeroUI, Tailwind CSS, and TypeScript",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.33.0",
@@ -22,6 +22,8 @@
   "dependencies": {
     "@heroui/react": "^3.0.3",
     "@heroui/styles": "^3.0.3",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "next": "^16.2.4",
     "next-themes": "^0.4.6",
     "react": "^19.2.5",
