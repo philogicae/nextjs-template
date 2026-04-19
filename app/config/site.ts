@@ -25,7 +25,7 @@ export const siteConfig = {
   description:
     "A modern Next.js template with HeroUI, Tailwind CSS, and TypeScript",
   keywords: ["Next.js", "React", "TypeScript", "Tailwind CSS", "HeroUI"],
-  url: "https://github.com/philogicae/nextjs-template",
+  url: "https://fractal-nextjs.vercel.app/",
   license: "MIT License",
   themeColor: {
     light: "#fbfaff",

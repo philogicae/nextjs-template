@@ -28,7 +28,7 @@ If any of these still reference the template, fix them before writing product co
 - [ ] `package.json` — `name`, `description`, `repository.url`, `homepage`, `version`
 - [ ] `app/page.tsx` — hero copy, CTAs, `features` array (or full replacement)
 - [ ] `app/globals.css` — design tokens (`--color-*`, `--space-*`, `--navbar-height*`) and the FOUC `html` / `html.dark` background colors
-- [ ] `public/` — `favicon.ico`, `images/logo.gif`, `images/apple-touch-icon.png`, `images/192x192.png`, `images/512x512.png`, `manifest.json`, `robots.txt` (note: `public/images/` ships empty; assets are referenced by `app/layout.tsx`, `app/layout/Navbar.tsx`, and `public/manifest.json` and must be supplied)
+- [ ] `public/` — `favicon.ico`, `images/logo.gif`, `images/apple-touch-icon.png`, `images/192x192.png`, `images/512x512.png`, `images/screenshot.jpeg` (used as OpenGraph / Twitter card image in `app/layout.tsx`), `manifest.json`, `robots.txt` (note: `public/images/` ships empty; assets are referenced by `app/layout.tsx`, `app/layout/Navbar.tsx`, and `public/manifest.json` and must be supplied)
 - [ ] `.env.example` — real variables only
 - [ ] `LICENSE`, `README.md` — update for the new project
 - [ ] `Dockerfile` + `compose.yaml` — production-ready; project/container/image names and host port are configurable via `.env` (`DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT`, all defaulting to `nextjs-template` / `3000`). Base image: [`platformatic/node-caged:25-alpine`](https://hub.docker.com/r/platformatic/node-caged) — Node.js with V8 pointer compression enabled (~50% memory reduction for pointer-heavy workloads)
@@ -42,7 +42,7 @@ These exist **only** to showcase the template:
 - `app/api/hello/` — delete or replace with real endpoints
 - `app/stores/counter.ts`
 - `app/components/FeatureCard.tsx` and `app/components/StatusBadge.tsx` if unused
-- `/playground` link in `navLinks` (`app/layout/Navbar.tsx`); the `/skills.md` link goes only if you also remove the agent surface (see the `SKILLS.md` section below)
+- `/playground` entry in `siteConfig.nav` (`app/config/site.ts`); the `/skills.md` entry goes only if you also remove the agent surface (see the `SKILLS.md` section below)
 - Landing-page buttons in `app/page.tsx` that point to the playground, SKILLS.md, the GitHub repo, or "Deploy to Vercel"
 
 Keep unless you have a reason to drop them:
@@ -78,7 +78,7 @@ description: <what the app does, who it is for>
 ## How an agent should interact with the app
 ```
 
-If the project has no agent-facing surface and the user does not want one, delete instead: `SKILLS.md`, `app/skills.md/` (route handler), the `/skills.md` entry in `navLinks` (`app/layout/Navbar.tsx`), and any landing-page button that links to `/skills.md` in `app/page.tsx`.
+If the project has no agent-facing surface and the user does not want one, delete instead: `SKILLS.md`, `app/skills.md/` (route handler), the `/skills.md` entry in `siteConfig.nav` (`app/config/site.ts`), and any landing-page button that links to `/skills.md` in `app/page.tsx`.
 
 ## Project structure (template baseline)
 
@@ -192,7 +192,7 @@ export function Example(): React.ReactElement {
 **Add a page**
 
 1. Create `app/<route>/page.tsx`.
-2. Add an entry to `navLinks` in `app/layout/Navbar.tsx` if it should appear in the header.
+2. Add an entry to `siteConfig.nav` in `app/config/site.ts` if it should appear in the header.
 
 **Add an API route**
 

@@ -121,7 +121,10 @@ export default function LandingPage(): React.ReactElement {
                 </Button>
               </a>
               <a
-                href={siteConfig.url}
+                href={
+                  siteConfig.social.find((s) => s.label === "GitHub")?.href ??
+                  siteConfig.url
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-40 sm:w-auto"
@@ -148,7 +151,7 @@ export default function LandingPage(): React.ReactElement {
                 </Button>
               </a>
               <a
-                href={`https://vercel.com/new/clone?repository-url=${encodeURIComponent(siteConfig.url)}`}
+                href={`https://vercel.com/new/clone?repository-url=${encodeURIComponent(siteConfig.social.find((s) => s.label === "GitHub")?.href ?? siteConfig.url)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-40 sm:w-auto"

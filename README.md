@@ -91,7 +91,8 @@ public/                    # Static assets
 │   ├── logo.gif
 │   ├── apple-touch-icon.png
 │   ├── 192x192.png
-│   └── 512x512.png
+│   ├── 512x512.png
+│   └── screenshot.jpeg
 ├── favicon.ico
 ├── manifest.json
 └── robots.txt

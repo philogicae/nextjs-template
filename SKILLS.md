@@ -106,7 +106,7 @@ Work through these in order. Do **not** ship any of the template's demo branding
 - `app/config/site.ts` → **single source of truth**. Set `name`, `shortName`, `description`, `keywords`, `url`, `license`, `themeColor.{light,dark}`, `nav` (entries rendered in `Navbar`), and `social` (entries rendered in `Footer`). `app/layout.tsx` metadata, `Navbar` branding, `Footer` socials, and landing-page CTAs all derive from it.
 - `package.json` → `name`, `description`, `repository.url`, `homepage`, `version` (reset to `0.1.0`).
 - `public/manifest.json` (name, short_name, description, colors, icons) and `public/robots.txt` — keep these aligned with `siteConfig` values.
-- `public/favicon.ico` and `public/images/{logo.gif, apple-touch-icon.png, 192x192.png, 512x512.png}` — the `public/images/` folder ships empty in the template; you must add these assets (they are referenced by `app/layout.tsx`, `app/layout/Navbar.tsx`, and `public/manifest.json`).
+- `public/favicon.ico` and `public/images/{logo.gif, apple-touch-icon.png, 192x192.png, 512x512.png, screenshot.jpeg}` — the `public/images/` folder ships empty in the template; you must add these assets (they are referenced by `app/layout.tsx`, `app/layout/Navbar.tsx`, and `public/manifest.json`).
 - `LICENSE` — update copyright holder or replace.
 
 **Layout / chrome**
@@ -139,7 +139,7 @@ These files exist only to showcase the template. Remove them before writing prod
 - `app/stores/counter.ts`.
 - `app/components/FeatureCard.tsx`, `app/components/StatusBadge.tsx` (only if not reused). `Skeleton.tsx` is not demo — keep it.
 - The "Try the Playground" / "Read SKILLS.md" / "View on GitHub" / "Deploy to Vercel" buttons in `app/page.tsx`.
-- The `/skills.md` and `/playground` entries in `navLinks` (`app/layout/Navbar.tsx`).
+- The `/skills.md` and `/playground` entries in `siteConfig.nav` (`app/config/site.ts`).
 
 Keep the `app/skills.md/route.ts` handler — it is the delivery mechanism for the rewritten `SKILLS.md` (see §5). The empty `app/api/skills/` directory is reserved for an agent-facing API: keep it if you plan to expose one, delete it otherwise.
 
@@ -151,7 +151,7 @@ Keep the `app/skills.md/route.ts` handler — it is the delivery mechanism for t
 
 - this `SKILLS.md` file,
 - the `app/skills.md/` route handler,
-- the `/skills.md` entry in `navLinks` (`app/layout/Navbar.tsx`),
+- the `/skills.md` entry in `siteConfig.nav` (`app/config/site.ts`),
 - any landing-page button that links to `/skills.md` in `app/page.tsx`.
 
 Suggested structure when rewriting:
@@ -288,7 +288,7 @@ import { cn } from "@utils/tw";
 **Add a page**
 
 1. Create `app/<route>/page.tsx`.
-2. Add an entry to `navLinks` in `app/layout/Navbar.tsx` if it should appear in the header.
+2. Add an entry to `siteConfig.nav` in `app/config/site.ts` if it should appear in the header.
 
 **Add an API route**
 

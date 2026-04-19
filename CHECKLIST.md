@@ -45,6 +45,7 @@
 - [ ] `public/images/apple-touch-icon.png`
 - [ ] `public/images/192x192.png`
 - [ ] `public/images/512x512.png`
+- [ ] `public/images/screenshot.jpeg` (OpenGraph / Twitter card image)
 
 ## 3. Layout / chrome
 
