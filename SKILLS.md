@@ -5,7 +5,7 @@ license: MIT
 compatibility: Node.js 24+, pnpm 10+
 metadata:
   author: philogicae
-  version: "1.1.0"
+  version: "0.0.0-auto-synced"
   template-type: nextjs
   source: https://github.com/philogicae/nextjs-template
   live-demo: https://fractal-nextjs.vercel.app/

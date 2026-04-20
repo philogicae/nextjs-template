@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
 import { unstable_cache } from "next/cache"
+import { version as appVersion } from "../../package.json"
 
 /**
  * Cached file reader for SKILLS.md.
@@ -14,12 +15,16 @@ const getSkillsContent = unstable_cache(
   { revalidate: 3600, tags: ["skills-md"] }
 )
 
-/** Serves SKILLS.md as raw markdown at `/skills.md`. */
+/** Regex to match version in YAML frontmatter (e.g., `version: "1.0.0"`). Matches at line start with optional indentation. */
+const VERSION_REGEX = /^(\s*version:\s*")[^"]*("\s*)$/m
+
+/** Serves SKILLS.md as raw markdown at `/skills.md`, with version auto-synced from package.json. */
 export async function GET(): Promise<Response> {
   try {
     const content = await getSkillsContent()
+    const updatedContent = content.replace(VERSION_REGEX, `$1${appVersion}$2`)
 
-    return new Response(content, {
+    return new Response(updatedContent, {
       status: 200,
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
