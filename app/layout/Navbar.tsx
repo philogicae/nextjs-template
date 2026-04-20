@@ -141,20 +141,21 @@ function Logo(): React.ReactElement {
   return (
     <Link
       href="/"
-      className="flex items-center gap-1 sm:gap-1.5 md:gap-2 hover:opacity-80 transition-opacity min-w-0"
+      className="flex items-center gap-2 sm:gap-2.5 md:gap-3 hover:opacity-80 transition-opacity min-w-0"
     >
-      <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 shrink-0 rounded-md sm:rounded-lg md:rounded-xl bg-[#07060d] border-2 border-(--color-border-default) flex items-center justify-center overflow-hidden relative">
+      <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 shrink-0 relative logo-halo">
         <Image
           src="/images/logo.gif"
           alt=""
           fill
-          className="object-contain p-0.5"
+          className="object-contain"
           priority
-          sizes="(max-width: 640px) 20px, (max-width: 768px) 24px, 32px"
+          sizes="(max-width: 640px) 20px, (max-width: 768px) 24px, 28px"
+          unoptimized
         />
       </div>
-      <span className="text-sm md:text-lg font-medium text-(--color-text-primary) leading-tight truncate">
-        {siteConfig.name}
+      <span className="text-sm sm:text-base md:text-lg font-semibold text-(--color-text-primary) tracking-tight truncate -mt-1">
+        {siteConfig.shortName}
       </span>
     </Link>
   )

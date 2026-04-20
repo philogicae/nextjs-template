@@ -19,7 +19,7 @@
 - **State**: Zustand + `persist` middleware
 - **Lint/format**: Biome 2
 - **Package manager**: pnpm 10
-- **i18n**: Provider-based (cookie + `Accept-Language`), no URL locale segment. Ships with `en` / `fr` / `es`
+- **i18n**: Provider-based (cookie + `Accept-Language`), no URL locale segment. Ships with `en` / `fr` / `es` / `ro`
 
 ## Customization checklist
 
@@ -95,7 +95,7 @@ app/
 │   ├── config.ts         #   SINGLE REGISTRY: Locale, Dictionary, locales,
 │   │                     #   localeMeta, hasLocale(), getDictionary() — all
 │   │                     #   derived from the statically-imported dictionaries
-│   ├── dictionaries/     #   en.json / fr.json / es.json — each ships a top-level
+│   ├── dictionaries/     #   en.json / fr.json / es.json / ro.json — each ships a top-level
 │   │                     #   `meta: { flag, native }` used by the switcher
 │   ├── get-locale.ts     #   Accept-Language matcher (zero-dep)
 │   ├── server.ts         #   getCurrentLocale(), getCurrentDictionary()

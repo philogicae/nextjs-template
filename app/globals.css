@@ -132,8 +132,30 @@ main {
 }
 
 /* ============================================
-   ANIMATIONS
-   ============================================ */
+    CUSTOM COMPONENTS
+    ============================================ */
+
+/*
+ * Logo halo — the logo.gif is pure white. In light mode we need a strong
+ * dark glow behind it so it stays visible; in dark mode the image sits
+ * directly on the dark background.
+ */
+.logo-halo img {
+  filter: drop-shadow(0 0 2px var(--color-text-primary))
+    drop-shadow(
+      0 0 6px color-mix(in oklab, var(--color-text-accent) 70%, transparent)
+    )
+    drop-shadow(
+      0 0 10px color-mix(in oklab, var(--color-accent-cyan) 50%, transparent)
+    );
+}
+.dark .logo-halo img {
+  filter: none;
+}
+
+/* ============================================
+    ANIMATIONS
+    ============================================ */
 
 @keyframes fade-in-up {
   from {

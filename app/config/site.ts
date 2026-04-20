@@ -38,7 +38,7 @@ export interface SocialLink {
 
 export const siteConfig = {
   name: "Next.js Template",
-  shortName: "Template",
+  shortName: "Next.js Template",
   description:
     "A modern Next.js template with HeroUI, Tailwind CSS, and TypeScript",
   keywords: ["Next.js", "React", "TypeScript", "Tailwind CSS", "HeroUI"],
