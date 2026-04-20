@@ -4,9 +4,26 @@
  * `layout.tsx`, `Navbar.tsx`, `Footer.tsx`, `page.tsx`, and `manifest.json`.
  */
 
+/**
+ * Keys that must exist in `dict.nav` (see `app/i18n/dictionaries/*.json`).
+ * Adding a new nav entry requires adding the matching translation key.
+ */
+export type NavLabelKey =
+  | "home"
+  | "playground"
+  | "skills"
+  | "openMenu"
+  | "closeMenu"
+  | "toggleMenu"
+  | "language"
+  | "themeToLight"
+  | "themeToDark"
+  | "themeToggle"
+
 export interface NavLink {
   href: string
-  label: string
+  /** Dictionary key used to resolve the display label per locale. */
+  labelKey: NavLabelKey
   /**
    * When true, rendered with a plain `<a>` instead of `next/link`.
    * Use for route handlers (e.g. `/skills.md`) or absolute URLs.
@@ -32,9 +49,9 @@ export const siteConfig = {
     dark: "#07060d",
   },
   nav: [
-    { href: "/", label: "Home" },
-    { href: "/playground", label: "Playground" },
-    { href: "/skills.md", label: "SKILLS.md", external: true },
+    { href: "/", labelKey: "home" },
+    { href: "/playground", labelKey: "playground" },
+    { href: "/skills.md", labelKey: "skills", external: true },
   ] as const satisfies readonly NavLink[],
   social: [
     { label: "GitHub", href: "https://github.com/philogicae/nextjs-template" },

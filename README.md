@@ -20,6 +20,7 @@ A modern, production-ready Next.js template featuring the latest technologies an
 - **Reduced-motion aware** — `prefers-reduced-motion` handled globally in `globals.css`
 - **Production-ready** — Multi-stage `Dockerfile` with `output: "standalone"`, GitHub Actions CI/CD, 6 security headers, AVIF/WebP images (with strict CSP), long-term static caching
 - **Agent-ready** — `AGENTS.md`, `SKILLS.md`, and a `/skills.md` route for dynamic agent discovery
+- **Internationalization** — server-resolved locale (cookie + `Accept-Language`) with a typed JSON-dictionary system, a client `LocaleProvider`, and a navbar `LanguageSwitcher`. Ships with **English, French, Spanish**, no `[lang]` URL segment
 
 ## Getting Started
 
@@ -62,13 +63,22 @@ app/
 ├── components/            # Reusable UI components
 │   ├── Container.tsx      # Page width wrapper
 │   ├── FeatureCard.tsx    # (demo) Landing page feature card
+│   ├── LanguageSwitcher.tsx # Locale dropdown (HeroUI Dropdown)
 │   ├── Skeleton.tsx       # Themed pulse placeholder
 │   ├── StatusBadge.tsx    # (demo) Status indicator with colored dot
 │   └── ThemeToggle.tsx    # Dark/light theme switch (uses next-themes)
 ├── config/                # Site-wide config (single source of truth)
 │   └── site.ts            # Name, description, nav, socials, theme colors
+├── i18n/                  # Internationalization (no URL segment)
+│   ├── config.ts          # Single registry: Locale, Dictionary, locales,
+│   │                      #   localeMeta, hasLocale(), getDictionary()
+│   ├── dictionaries/      # en.json, fr.json, es.json — each ships `meta: { code, flag, native }`
+│   ├── get-locale.ts      # Accept-Language matcher (zero-dep)
+│   ├── server.ts          # getCurrentLocale / getCurrentDictionary
+│   ├── actions.ts         # Server Action: set NEXT_LOCALE cookie
+│   └── LocaleProvider.tsx # Client context + useLocale / useDict
 ├── layout/                # Layout components (no barrel)
-│   ├── Navbar.tsx         # Responsive navbar with mobile menu
+│   ├── Navbar.tsx         # Responsive navbar with mobile menu + LanguageSwitcher
 │   └── Footer.tsx         # Site footer with links
 ├── playground/            # (demo) Interactive API + state playground
 │   └── page.tsx
@@ -80,7 +90,7 @@ app/
 │   └── media-query.ts     # Responsive hooks
 ├── globals.css            # Global styles and design tokens
 ├── layout.tsx             # Root layout (Navbar + main + Footer)
-├── providers.tsx          # Client providers (next-themes)
+├── providers.tsx          # Client providers (next-themes + LocaleProvider)
 ├── page.tsx               # Landing page
 ├── error.tsx              # Error boundary
 ├── loading.tsx            # Loading UI
@@ -195,6 +205,7 @@ Configured in `tsconfig.json`:
   "paths": {
     "@components/*": ["./app/components/*"],
     "@config/*": ["./app/config/*"],
+    "@i18n/*": ["./app/i18n/*"],
     "@layout/*": ["./app/layout/*"],
     "@stores/*": ["./app/stores/*"],
     "@utils/*": ["./app/utils/*"]
@@ -254,6 +265,26 @@ import {
 HeroUI v3 Button variants: `primary` (default), `secondary`, `tertiary`, `outline`, `ghost`, `danger`, `danger-soft`.
 
 Card parts: `CardHeader`, `CardContent`, `CardFooter` (no `CardBody`). Button loading prop is `isPending` (not `isLoading`).
+
+### Internationalization
+
+The template ships with a **provider-based** i18n layer — no `[lang]` URL segment, no `middleware.ts`, no full-page reload on locale change.
+
+**Flow.** The root layout (`app/layout.tsx`) resolves the active locale server-side via `getCurrentDictionary()` (`app/i18n/server.ts`): cookie `NEXT_LOCALE` → `Accept-Language` header → `defaultLocale`. It then loads the matching JSON dictionary and injects both into the `<Providers>` tree (`app/providers.tsx`). A client `LocaleProvider` (`app/i18n/LocaleProvider.tsx`) exposes them via `useLocale()` / `useDict()`. The `LanguageSwitcher` calls the `setLocaleAction` Server Action to persist the cookie and then `router.refresh()` inside a transition so every Server Component re-renders with the new dictionary.
+
+```ts
+// Client component
+import { useDict } from "@i18n/LocaleProvider";
+const t = useDict().nav;
+
+// Server component
+import { getCurrentDictionary } from "@i18n/server";
+const { dict, locale } = await getCurrentDictionary();
+```
+
+**Supported locales** (see `app/i18n/config.ts`): `en` (default), `fr`, `es`. **Adding a locale is one JSON + one import + one map entry:** create `app/i18n/dictionaries/<code>.json` (copy `en.json`, set `meta.code` / `meta.flag` / `meta.native`), then add a static import and one entry in the `dictionaries` map in `app/i18n/config.ts`. The `Locale` type, `locales` array, `localeMeta`, `hasLocale()`, `getDictionary()`, and the language switcher are all derived from that map. The `Dictionary` type is inferred from `en.json`, so every other locale file is type-checked against it.
+
+Site-wide nav entries in `app/config/site.ts` carry a `labelKey` (not a literal label); the `Navbar` resolves it against `dict.nav`, which guarantees translation coverage at the type level.
 
 ## API Playground (demo)
 

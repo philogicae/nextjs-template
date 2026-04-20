@@ -1,6 +1,7 @@
 "use client"
 
 import { Button, Card, CardContent, CardHeader } from "@heroui/react"
+import { useDict } from "@i18n/LocaleProvider"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
@@ -24,6 +25,7 @@ export default function ErrorBoundary({
   reset,
 }: ErrorBoundaryProps): React.ReactElement {
   const router = useRouter()
+  const t = useDict().error
 
   useEffect(() => {
     console.error("Application error:", error)
@@ -47,7 +49,7 @@ export default function ErrorBoundary({
                 strokeLinejoin="round"
                 className="text-rose-500"
               >
-                <title>Error</title>
+                <title>{t.title}</title>
                 <circle cx="12" cy="12" r="10" />
                 <line x1="15" y1="9" x2="9" y2="15" />
                 <line x1="9" y1="9" x2="15" y2="15" />
@@ -55,10 +57,10 @@ export default function ErrorBoundary({
             </div>
             <div>
               <h2 className="text-base sm:text-lg font-semibold text-(--color-text-primary)">
-                Something went wrong
+                {t.title}
               </h2>
               <p className="text-xs sm:text-sm text-(--color-text-muted)">
-                An error occurred while loading this page
+                {t.subtitle}
               </p>
             </div>
           </div>
@@ -67,14 +69,14 @@ export default function ErrorBoundary({
         <CardContent className="p-4 sm:p-6 pt-3 sm:pt-4 space-y-3 sm:space-y-4">
           <div className="rounded-lg bg-(--color-bg-primary) border border-(--color-border-default) p-2.5 sm:p-3">
             <p className="text-[10px] sm:text-xs text-(--color-text-muted) mb-1">
-              Error details
+              {t.details}
             </p>
             <p className="text-xs sm:text-sm text-rose-400 font-mono break-all">
-              {error.message || "Unknown error"}
+              {error.message || t.unknown}
             </p>
             {error.digest && (
               <p className="text-[10px] sm:text-xs text-(--color-text-muted) mt-2">
-                Error ID: {error.digest}
+                {t.errorId}: {error.digest}
               </p>
             )}
           </div>
@@ -97,13 +99,13 @@ export default function ErrorBoundary({
                 strokeLinejoin="round"
                 className="mr-1.5 sm:mr-2"
               >
-                <title>Retry</title>
+                <title>{t.retry}</title>
                 <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
                 <path d="M21 3v5h-5" />
                 <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
                 <path d="M8 16H3v5" />
               </svg>
-              Try again
+              {t.retry}
             </Button>
 
             <Button
@@ -124,11 +126,11 @@ export default function ErrorBoundary({
                 strokeLinejoin="round"
                 className="mr-1.5 sm:mr-2"
               >
-                <title>Home</title>
+                <title>{t.home}</title>
                 <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
-              Go Home
+              {t.home}
             </Button>
           </div>
         </CardContent>

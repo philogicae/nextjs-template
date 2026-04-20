@@ -1,13 +1,20 @@
+"use client"
+
 import { Container } from "@components/Container"
 import { siteConfig } from "@config/site"
+import { useDict } from "@i18n/LocaleProvider"
 
 /**
  * Footer Component
  *
  * Shared site footer with meta links. Left side shows copyright,
  * right side shows social icons (GitHub, X). Maximum spacing between sides.
+ *
+ * Client Component so the license label can be read from the active
+ * dictionary via `useDict()`.
  */
 export function Footer(): React.ReactElement {
+  const dict = useDict()
   const year = new Date().getFullYear()
   const github = siteConfig.social.find((s) => s.label === "GitHub")?.href
   const x = siteConfig.social.find((s) => s.label === "X")?.href
@@ -23,7 +30,7 @@ export function Footer(): React.ReactElement {
             <span className="hidden sm:inline text-(--color-border-subtle)">
               •
             </span>
-            <span className="hidden sm:inline">{siteConfig.license}</span>
+            <span className="hidden sm:inline">{dict.footer.license}</span>
           </div>
 
           <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3">

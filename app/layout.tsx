@@ -1,5 +1,6 @@
 import "./globals.css"
 import { siteConfig } from "@config/site"
+import { getCurrentDictionary } from "@i18n/server"
 import { Footer } from "@layout/Footer"
 import { NavBar } from "@layout/Navbar"
 import { Analytics } from "@vercel/analytics/next"
@@ -76,13 +77,14 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}): React.ReactElement {
+}): Promise<React.ReactElement> {
+  const { locale, dict } = await getCurrentDictionary()
   return (
-    <html lang="en" className={font.variable} suppressHydrationWarning>
+    <html lang={locale} className={font.variable} suppressHydrationWarning>
       <head>
         {/*
          * Opt out of Dark Reader / Night Eye / Midnight Lizard style
@@ -95,7 +97,7 @@ export default function RootLayout({
         <meta name="darkreader-lock" />
       </head>
       <body className="antialiased">
-        <Providers>
+        <Providers locale={locale} dict={dict}>
           <NavBar />
           <main>{children}</main>
           <Footer />

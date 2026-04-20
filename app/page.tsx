@@ -2,6 +2,8 @@ import { Container } from "@components/Container"
 import { FeatureCard } from "@components/FeatureCard"
 import { siteConfig } from "@config/site"
 import { Button } from "@heroui/react"
+import type { Dictionary } from "@i18n/config"
+import { getCurrentDictionary } from "@i18n/server"
 import Link from "next/link"
 
 /**
@@ -56,11 +58,32 @@ function AnimatedSection({
   )
 }
 
+type FeatureKey = keyof Dictionary["landing"]["features"]
+
+/** Brand/tech names are kept as-is; only the description is localized. */
+const features = [
+  { name: "Next.js 16", icon: "▲", descKey: "nextjs" },
+  { name: "React 19", icon: "⚛", descKey: "react" },
+  { name: "Tailwind 4", icon: "🌊", descKey: "tailwind" },
+  { name: "HeroUI v3", icon: "🎨", descKey: "heroui" },
+  { name: "Biome", icon: "🛠️", descKey: "biome" },
+  { name: "SKILLS.md", icon: "📄", descKey: "skills" },
+] as const satisfies readonly {
+  name: string
+  icon: string
+  descKey: FeatureKey
+}[]
+
 /**
  * Landing page with CSS-animated hero and feature grid.
- * Server Component for optimal performance.
+ * Server Component — reads the dictionary for the active locale.
  */
-export default function LandingPage(): React.ReactElement {
+export default async function LandingPage(): Promise<React.ReactElement> {
+  const { dict } = await getCurrentDictionary()
+  const t = dict.landing
+  const githubHref =
+    siteConfig.social.find((s) => s.label === "GitHub")?.href ?? siteConfig.url
+
   return (
     <div className="relative w-full flex-1 flex flex-col">
       <BackgroundDecor />
@@ -69,18 +92,18 @@ export default function LandingPage(): React.ReactElement {
         <Container size="md">
           <AnimatedSection delay={100} className="mb-4 sm:mb-6">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-(--color-text-primary) tracking-tight">
-              Build Faster and Smarter with{" "}
+              {t.headingPrefix}{" "}
               <span className="bg-linear-to-r from-(--color-text-accent) to-cyan-400 bg-clip-text text-transparent">
-                Modern Stack
+                {t.headingAccent}
               </span>
             </h1>
           </AnimatedSection>
 
           <AnimatedSection delay={200} className="mb-6 sm:mb-8">
             <p className="text-xs sm:text-sm md:text-base text-(--color-text-secondary) text-center max-w-xl mx-auto leading-relaxed px-2">
-              An Agent-ready Next.js template with HeroUI & Biome.
+              {t.subtitleLine1}
               <br />
-              Start building in minutes.
+              {t.subtitleLine2}
             </p>
           </AnimatedSection>
 
@@ -91,7 +114,7 @@ export default function LandingPage(): React.ReactElement {
                   size="sm"
                   className="w-full sm:w-auto h-6 sm:h-8 px-2 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-semibold shadow-lg shadow-(--color-accent-cyan)/20"
                 >
-                  Try the Playground
+                  {t.ctaPlayground}
                 </Button>
               </Link>
               <a href="/skills.md" className="w-40 sm:w-auto">
@@ -110,21 +133,18 @@ export default function LandingPage(): React.ReactElement {
                     strokeWidth="2"
                     className="mr-1 sm:mr-1.5"
                   >
-                    <title>Skills</title>
+                    <title>{t.ctaSkills}</title>
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                     <polyline points="14 2 14 8 20 8" />
                     <line x1="16" y1="13" x2="8" y2="13" />
                     <line x1="16" y1="17" x2="8" y2="17" />
                     <polyline points="10 9 9 9 8 9" />
                   </svg>
-                  Read SKILLS.md
+                  {t.ctaSkills}
                 </Button>
               </a>
               <a
-                href={
-                  siteConfig.social.find((s) => s.label === "GitHub")?.href ??
-                  siteConfig.url
-                }
+                href={githubHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-40 sm:w-auto"
@@ -144,14 +164,14 @@ export default function LandingPage(): React.ReactElement {
                     strokeWidth="2"
                     className="mr-1 sm:mr-1.5"
                   >
-                    <title>GitHub</title>
+                    <title>{t.ctaGithub}</title>
                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
                   </svg>
-                  View on GitHub
+                  {t.ctaGithub}
                 </Button>
               </a>
               <a
-                href={`https://vercel.com/new/clone?repository-url=${encodeURIComponent(siteConfig.social.find((s) => s.label === "GitHub")?.href ?? siteConfig.url)}`}
+                href={`https://vercel.com/new/clone?repository-url=${encodeURIComponent(githubHref)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-40 sm:w-auto"
@@ -169,10 +189,10 @@ export default function LandingPage(): React.ReactElement {
                     fill="currentColor"
                     className="mr-1 sm:mr-1.5"
                   >
-                    <title>Vercel</title>
+                    <title>{t.ctaVercel}</title>
                     <path d="M24 22.525H0l12-21.05 12 21.05z" />
                   </svg>
-                  Deploy to Vercel
+                  {t.ctaVercel}
                 </Button>
               </a>
             </div>
@@ -187,7 +207,7 @@ export default function LandingPage(): React.ReactElement {
                   key={feature.name}
                   icon={feature.icon}
                   name={feature.name}
-                  description={feature.description}
+                  description={t.features[feature.descKey]}
                 />
               ))}
             </div>
@@ -197,44 +217,3 @@ export default function LandingPage(): React.ReactElement {
     </div>
   )
 }
-
-/**
- * Tech stack features displayed in the landing page grid.
- * Uses `as const` and `satisfies` for type safety.
- */
-const features = [
-  {
-    name: "Next.js 16",
-    icon: "▲",
-    description: "App Router + Turbo",
-  },
-  {
-    name: "React 19",
-    icon: "⚛",
-    description: "Server Components",
-  },
-  {
-    name: "Tailwind 4",
-    icon: "🌊",
-    description: "CSS-first config",
-  },
-  {
-    name: "HeroUI v3",
-    icon: "🎨",
-    description: "Accessible UI kit",
-  },
-  {
-    name: "Biome",
-    icon: "🛠️",
-    description: "Lint & format",
-  },
-  {
-    name: "SKILLS.md",
-    icon: "📄",
-    description: "AI agent skills",
-  },
-] as const satisfies readonly {
-  name: string
-  icon: string
-  description: string
-}[]

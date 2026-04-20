@@ -55,12 +55,21 @@
 
 ## 4. Landing page & design tokens
 
-- [ ] `app/page.tsx` → replace hero headline and subtitle
+- [ ] `app/page.tsx` → replace hero headline and subtitle (user-visible strings live in `app/i18n/dictionaries/*.json` under `landing.*`)
 - [ ] `app/page.tsx` → replace / prune CTA buttons (`/playground`, `/skills.md`, GitHub from `siteConfig.url`, Deploy to Vercel)
-- [ ] `app/page.tsx` → replace the `features` array
+- [ ] `app/page.tsx` → replace the `features` array (names stay in TS, descriptions live in `dict.landing.features.*`)
 - [ ] `app/globals.css` → adjust `--color-*` tokens to the new brand
 - [ ] `app/globals.css` → update the FOUC `html` / `html.dark` `background-color` to match the new tokens
 - [ ] `app/globals.css` → adjust `--space-*` / `--navbar-height*` if the layout changes
+
+### Internationalization
+
+- [ ] `app/i18n/dictionaries/en.json` → translate every `landing.*`, `playground.*`, `nav.*`, `footer.*`, `error.*`, `notFound.*` string for the new product
+- [ ] `app/i18n/dictionaries/fr.json` → keep in sync (the `Dictionary` type is inferred from `en.json`; missing keys fail TypeScript)
+- [ ] `app/i18n/dictionaries/es.json` → keep in sync
+- [ ] `app/i18n/config.ts` → add or drop locales; everything (`Locale` type, `locales`, `localeMeta`, switcher) derives from the single `dictionaries` map — one static import + one map entry per locale
+- [ ] Each `app/i18n/dictionaries/<code>.json` has a valid `meta: { code, flag, native }` — this is what the language switcher renders
+- [ ] `app/config/site.ts` → every nav entry has a `labelKey`; when you add / rename one, also add the key to `NavLabelKey` and to `dict.nav` in every locale file
 
 ## 5. Delete demo-only code
 
@@ -109,6 +118,7 @@ Run these and fix anything that fails.
 - [ ] `pnpm dev` — app boots on http://localhost:3000 with no console errors
 - [ ] Every route in `navLinks` resolves (no 404s)
 - [ ] `/playground`, `/api/hello`, `/skills.md` return the expected result (200 if kept, 404 if deleted)
+- [ ] Language switcher in the navbar cycles through every locale you ship and the visible strings actually change (no stale English)
 - [ ] No leftover template branding — grep should return only intentional matches:
 
   ```bash

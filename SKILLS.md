@@ -19,6 +19,7 @@ metadata:
     - Biome
   features:
     - App Router + React Server Components
+    - Internationalization via a server-resolved locale (`NEXT_LOCALE` cookie + `Accept-Language`) and a client `LocaleProvider` — **no `[lang]` URL segment**. Ships with en / fr / es
     - Dark mode via `next-themes` with FOUC prevention (theme-aware html background)
     - Mobile-first responsive layout
     - Error boundary, loading (Skeleton-based) and 404 pages
@@ -60,8 +61,17 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 │   │   ├── StatusBadge.tsx      # DEMO — delete if unused
 │   │   └── ThemeToggle.tsx      # Keep (uses next-themes)
 │   ├── config/            # Site-wide config (single source of truth)
-│   │   └── site.ts              # Name, description, nav, socials, theme colors
-│   ├── layout/            # Navbar.tsx, Footer.tsx — driven by `@config/site`
+│   │   └── site.ts              # Name, description, nav (labelKey), socials, theme colors
+│   ├── i18n/              # Internationalization (provider-based, no URL segment)
+│   │   ├── config.ts            # SINGLE REGISTRY: Locale, Dictionary, locales,
+│   │   │                        # localeMeta, hasLocale(), getDictionary()
+│   │   ├── dictionaries/        # en.json, fr.json, es.json — each ships a
+│   │   │                        # `meta: { code, flag, native }` used by the switcher
+│   │   ├── get-locale.ts        # Zero-dep Accept-Language matcher
+│   │   ├── server.ts            # getCurrentLocale(), getCurrentDictionary()
+│   │   ├── actions.ts           # setLocaleAction Server Action (NEXT_LOCALE cookie)
+│   │   └── LocaleProvider.tsx   # Client context: useLocale(), useDict()
+│   ├── layout/            # Navbar.tsx (with LanguageSwitcher), Footer.tsx — driven by `@config/site`
 │   ├── stores/            # Zustand (no barrel — import per file)
 │   │   └── counter.ts           # DEMO — delete
 │   ├── utils/             # cn(), debounce, media-query — Keep
@@ -88,6 +98,7 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 ```json
 "@components/*": ["./app/components/*"],
 "@config/*":     ["./app/config/*"],
+"@i18n/*":       ["./app/i18n/*"],
 "@layout/*":     ["./app/layout/*"],
 "@stores/*":     ["./app/stores/*"],
 "@utils/*":      ["./app/utils/*"]
@@ -97,38 +108,27 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 
 ## 3. Customization checklist
 
-> **Track progress in `CHECKLIST.md`** at the repo root — it lists every item below as a tickable checkbox, plus sanity checks. Use that file as the source of truth while working; the summary here is for orientation only.
+**Use `CHECKLIST.md` at the repo root — do not work from a list in this
+document.** `CHECKLIST.md` is the single, tickable source of truth for
+every customization step (identity & metadata, public assets, layout /
+chrome, landing page, design tokens, internationalization, demo-code
+deletions, environment, Docker / CI, documentation, sanity checks). Work
+through it top-to-bottom and tick boxes as you go so the next session
+sees exactly what is left.
 
-Work through these in order. Do **not** ship any of the template's demo branding.
+This skill covers the **conventions** needed to carry out those steps
+(i18n wiring, `siteConfig` as the identity single-source-of-truth, nav
+`labelKey` contract, common tasks); the project-wide instructions below
+support that work. For the task list itself, switch to `CHECKLIST.md`.
 
-**Identity & metadata** — most of this is now one file.
+### Conventions worth knowing up front
 
-- `app/config/site.ts` → **single source of truth**. Set `name`, `shortName`, `description`, `keywords`, `url`, `license`, `themeColor.{light,dark}`, `nav` (entries rendered in `Navbar`), and `social` (entries rendered in `Footer`). `app/layout.tsx` metadata, `Navbar` branding, `Footer` socials, and landing-page CTAs all derive from it.
-- `package.json` → `name`, `description`, `repository.url`, `homepage`, `version` (reset to `0.1.0`).
-- `public/manifest.json` (name, short_name, description, colors, icons) and `public/robots.txt` — keep these aligned with `siteConfig` values.
-- `public/favicon.ico` and `public/images/{logo.gif, apple-touch-icon.png, 192x192.png, 512x512.png, screenshot.jpeg}` — the `public/images/` folder ships empty in the template; you must add these assets (they are referenced by `app/layout.tsx`, `app/layout/Navbar.tsx`, and `public/manifest.json`).
-- `LICENSE` — update copyright holder or replace.
-
-**Layout / chrome**
-
-- Editing `siteConfig.nav` drives `Navbar` links; editing `siteConfig.social` drives `Footer` links. The logo image path lives in `app/layout/Navbar.tsx` (`/images/logo.gif`).
-
-**Landing page**
-
-- `app/page.tsx` → replace hero copy, CTA buttons, and the `features` array with the new product's content. `BackgroundDecor` and `AnimatedSection` helpers can be kept or deleted.
-
-**Design tokens**
-
-- `app/globals.css` → adjust `--color-*`, `--space-*`, `--navbar-height*` to the new brand.
-
-**Environment**
-
-- `.env.example` → prune placeholders, add real variables.
-
-**Docker / CI**
-
-- `Dockerfile` is a multi-stage build (`base` → `deps` → `builder` → slim `runner`) that serves the Next.js standalone bundle (`node server.js`) as a non-root user with a `HEALTHCHECK`; `compose.yaml` is production-ready. Project/container/image names and host port are configurable via `.env` (`DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT`, all defaulting to `nextjs-template` / `3000`). Base image is [`platformatic/node-caged:25-alpine`](https://hub.docker.com/r/platformatic/node-caged) — Node.js with V8 pointer compression enabled (~50% memory reduction for pointer-heavy workloads).
-- `.github/workflows/ci-cd.yml` is ready to use out of the box; no changes needed.
+- `app/config/site.ts` is the identity single source of truth; `app/layout.tsx` metadata, `Navbar`, `Footer`, and landing-page CTAs all derive from it.
+- User-visible copy lives in `app/i18n/dictionaries/*.json`, **not** in JSX. The `Dictionary` type is inferred from `en.json`; keep keys in sync across locales or TypeScript fails.
+- **Add a locale:** create `app/i18n/dictionaries/<code>.json` (including `meta.{code,flag,native}`), then add one static import + one entry in the `dictionaries` map in `app/i18n/config.ts`. **Drop a locale:** delete the JSON and remove its import + map entry. Everything else derives from that map.
+- Nav entries in `app/config/site.ts` carry a `labelKey` — add the matching key to `NavLabelKey` and to `dict.nav` in every locale file when adding / renaming one.
+- Read the dictionary via `useDict()` (`@i18n/LocaleProvider`) on the client and `getCurrentDictionary()` (`@i18n/server`) on the server. Both resolve the same active locale.
+- `public/images/` ships **empty**; supply `favicon.ico`, `logo.gif`, `apple-touch-icon.png`, `192x192.png`, `512x512.png`, `screenshot.jpeg` or the references in `layout.tsx`, `Navbar.tsx`, and `manifest.json` will 404.
 
 ## 4. Delete demo-only code
 

@@ -24,6 +24,7 @@
     "paths": {
       "@components/*": ["./app/components/*"],
       "@config/*": ["./app/config/*"],
+      "@i18n/*": ["./app/i18n/*"],
       "@layout/*": ["./app/layout/*"],
       "@stores/*": ["./app/stores/*"],
       "@utils/*": ["./app/utils/*"]

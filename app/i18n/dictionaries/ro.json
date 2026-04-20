@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "code": "RO",
+    "flag": "🇷🇴",
+    "native": "Română"
+  },
+  "nav": {
+    "home": "Acasă",
+    "playground": "Playground",
+    "skills": "SKILLS.md",
+    "openMenu": "Deschide meniul",
+    "closeMenu": "Închide meniul",
+    "toggleMenu": "Comută meniul de navigare",
+    "language": "Limbă",
+    "themeToLight": "Comută la modul luminos",
+    "themeToDark": "Comută la modul întunecat",
+    "themeToggle": "Comută tema"
+  },
+  "footer": {
+    "license": "Licență MIT"
+  },
+  "landing": {
+    "headingPrefix": "Construiește mai rapid și mai inteligent cu",
+    "headingAccent": "Stack Modern",
+    "subtitleLine1": "Un șablon Next.js pregătit pentru agenți, cu HeroUI și Biome.",
+    "subtitleLine2": "Începe să construiești în câteva minute.",
+    "ctaPlayground": "Încearcă Playground-ul",
+    "ctaSkills": "Citește SKILLS.md",
+    "ctaGithub": "Vezi pe GitHub",
+    "ctaVercel": "Publică pe Vercel",
+    "features": {
+      "nextjs": "App Router + Turbo",
+      "react": "Server Components",
+      "tailwind": "Configurare CSS-first",
+      "heroui": "Kit UI accesibil",
+      "biome": "Lint și formatare",
+      "skills": "Abilități pentru agenți AI"
+    }
+  },
+  "playground": {
+    "title": "Playground",
+    "subtitle": "Testează live endpoint-urile API server-side și gestionarea stării cu Zustand.",
+    "stateSection": "Manager de stare",
+    "stateHint": "Store Zustand",
+    "apiSection": "Endpoint-uri API",
+    "apiCount": "{count} endpoint-uri",
+    "historyLabel": "ist",
+    "reset": "Resetează",
+    "undo": "Anulează",
+    "send": "Trimite",
+    "sending": "Se trimite...",
+    "response": "Răspuns",
+    "status": {
+      "idle": "Inactiv",
+      "loading": "Se încarcă",
+      "success": "OK",
+      "error": "Eroare"
+    },
+    "endpoints": {
+      "hello": "Returnează un mesaj de salut cu marcaj temporal.",
+      "post": "Returnează înapoi un corp JSON cu marcaj temporal.",
+      "skills": "Servește conținutul brut SKILLS.md pentru descoperirea de către agenți AI."
+    }
+  },
+  "error": {
+    "title": "Ceva nu a mers bine",
+    "subtitle": "A apărut o eroare la încărcarea acestei pagini",
+    "details": "Detalii eroare",
+    "unknown": "Eroare necunoscută",
+    "errorId": "ID eroare",
+    "retry": "Încearcă din nou",
+    "home": "Acasă"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Pagina nu a fost găsită. Pagina pe care o cauți nu există sau a fost mutată.",
+    "home": "Acasă"
+  }
+}

@@ -9,8 +9,12 @@ import {
   CardFooter,
   CardHeader,
 } from "@heroui/react"
+import type { Dictionary } from "@i18n/config"
+import { useDict } from "@i18n/LocaleProvider"
 import { useCounterStore } from "@stores/counter"
 import { memo, useCallback, useMemo, useState } from "react"
+
+type PlaygroundDict = Dictionary["playground"]
 
 interface ApiResponse {
   message?: string
@@ -45,6 +49,7 @@ interface EndpointCardProps {
   description: string
   state: EndpointState
   onRun: () => void
+  t: PlaygroundDict
 }
 
 const methodColors: Record<EndpointCardProps["method"], string> = {
@@ -60,6 +65,7 @@ const EndpointCard = memo(function EndpointCard({
   description,
   state,
   onRun,
+  t,
 }: EndpointCardProps): React.ReactElement {
   const isPending = state.status === "loading"
 
@@ -76,7 +82,7 @@ const EndpointCard = memo(function EndpointCard({
             {path}
           </code>
         </div>
-        <StatusBadge status={state.status} />
+        <StatusBadge status={state.status} label={t.status[state.status]} />
       </CardHeader>
 
       <CardContent className="px-2 py-0">
@@ -87,7 +93,7 @@ const EndpointCard = memo(function EndpointCard({
         {state.response && (
           <div className="rounded bg-(--color-bg-primary) border border-(--color-border-default) p-1.5 mb-1">
             <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-(--color-text-muted) mb-0.5 font-medium">
-              Response
+              {t.response}
             </p>
             <pre className="text-[9px] sm:text-xs text-(--color-text-primary) overflow-auto whitespace-pre-wrap wrap-break-word max-h-20 leading-snug">
               {typeof state.response === "string"
@@ -105,7 +111,7 @@ const EndpointCard = memo(function EndpointCard({
           size="sm"
           className="w-full bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-semibold h-7 text-[10px] sm:text-xs"
         >
-          {isPending ? "Sending..." : "Send"}
+          {isPending ? t.sending : t.send}
         </Button>
       </CardFooter>
     </Card>
@@ -119,6 +125,7 @@ interface CounterControlsProps {
   onReset: () => void
   onUndo: () => void
   canUndo: boolean
+  t: PlaygroundDict
 }
 
 const CounterControls = memo(function CounterControls({
@@ -128,6 +135,7 @@ const CounterControls = memo(function CounterControls({
   onReset,
   onUndo,
   canUndo,
+  t,
 }: CounterControlsProps): React.ReactElement {
   const handleIncrementBy = useCallback(() => {
     onIncrementBy(5)
@@ -164,7 +172,7 @@ const CounterControls = memo(function CounterControls({
         size="sm"
         className="font-medium h-7 sm:h-8 px-1.5 sm:px-2 text-xs"
       >
-        Reset
+        {t.reset}
       </Button>
       <Button
         onPress={onUndo}
@@ -173,7 +181,7 @@ const CounterControls = memo(function CounterControls({
         size="sm"
         className="font-medium h-7 sm:h-8 px-1.5 sm:px-2 text-xs"
       >
-        Undo
+        {t.undo}
       </Button>
     </div>
   )
@@ -189,6 +197,7 @@ const CounterControls = memo(function CounterControls({
  * - Zustand selectors for granular subscription
  */
 export default function PlaygroundPage(): React.ReactElement {
+  const t = useDict().playground
   const [state, setState] = useState(initialState)
 
   const count = useCounterStore((s) => s.count)
@@ -263,21 +272,20 @@ export default function PlaygroundPage(): React.ReactElement {
       <Container size="xl" className="flex-1 flex flex-col justify-center">
         <div className="mb-4 sm:mb-6 md:mb-8">
           <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-(--color-text-primary) mb-1 sm:mb-2">
-            Playground
+            {t.title}
           </h1>
           <p className="text-xs sm:text-sm md:text-base text-(--color-text-secondary) max-w-2xl">
-            Test the server-side API endpoints and Zustand state management
-            live.
+            {t.subtitle}
           </p>
         </div>
 
         <section className="mb-4 sm:mb-6 md:mb-8">
           <div className="flex items-center justify-between flex-wrap gap-1 sm:gap-2 mb-2">
             <h2 className="text-sm sm:text-base md:text-lg font-semibold text-(--color-text-primary)">
-              State Manager
+              {t.stateSection}
             </h2>
             <span className="text-[10px] sm:text-xs text-(--color-text-muted)">
-              Zustand store
+              {t.stateHint}
             </span>
           </div>
 
@@ -294,10 +302,11 @@ export default function PlaygroundPage(): React.ReactElement {
                   onReset={reset}
                   onUndo={undo}
                   canUndo={canUndo}
+                  t={t}
                 />
                 {history.length > 0 && (
                   <div className="text-[10px] sm:text-xs text-(--color-text-muted) font-mono text-center">
-                    hist: [{historyDisplay}]
+                    {t.historyLabel}: [{historyDisplay}]
                   </div>
                 )}
               </div>
@@ -308,10 +317,10 @@ export default function PlaygroundPage(): React.ReactElement {
         <section>
           <div className="flex items-center justify-between flex-wrap gap-1 mb-2">
             <h2 className="text-xs sm:text-base md:text-lg font-semibold text-(--color-text-primary)">
-              API Endpoints
+              {t.apiSection}
             </h2>
             <span className="text-[10px] sm:text-xs text-(--color-text-muted)">
-              3 endpoints
+              {t.apiCount.replace("{count}", "3")}
             </span>
           </div>
 
@@ -319,23 +328,26 @@ export default function PlaygroundPage(): React.ReactElement {
             <EndpointCard
               method="GET"
               path="/api/hello"
-              description="Returns a hello message with timestamp."
+              description={t.endpoints.hello}
               state={state.hello}
               onRun={testHello}
+              t={t}
             />
             <EndpointCard
               method="POST"
               path="/api/hello"
-              description="Echoes back a JSON body with timestamp."
+              description={t.endpoints.post}
               state={state.post}
               onRun={testPost}
+              t={t}
             />
             <EndpointCard
               method="GET"
               path="/skills.md"
-              description="Serves raw SKILLS.md content for AI agent discovery."
+              description={t.endpoints.skills}
               state={state.skills}
               onRun={testSkills}
+              t={t}
             />
           </div>
         </section>

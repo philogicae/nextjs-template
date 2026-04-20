@@ -4,7 +4,7 @@
 >
 > **Keep this file in sync while you work.** Every time you remove demo code, add a route/store/component, introduce an env variable, or change conventions, update the matching section of `AGENTS.md` in the same commit. The next agent reading it must see the current state of the project, not the template's baseline.
 >
-> **Track progress in `CHECKLIST.md`.** A structured, tickable bootstrap checklist lives at the repo root. Use it as the source of truth for what has or hasn't been customized yet; the checklist below mirrors its §1–§4 but is not updated as you work. When every box in `CHECKLIST.md` is ticked, delete it or replace it with a project-specific checklist.
+> **Track progress in `CHECKLIST.md`.** A structured, tickable bootstrap checklist lives at the repo root — it is the **only** source of truth for what has or hasn't been customized yet. This document deliberately does not duplicate that list; it covers conventions and patterns instead. When every box in `CHECKLIST.md` is ticked, delete it or replace it with a project-specific checklist.
 
 ## Requirements
 
@@ -19,20 +19,22 @@
 - **State**: Zustand + `persist` middleware
 - **Lint/format**: Biome 2
 - **Package manager**: pnpm 10
+- **i18n**: Provider-based (cookie + `Accept-Language`), no URL locale segment. Ships with `en` / `fr` / `es`
 
 ## Customization checklist
 
-If any of these still reference the template, fix them before writing product code.
+**Do not duplicate this list here.** The full, tickable checklist lives in
+[`CHECKLIST.md`](./CHECKLIST.md) at the repo root — identity & metadata,
+public assets, layout / chrome, landing page & design tokens,
+internationalization, demo-code deletions, environment & infrastructure,
+documentation, and sanity checks. Work top-to-bottom through that file
+and tick boxes as you go; that is the single source of truth for what
+remains to be customized in this clone.
 
-- [ ] `app/config/site.ts` — **single source of truth**: brand name, description, keywords, URL, theme colors, nav links, socials. `app/layout.tsx` metadata, `Navbar` branding, `Footer` socials, and landing-page CTAs all derive from here.
-- [ ] `package.json` — `name`, `description`, `repository.url`, `homepage`, `version`
-- [ ] `app/page.tsx` — hero copy, CTAs, `features` array (or full replacement)
-- [ ] `app/globals.css` — design tokens (`--color-*`, `--space-*`, `--navbar-height*`) and the FOUC `html` / `html.dark` background colors
-- [ ] `public/` — `favicon.ico`, `images/logo.gif`, `images/apple-touch-icon.png`, `images/192x192.png`, `images/512x512.png`, `images/screenshot.jpeg` (used as OpenGraph / Twitter card image in `app/layout.tsx`), `manifest.json`, `robots.txt` (note: `public/images/` ships empty; assets are referenced by `app/layout.tsx`, `app/layout/Navbar.tsx`, and `public/manifest.json` and must be supplied)
-- [ ] `.env.example` — real variables only
-- [ ] `LICENSE`, `README.md` — update for the new project
-- [ ] `Dockerfile` + `compose.yaml` — production-ready; project/container/image names and host port are configurable via `.env` (`DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT`, all defaulting to `nextjs-template` / `3000`). Base image: [`platformatic/node-caged:25-alpine`](https://hub.docker.com/r/platformatic/node-caged) — Node.js with V8 pointer compression enabled (~50% memory reduction for pointer-heavy workloads)
-- [x] `.github/workflows/ci-cd.yml` — ready to use out of the box, no edits needed
+This document covers the **conventions** an agent needs to carry out
+those steps correctly (code style, i18n wiring, component patterns,
+common tasks). When you need a progress tracker, switch to
+`CHECKLIST.md`.
 
 ## Demo code to remove
 
@@ -54,6 +56,7 @@ Keep unless you have a reason to drop them:
 - `app/providers.tsx` (wraps children in `next-themes`'s `ThemeProvider`)
 - `app/utils/{tw,debounce,media-query}.ts`
 - `app/{error,loading,not-found}.tsx`
+- `app/i18n/*` and `app/components/LanguageSwitcher.tsx` — the internationalization layer is core infrastructure. Drop a locale you don't want (see "Add a locale" above, in reverse) rather than ripping the whole system out.
 
 **`SKILLS.md` — rewrite by default, or delete.** The default expectation is that you **rewrite `SKILLS.md`** so agents can interact with the shipped application through the `/skills.md` endpoint. Describe the new project's routes, API, auth, env variables, and how an agent should consume it — not how to install the template. Suggested frontmatter + sections:
 
@@ -88,12 +91,22 @@ app/
 ├── skills.md/            # Serves SKILLS.md raw
 ├── components/           # Shared UI (no barrel — import per file)
 ├── config/               # Site-wide config (site.ts) — edit here, not in layout/page
-├── layout/               # Navbar.tsx, Footer.tsx
+├── i18n/                 # Internationalization (provider-based, no URL segment)
+│   ├── config.ts         #   SINGLE REGISTRY: Locale, Dictionary, locales,
+│   │                     #   localeMeta, hasLocale(), getDictionary() — all
+│   │                     #   derived from the statically-imported dictionaries
+│   ├── dictionaries/     #   en.json / fr.json / es.json — each ships a top-level
+│   │                     #   `meta: { code, flag, native }` used by the switcher
+│   ├── get-locale.ts     #   Accept-Language matcher (zero-dep)
+│   ├── server.ts         #   getCurrentLocale(), getCurrentDictionary()
+│   ├── actions.ts        #   setLocaleAction Server Action (writes NEXT_LOCALE cookie)
+│   └── LocaleProvider.tsx#   client context: useLocale(), useDict()
+├── layout/               # Navbar.tsx (with LanguageSwitcher), Footer.tsx
 ├── stores/               # Zustand (no barrel — import per file)
 ├── utils/                # tw, debounce, media-query
 ├── globals.css           # Design tokens + CSS variables
-├── layout.tsx            # Root layout (Navbar + main + Footer)
-├── providers.tsx         # Client providers (next-themes)
+├── layout.tsx            # Async root layout (reads locale, passes dict to providers)
+├── providers.tsx         # Client providers (next-themes + LocaleProvider)
 ├── page.tsx              # Landing page
 ├── error.tsx loading.tsx not-found.tsx
 public/                   # Static assets
@@ -107,6 +120,7 @@ Path aliases (`tsconfig.json`, with `noUncheckedIndexedAccess` + `noImplicitOver
 ```json
 "@components/*": ["./app/components/*"],
 "@config/*":     ["./app/config/*"],
+"@i18n/*":       ["./app/i18n/*"],
 "@layout/*":     ["./app/layout/*"],
 "@stores/*":     ["./app/stores/*"],
 "@utils/*":      ["./app/utils/*"]
@@ -192,7 +206,13 @@ export function Example(): React.ReactElement {
 **Add a page**
 
 1. Create `app/<route>/page.tsx`.
-2. Add an entry to `siteConfig.nav` in `app/config/site.ts` if it should appear in the header.
+2. Add an entry to `siteConfig.nav` in `app/config/site.ts` if it should appear in the header. Entries carry a `labelKey` (not a literal label); add the matching key to `NavLabelKey` and to `dict.nav` in every `app/i18n/dictionaries/*.json`.
+3. Wrap any user-visible string in the dictionary: in a Server Component use `const { dict } = await getCurrentDictionary()` (`@i18n/server`), in a Client Component use `const dict = useDict()` (`@i18n/LocaleProvider`).
+
+**Add a locale**
+
+1. Create `app/i18n/dictionaries/<code>.json` — copy `en.json` as a scaffold so the `Dictionary` type stays satisfied. **Update the top-level `meta` object** (`code`, `flag`, `native`) — it drives the language switcher.
+2. In `app/i18n/config.ts`, add one static import (`import xx from "./dictionaries/xx.json"`) and one entry in the `dictionaries` map. That's it — `Locale`, `locales`, `localeMeta`, `hasLocale()`, `getDictionary()`, and the switcher all derive from that map.
 
 **Add an API route**
 

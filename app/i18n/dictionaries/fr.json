@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "code": "FR",
+    "flag": "🇫🇷",
+    "native": "Français"
+  },
+  "nav": {
+    "home": "Accueil",
+    "playground": "Bac à sable",
+    "skills": "SKILLS.md",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "toggleMenu": "Basculer le menu de navigation",
+    "language": "Langue",
+    "themeToLight": "Passer en mode clair",
+    "themeToDark": "Passer en mode sombre",
+    "themeToggle": "Basculer le thème"
+  },
+  "footer": {
+    "license": "Licence MIT"
+  },
+  "landing": {
+    "headingPrefix": "Développez plus vite et plus intelligemment avec une",
+    "headingAccent": "Stack moderne",
+    "subtitleLine1": "Un template Next.js prêt pour les agents, avec HeroUI et Biome.",
+    "subtitleLine2": "Commencez à construire en quelques minutes.",
+    "ctaPlayground": "Essayer le bac à sable",
+    "ctaSkills": "Lire SKILLS.md",
+    "ctaGithub": "Voir sur GitHub",
+    "ctaVercel": "Déployer sur Vercel",
+    "features": {
+      "nextjs": "App Router + Turbo",
+      "react": "Composants serveur",
+      "tailwind": "Config CSS-first",
+      "heroui": "Kit d'UI accessible",
+      "biome": "Lint & format",
+      "skills": "Skills pour agents IA"
+    }
+  },
+  "playground": {
+    "title": "Bac à sable",
+    "subtitle": "Testez en direct les endpoints d'API et la gestion d'état Zustand.",
+    "stateSection": "Gestion d'état",
+    "stateHint": "Store Zustand",
+    "apiSection": "Endpoints API",
+    "apiCount": "{count} endpoints",
+    "historyLabel": "hist",
+    "reset": "Réinitialiser",
+    "undo": "Annuler",
+    "send": "Envoyer",
+    "sending": "Envoi...",
+    "response": "Réponse",
+    "status": {
+      "idle": "Inactif",
+      "loading": "Chargement",
+      "success": "OK",
+      "error": "Erreur"
+    },
+    "endpoints": {
+      "hello": "Renvoie un message de bienvenue avec horodatage.",
+      "post": "Renvoie le corps JSON reçu avec un horodatage.",
+      "skills": "Sert le contenu brut de SKILLS.md pour la découverte par des agents IA."
+    }
+  },
+  "error": {
+    "title": "Une erreur est survenue",
+    "subtitle": "Une erreur s'est produite lors du chargement de cette page",
+    "details": "Détails de l'erreur",
+    "unknown": "Erreur inconnue",
+    "errorId": "ID d'erreur",
+    "retry": "Réessayer",
+    "home": "Retour à l'accueil"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Page introuvable. La page que vous cherchez n'existe pas ou a été déplacée.",
+    "home": "Retour à l'accueil"
+  }
+}

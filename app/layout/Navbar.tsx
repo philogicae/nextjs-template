@@ -1,13 +1,24 @@
 "use client"
 
+import { LanguageSwitcher } from "@components/LanguageSwitcher"
 import { ThemeToggle } from "@components/ThemeToggle"
 import { siteConfig } from "@config/site"
+import type { Dictionary } from "@i18n/config"
+import { useDict } from "@i18n/LocaleProvider"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useCallback, useEffect, useRef, useState } from "react"
 
 const navLinks = siteConfig.nav
+
+/** Map a nav entry's `labelKey` to its translated label. */
+function navLabel(
+  dict: Dictionary,
+  key: (typeof navLinks)[number]["labelKey"]
+): string {
+  return dict.nav[key]
+}
 
 interface NavLinkProps {
   href: string
@@ -50,10 +61,12 @@ function NavLink({
 
 function NavList({
   pathname,
+  dict,
   mobile = false,
   onItemClick,
 }: {
   pathname: string
+  dict: Dictionary
   mobile?: boolean
   onItemClick?: () => void
 }): React.ReactElement {
@@ -63,7 +76,7 @@ function NavList({
         <NavLink
           key={link.href}
           href={link.href}
-          label={link.label}
+          label={navLabel(dict, link.labelKey)}
           isActive={pathname === link.href}
           external={"external" in link && link.external === true}
           onClick={onItemClick}
@@ -77,14 +90,20 @@ function NavList({
 function MobileMenuButton({
   open,
   onToggle,
+  label,
+  openLabel,
+  closeLabel,
 }: {
   open: boolean
   onToggle: () => void
+  label: string
+  openLabel: string
+  closeLabel: string
 }): React.ReactElement {
   return (
     <button
       type="button"
-      aria-label="Toggle navigation menu"
+      aria-label={label}
       aria-expanded={open}
       onClick={onToggle}
       className="md:hidden inline-flex items-center justify-center w-8 h-8 rounded-lg text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50 transition-colors"
@@ -100,7 +119,7 @@ function MobileMenuButton({
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <title>{open ? "Close menu" : "Open menu"}</title>
+        <title>{open ? closeLabel : openLabel}</title>
         {open ? (
           <>
             <line x1="18" y1="6" x2="6" y2="18" />
@@ -146,6 +165,7 @@ function Logo(): React.ReactElement {
  */
 export function NavBar(): React.ReactElement {
   const pathname = usePathname()
+  const dict = useDict()
   const [mobileOpen, setMobileOpen] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
 
@@ -186,19 +206,31 @@ export function NavBar(): React.ReactElement {
 
         <div className="flex items-center gap-1 sm:gap-2 md:gap-4">
           <nav className="hidden md:flex items-center gap-1">
-            <NavList pathname={pathname} />
+            <NavList pathname={pathname} dict={dict} />
           </nav>
 
+          <LanguageSwitcher />
           <ThemeToggle />
 
-          <MobileMenuButton open={mobileOpen} onToggle={toggleMobile} />
+          <MobileMenuButton
+            open={mobileOpen}
+            onToggle={toggleMobile}
+            label={dict.nav.toggleMenu}
+            openLabel={dict.nav.openMenu}
+            closeLabel={dict.nav.closeMenu}
+          />
         </div>
       </div>
 
       {mobileOpen && (
         <nav className="md:hidden border-t border-(--color-border-default) bg-(--color-bg-primary)/95 backdrop-blur-xl">
           <div className="flex flex-col px-3 py-2 gap-0.5">
-            <NavList pathname={pathname} mobile onItemClick={closeMobile} />
+            <NavList
+              pathname={pathname}
+              dict={dict}
+              mobile
+              onItemClick={closeMobile}
+            />
           </div>
         </nav>
       )}

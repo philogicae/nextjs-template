@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "code": "ES",
+    "flag": "🇪🇸",
+    "native": "Español"
+  },
+  "nav": {
+    "home": "Inicio",
+    "playground": "Área de pruebas",
+    "skills": "SKILLS.md",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "toggleMenu": "Alternar menú de navegación",
+    "language": "Idioma",
+    "themeToLight": "Cambiar a modo claro",
+    "themeToDark": "Cambiar a modo oscuro",
+    "themeToggle": "Alternar tema"
+  },
+  "footer": {
+    "license": "Licencia MIT"
+  },
+  "landing": {
+    "headingPrefix": "Construye más rápido e inteligente con un",
+    "headingAccent": "Stack moderno",
+    "subtitleLine1": "Una plantilla Next.js lista para agentes, con HeroUI y Biome.",
+    "subtitleLine2": "Empieza a construir en minutos.",
+    "ctaPlayground": "Probar el área de pruebas",
+    "ctaSkills": "Leer SKILLS.md",
+    "ctaGithub": "Ver en GitHub",
+    "ctaVercel": "Desplegar en Vercel",
+    "features": {
+      "nextjs": "App Router + Turbo",
+      "react": "Componentes de servidor",
+      "tailwind": "Config CSS-first",
+      "heroui": "Kit de UI accesible",
+      "biome": "Lint y formato",
+      "skills": "Skills para agentes IA"
+    }
+  },
+  "playground": {
+    "title": "Área de pruebas",
+    "subtitle": "Prueba en vivo los endpoints de API y la gestión de estado con Zustand.",
+    "stateSection": "Gestor de estado",
+    "stateHint": "Store Zustand",
+    "apiSection": "Endpoints de API",
+    "apiCount": "{count} endpoints",
+    "historyLabel": "hist",
+    "reset": "Reiniciar",
+    "undo": "Deshacer",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "response": "Respuesta",
+    "status": {
+      "idle": "Inactivo",
+      "loading": "Cargando",
+      "success": "OK",
+      "error": "Error"
+    },
+    "endpoints": {
+      "hello": "Devuelve un mensaje de bienvenida con marca de tiempo.",
+      "post": "Devuelve el cuerpo JSON recibido con una marca de tiempo.",
+      "skills": "Sirve el contenido crudo de SKILLS.md para descubrimiento por agentes IA."
+    }
+  },
+  "error": {
+    "title": "Algo salió mal",
+    "subtitle": "Ocurrió un error al cargar esta página",
+    "details": "Detalles del error",
+    "unknown": "Error desconocido",
+    "errorId": "ID del error",
+    "retry": "Reintentar",
+    "home": "Ir al inicio"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Página no encontrada. La página que buscas no existe o ha sido movida.",
+    "home": "Ir al inicio"
+  }
+}

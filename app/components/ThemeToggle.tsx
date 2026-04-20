@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@heroui/react"
+import { useDict } from "@i18n/LocaleProvider"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 
@@ -55,6 +56,7 @@ function MoonIcon(): React.ReactElement {
  */
 export function ThemeToggle(): React.ReactElement {
   const { resolvedTheme, setTheme } = useTheme()
+  const dict = useDict()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => setMounted(true), [])
@@ -70,9 +72,9 @@ export function ThemeToggle(): React.ReactElement {
       aria-label={
         mounted
           ? isDark
-            ? "Switch to light mode"
-            : "Switch to dark mode"
-          : "Toggle theme"
+            ? dict.nav.themeToLight
+            : dict.nav.themeToDark
+          : dict.nav.themeToggle
       }
       className="h-6 w-6 sm:h-8 sm:w-8 min-w-0"
     >
