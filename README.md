@@ -20,7 +20,7 @@ A modern, production-ready Next.js template featuring the latest technologies an
 - **Reduced-motion aware** — `prefers-reduced-motion` handled globally in `globals.css`
 - **Production-ready** — Multi-stage `Dockerfile` with `output: "standalone"`, GitHub Actions CI/CD, 6 security headers, AVIF/WebP images (with strict CSP), long-term static caching
 - **Agent-ready** — `AGENTS.md`, `SKILLS.md`, and a `/skills.md` route for dynamic agent discovery
-- **Internationalization** — server-resolved locale (cookie + `Accept-Language`) with a typed JSON-dictionary system, a client `LocaleProvider`, and a navbar `LanguageSwitcher`. Ships with **English, French, Spanish**, no `[lang]` URL segment
+- **Internationalization** — server-resolved locale (cookie + `Accept-Language`) with a typed JSON-dictionary system, a client `LocaleProvider`, and a navbar `LanguageSwitcher`. Ships with **English** only; delete extra locales when customizing, add more as needed — no `[lang]` URL segment. **All user-visible text must use i18n** — no hardcoded strings in components
 
 ## Getting Started
 
@@ -72,7 +72,8 @@ app/
 ├── i18n/                  # Internationalization (no URL segment)
 │   ├── config.ts          # Single registry: Locale, Dictionary, locales,
 │   │                      #   localeMeta, hasLocale(), getDictionary()
-│   ├── dictionaries/      # en.json, fr.json, es.json — each ships `meta: { flag, native }`
+│   ├── dictionaries/      # en.json (default). Delete extra locales when customizing;
+│   │                      # add more only when needed
 │   ├── get-locale.ts      # Accept-Language matcher (zero-dep)
 │   ├── server.ts          # getCurrentLocale / getCurrentDictionary
 │   ├── actions.ts         # Server Action: set NEXT_LOCALE cookie
@@ -282,7 +283,7 @@ import { getCurrentDictionary } from "@i18n/server";
 const { dict, locale } = await getCurrentDictionary();
 ```
 
-**Supported locales** (see `app/i18n/config.ts`): `en` (default), `fr`, `es`. **Adding a locale is one JSON + one import + one map entry:** create `app/i18n/dictionaries/<code>.json` (copy `en.json`, set `meta.flag` / `meta.native`), then add a static import and one entry in the `dictionaries` map in `app/i18n/config.ts`. The `Locale` type, `locales` array, `localeMeta`, `hasLocale()`, `getDictionary()`, and the language switcher are all derived from that map. The `Dictionary` type is inferred from `en.json`, so every other locale file is type-checked against it.
+**Supported locales** (see `app/i18n/config.ts`): `en` (default). Delete extra locale files when customizing; add more only when needed. **All user-visible text must use i18n** — in Server Components use `const { dict } = await getCurrentDictionary()`, in Client Components use `const dict = useDict()`.
 
 Site-wide nav entries in `app/config/site.ts` carry a `labelKey` (not a literal label); the `Navbar` resolves it against `dict.nav`, which guarantees translation coverage at the type level.
 

@@ -19,7 +19,7 @@
 - **State**: Zustand + `persist` middleware
 - **Lint/format**: Biome 2
 - **Package manager**: pnpm 10
-- **i18n**: Provider-based (cookie + `Accept-Language`), no URL locale segment. Ships with `en` / `fr` / `es` / `ro`
+- **i18n**: Provider-based (cookie + `Accept-Language`), no URL locale segment. Ships with `en` only; delete extra locales when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
 
 ## Customization checklist
 
@@ -95,8 +95,8 @@ app/
 │   ├── config.ts         #   SINGLE REGISTRY: Locale, Dictionary, locales,
 │   │                     #   localeMeta, hasLocale(), getDictionary() — all
 │   │                     #   derived from the statically-imported dictionaries
-│   ├── dictionaries/     #   en.json / fr.json / es.json / ro.json — each ships a top-level
-│   │                     #   `meta: { flag, native }` used by the switcher
+│   ├── dictionaries/     #   en.json (default). Delete extra locales when customizing;
+│   │                     #   add more only when needed. Each ships `meta: { flag, native }`
 │   ├── get-locale.ts     #   Accept-Language matcher (zero-dep)
 │   ├── server.ts         #   getCurrentLocale(), getCurrentDictionary()
 │   ├── actions.ts        #   setLocaleAction Server Action (writes NEXT_LOCALE cookie)
@@ -211,8 +211,9 @@ export function Example(): React.ReactElement {
 
 **Add a locale**
 
-1. Create `app/i18n/dictionaries/<code>.json` — copy `en.json` as a scaffold so the `Dictionary` type stays satisfied. **Update the top-level `meta` object** (`flag`, `native`) — it drives the language switcher.
-2. In `app/i18n/config.ts`, add one static import (`import xx from "./dictionaries/xx.json"`) and one entry in the `dictionaries` map. That's it — `Locale`, `locales`, `localeMeta`, `hasLocale()`, `getDictionary()`, and the switcher all derive from that map.
+1. When customizing, first delete extra locale files you don't need (e.g., `fr.json`, `es.json`, `ro.json`) and remove their imports from `app/i18n/config.ts`.
+2. To add a locale: create `app/i18n/dictionaries/<code>.json` — copy `en.json` as a scaffold so the `Dictionary` type stays satisfied. **Update the top-level `meta` object** (`flag`, `native`) — it drives the language switcher.
+3. In `app/i18n/config.ts`, add one static import (`import xx from "./dictionaries/xx.json"`) and one entry in the `dictionaries` map. That's it — `Locale`, `locales`, `localeMeta`, `hasLocale()`, `getDictionary()`, and the switcher all derive from that map.
 
 **Add an API route**
 

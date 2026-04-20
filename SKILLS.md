@@ -19,7 +19,7 @@ metadata:
     - Biome
   features:
     - App Router + React Server Components
-    - Internationalization via a server-resolved locale (`NEXT_LOCALE` cookie + `Accept-Language`) and a client `LocaleProvider` — **no `[lang]` URL segment**. Ships with en / fr / es
+    - Internationalization via a server-resolved locale (`NEXT_LOCALE` cookie + `Accept-Language`) and a client `LocaleProvider` — **no `[lang]` URL segment**. Ships with `en` only; delete extra locales when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
     - Dark mode via `next-themes` with FOUC prevention (theme-aware html background)
     - Mobile-first responsive layout
     - Error boundary, loading (Skeleton-based) and 404 pages
@@ -65,8 +65,8 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 │   ├── i18n/              # Internationalization (provider-based, no URL segment)
 │   │   ├── config.ts            # SINGLE REGISTRY: Locale, Dictionary, locales,
 │   │   │                        # localeMeta, hasLocale(), getDictionary()
-│   │   ├── dictionaries/        # en.json, fr.json, es.json — each ships a
-│   │   │                        # `meta: { flag, native }` used by the switcher
+│   │   ├── dictionaries/        # en.json (default). Delete extra locales when customizing;
+│   │   │                        # add more only when needed. Each ships `meta: { flag, native }`
 │   │   ├── get-locale.ts        # Zero-dep Accept-Language matcher
 │   │   ├── server.ts            # getCurrentLocale(), getCurrentDictionary()
 │   │   ├── actions.ts           # setLocaleAction Server Action (NEXT_LOCALE cookie)

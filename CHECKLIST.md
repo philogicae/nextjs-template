@@ -64,11 +64,15 @@
 
 ### Internationalization
 
+> **Important:** The template ships with multiple locales (`en`, `fr`, `es`, `ro`). When customizing, **delete the extra locales you don't need** and keep only `en.json` (or the locales the user specifically requests).
+>
+> **All user-visible text must use i18n** — no hardcoded strings in components. In Server Components use `const { dict } = await getCurrentDictionary()`, in Client Components use `const dict = useDict()`.
+
 - [ ] `app/i18n/dictionaries/en.json` → translate every `landing.*`, `playground.*`, `nav.*`, `footer.*`, `error.*`, `notFound.*` string for the new product
-- [ ] `app/i18n/dictionaries/fr.json` → keep in sync (the `Dictionary` type is inferred from `en.json`; missing keys fail TypeScript)
-- [ ] `app/i18n/dictionaries/es.json` → keep in sync
-- [ ] `app/i18n/config.ts` → add or drop locales; everything (`Locale` type, `locales`, `localeMeta`, switcher) derives from the single `dictionaries` map — one static import + one map entry per locale
-- [ ] Each `app/i18n/dictionaries/<code>.json` has a valid `meta: { flag, native }` — this is what the language switcher renders
+- [ ] Delete extra locale files you don't need (e.g., `fr.json`, `es.json`, `ro.json`)
+- [ ] In `app/i18n/config.ts`, remove imports and map entries for deleted locales
+- [ ] (Only if user needs more locales) Add each new locale: create `app/i18n/dictionaries/<code>.json`, add import + map entry in `app/i18n/config.ts`
+- [ ] Each dictionary file has a valid `meta: { flag, native }` — this is what the language switcher renders
 - [ ] `app/config/site.ts` → every nav entry has a `labelKey`; when you add / rename one, also add the key to `NavLabelKey` and to `dict.nav` in every locale file
 
 ## 5. Delete demo-only code
