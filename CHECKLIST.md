@@ -68,7 +68,7 @@
 - [ ] `app/i18n/dictionaries/fr.json` → keep in sync (the `Dictionary` type is inferred from `en.json`; missing keys fail TypeScript)
 - [ ] `app/i18n/dictionaries/es.json` → keep in sync
 - [ ] `app/i18n/config.ts` → add or drop locales; everything (`Locale` type, `locales`, `localeMeta`, switcher) derives from the single `dictionaries` map — one static import + one map entry per locale
-- [ ] Each `app/i18n/dictionaries/<code>.json` has a valid `meta: { code, flag, native }` — this is what the language switcher renders
+- [ ] Each `app/i18n/dictionaries/<code>.json` has a valid `meta: { flag, native }` — this is what the language switcher renders
 - [ ] `app/config/site.ts` → every nav entry has a `labelKey`; when you add / rename one, also add the key to `NavLabelKey` and to `dict.nav` in every locale file
 
 ## 5. Delete demo-only code

@@ -32,7 +32,7 @@ export function LanguageSwitcher(): React.ReactElement {
         <span aria-hidden="true">{current.flag}</span>
       </DropdownTrigger>
       <DropdownPopover
-        className="min-w-36 border border-(--color-border-default) bg-(--color-bg-surface) p-1 shadow-lg"
+        className="min-w-36 border border-(--color-border-default) bg-(--color-bg-primary) p-1 shadow-lg"
         placement="bottom end"
       >
         <DropdownMenu aria-label={dict.nav.language}>
@@ -46,15 +46,12 @@ export function LanguageSwitcher(): React.ReactElement {
                 className={[
                   "flex items-center gap-2 rounded-md px-2 py-1.5 text-xs cursor-pointer outline-none",
                   isActive
-                    ? "bg-(--color-bg-primary) text-(--color-text-primary)"
-                    : "text-(--color-text-secondary) hover:bg-(--color-bg-primary)/60 hover:text-(--color-text-primary)",
+                    ? "bg-(--color-bg-secondary) text-(--color-text-primary)"
+                    : "text-(--color-text-secondary) hover:bg-(--color-bg-secondary)/60 hover:text-(--color-text-primary)",
                 ].join(" ")}
               >
                 <span aria-hidden="true" className="text-base leading-none">
                   {meta.flag}
-                </span>
-                <span className="font-mono text-[10px] text-(--color-text-muted) tracking-wider">
-                  {meta.code}
                 </span>
                 <span>{meta.native}</span>
                 {isActive && (

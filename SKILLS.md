@@ -66,7 +66,7 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 │   │   ├── config.ts            # SINGLE REGISTRY: Locale, Dictionary, locales,
 │   │   │                        # localeMeta, hasLocale(), getDictionary()
 │   │   ├── dictionaries/        # en.json, fr.json, es.json — each ships a
-│   │   │                        # `meta: { code, flag, native }` used by the switcher
+│   │   │                        # `meta: { flag, native }` used by the switcher
 │   │   ├── get-locale.ts        # Zero-dep Accept-Language matcher
 │   │   ├── server.ts            # getCurrentLocale(), getCurrentDictionary()
 │   │   ├── actions.ts           # setLocaleAction Server Action (NEXT_LOCALE cookie)
@@ -125,7 +125,7 @@ support that work. For the task list itself, switch to `CHECKLIST.md`.
 
 - `app/config/site.ts` is the identity single source of truth; `app/layout.tsx` metadata, `Navbar`, `Footer`, and landing-page CTAs all derive from it.
 - User-visible copy lives in `app/i18n/dictionaries/*.json`, **not** in JSX. The `Dictionary` type is inferred from `en.json`; keep keys in sync across locales or TypeScript fails.
-- **Add a locale:** create `app/i18n/dictionaries/<code>.json` (including `meta.{code,flag,native}`), then add one static import + one entry in the `dictionaries` map in `app/i18n/config.ts`. **Drop a locale:** delete the JSON and remove its import + map entry. Everything else derives from that map.
+- **Add a locale:** create `app/i18n/dictionaries/<code>.json` (including `meta.{flag,native}`), then add one static import + one entry in the `dictionaries` map in `app/i18n/config.ts`. **Drop a locale:** delete the JSON and remove its import + map entry. Everything else derives from that map.
 - Nav entries in `app/config/site.ts` carry a `labelKey` — add the matching key to `NavLabelKey` and to `dict.nav` in every locale file when adding / renaming one.
 - Read the dictionary via `useDict()` (`@i18n/LocaleProvider`) on the client and `getCurrentDictionary()` (`@i18n/server`) on the server. Both resolve the same active locale.
 - `public/images/` ships **empty**; supply `favicon.ico`, `logo.gif`, `apple-touch-icon.png`, `192x192.png`, `512x512.png`, `screenshot.jpeg` or the references in `layout.tsx`, `Navbar.tsx`, and `manifest.json` will 404.

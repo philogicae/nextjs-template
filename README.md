@@ -72,7 +72,7 @@ app/
 ├── i18n/                  # Internationalization (no URL segment)
 │   ├── config.ts          # Single registry: Locale, Dictionary, locales,
 │   │                      #   localeMeta, hasLocale(), getDictionary()
-│   ├── dictionaries/      # en.json, fr.json, es.json — each ships `meta: { code, flag, native }`
+│   ├── dictionaries/      # en.json, fr.json, es.json — each ships `meta: { flag, native }`
 │   ├── get-locale.ts      # Accept-Language matcher (zero-dep)
 │   ├── server.ts          # getCurrentLocale / getCurrentDictionary
 │   ├── actions.ts         # Server Action: set NEXT_LOCALE cookie
@@ -282,7 +282,7 @@ import { getCurrentDictionary } from "@i18n/server";
 const { dict, locale } = await getCurrentDictionary();
 ```
 
-**Supported locales** (see `app/i18n/config.ts`): `en` (default), `fr`, `es`. **Adding a locale is one JSON + one import + one map entry:** create `app/i18n/dictionaries/<code>.json` (copy `en.json`, set `meta.code` / `meta.flag` / `meta.native`), then add a static import and one entry in the `dictionaries` map in `app/i18n/config.ts`. The `Locale` type, `locales` array, `localeMeta`, `hasLocale()`, `getDictionary()`, and the language switcher are all derived from that map. The `Dictionary` type is inferred from `en.json`, so every other locale file is type-checked against it.
+**Supported locales** (see `app/i18n/config.ts`): `en` (default), `fr`, `es`. **Adding a locale is one JSON + one import + one map entry:** create `app/i18n/dictionaries/<code>.json` (copy `en.json`, set `meta.flag` / `meta.native`), then add a static import and one entry in the `dictionaries` map in `app/i18n/config.ts`. The `Locale` type, `locales` array, `localeMeta`, `hasLocale()`, `getDictionary()`, and the language switcher are all derived from that map. The `Dictionary` type is inferred from `en.json`, so every other locale file is type-checked against it.
 
 Site-wide nav entries in `app/config/site.ts` carry a `labelKey` (not a literal label); the `Navbar` resolves it against `dict.nav`, which guarantees translation coverage at the type level.
 

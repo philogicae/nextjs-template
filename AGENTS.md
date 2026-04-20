@@ -96,7 +96,7 @@ app/
 │   │                     #   localeMeta, hasLocale(), getDictionary() — all
 │   │                     #   derived from the statically-imported dictionaries
 │   ├── dictionaries/     #   en.json / fr.json / es.json — each ships a top-level
-│   │                     #   `meta: { code, flag, native }` used by the switcher
+│   │                     #   `meta: { flag, native }` used by the switcher
 │   ├── get-locale.ts     #   Accept-Language matcher (zero-dep)
 │   ├── server.ts         #   getCurrentLocale(), getCurrentDictionary()
 │   ├── actions.ts        #   setLocaleAction Server Action (writes NEXT_LOCALE cookie)
@@ -211,7 +211,7 @@ export function Example(): React.ReactElement {
 
 **Add a locale**
 
-1. Create `app/i18n/dictionaries/<code>.json` — copy `en.json` as a scaffold so the `Dictionary` type stays satisfied. **Update the top-level `meta` object** (`code`, `flag`, `native`) — it drives the language switcher.
+1. Create `app/i18n/dictionaries/<code>.json` — copy `en.json` as a scaffold so the `Dictionary` type stays satisfied. **Update the top-level `meta` object** (`flag`, `native`) — it drives the language switcher.
 2. In `app/i18n/config.ts`, add one static import (`import xx from "./dictionaries/xx.json"`) and one entry in the `dictionaries` map. That's it — `Locale`, `locales`, `localeMeta`, `hasLocale()`, `getDictionary()`, and the switcher all derive from that map.
 
 **Add an API route**

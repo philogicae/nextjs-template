@@ -2,7 +2,7 @@
  * Internationalization — single registry.
  *
  * Add a locale in two steps: create `./dictionaries/<code>.json` (copying
- * the shape of `en.json`, including `meta.{code,flag,native}`), then add a
+ * the shape of `en.json`, including `meta.{flag,native}`), then add a
  * static import and one entry in the `dictionaries` map below. Everything
  * else (`Locale`, `locales`, `localeMeta`, `hasLocale`, `getDictionary`,
  * the `LanguageSwitcher`) derives from that map.
