@@ -24,7 +24,7 @@ interface ApiResponse {
   error?: string
 }
 
-type RequestKey = "hello" | "post" | "skills"
+type RequestKey = "hello" | "post" | "skill"
 
 type Status = "idle" | "loading" | "success" | "error"
 
@@ -36,7 +36,7 @@ interface EndpointState {
 const initialState: Record<RequestKey, EndpointState> = {
   hello: { status: "idle", response: null },
   post: { status: "idle", response: null },
-  skills: { status: "idle", response: null },
+  skill: { status: "idle", response: null },
 }
 
 /**
@@ -53,10 +53,10 @@ interface EndpointCardProps {
 }
 
 const methodColors: Record<EndpointCardProps["method"], string> = {
-  GET: "text-emerald-500 bg-emerald-500/10 border-emerald-500/30",
-  POST: "text-sky-500 bg-sky-500/10 border-sky-500/30",
-  PUT: "text-amber-500 bg-amber-500/10 border-amber-500/30",
-  DELETE: "text-rose-500 bg-rose-500/10 border-rose-500/30",
+  GET: "text-(--color-emerald) bg-(--color-emerald)/10 border-(--color-emerald)/30",
+  POST: "text-(--color-azure) bg-(--color-azure)/10 border-(--color-azure)/30",
+  PUT: "text-(--color-amber) bg-(--color-amber)/10 border-(--color-amber)/30",
+  DELETE: "text-(--color-rose) bg-(--color-rose)/10 border-(--color-rose)/30",
 }
 
 const EndpointCard = memo(function EndpointCard({
@@ -70,7 +70,7 @@ const EndpointCard = memo(function EndpointCard({
   const isPending = state.status === "loading"
 
   return (
-    <Card className="border border-(--color-border-default) bg-(--color-bg-surface)/50 shadow-none">
+    <Card className="border border-(--color-border-default) bg-(--color-bg-secondary) shadow-none rounded-(--radius-cards)">
       <CardHeader className="flex items-start justify-between gap-2 p-2 pb-1">
         <div className="flex items-center gap-1.5 min-w-0">
           <span
@@ -91,11 +91,11 @@ const EndpointCard = memo(function EndpointCard({
         </p>
 
         {state.response && (
-          <div className="rounded bg-(--color-bg-primary) border border-(--color-border-default) p-1.5 mb-1">
+          <div className="rounded-(--radius-cards) bg-(--color-bg-primary) border border-(--color-border-default) p-1.5 mb-1">
             <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-(--color-text-muted) mb-0.5 font-medium">
               {t.response}
             </p>
-            <pre className="text-[9px] sm:text-xs text-(--color-text-primary) overflow-auto whitespace-pre-wrap wrap-break-word max-h-20 leading-snug">
+            <pre className="text-[9px] sm:text-xs text-(--color-text-primary) overflow-auto whitespace-pre-wrap wrap-break-word max-h-20 leading-snug font-mono">
               {typeof state.response === "string"
                 ? state.response
                 : JSON.stringify(state.response, null, 2)}
@@ -109,7 +109,7 @@ const EndpointCard = memo(function EndpointCard({
           onPress={onRun}
           isPending={isPending}
           size="sm"
-          className="w-full bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-semibold h-7 text-[10px] sm:text-xs"
+          className="w-full bg-(--color-accent-primary) hover:brightness-110 text-(--color-bg-primary) font-semibold h-7 text-[10px] sm:text-xs rounded-(--radius-buttons) transition-all duration-150"
         >
           {isPending ? t.sending : t.send}
         </Button>
@@ -154,7 +154,7 @@ const CounterControls = memo(function CounterControls({
       <Button
         onPress={onIncrement}
         size="sm"
-        className="bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-semibold h-7 sm:h-8 min-w-8 sm:min-w-9 px-1.5 sm:px-2 text-xs"
+        className="bg-(--color-accent-primary) hover:brightness-110 text-(--color-bg-primary) font-semibold h-7 sm:h-8 min-w-8 sm:min-w-9 px-1.5 sm:px-2 text-xs rounded-(--radius-buttons) transition-all duration-150"
       >
         +1
       </Button>
@@ -259,9 +259,9 @@ export default function PlaygroundPage(): React.ReactElement {
     })
   }, [runRequest])
 
-  const testSkills = useCallback((): void => {
-    runRequest("skills", async () => {
-      const res = await fetch("/skills.md")
+  const testSkill = useCallback((): void => {
+    runRequest("skill", async () => {
+      const res = await fetch("/skill.md")
       const text = await res.text()
       return text.slice(0, 500) + (text.length > 500 ? "..." : "")
     })
@@ -289,10 +289,10 @@ export default function PlaygroundPage(): React.ReactElement {
             </span>
           </div>
 
-          <Card className="border border-(--color-border-default) bg-(--color-bg-surface)/50 shadow-none">
+          <Card className="border border-(--color-border-default) bg-(--color-bg-secondary) shadow-none rounded-(--radius-cards)">
             <CardContent className="p-2 sm:p-3 md:p-4">
               <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
-                <div className="text-lg sm:text-2xl md:text-3xl font-bold text-(--color-accent-cyan) tabular-nums min-w-10 sm:min-w-14 text-center">
+                <div className="text-lg sm:text-2xl md:text-3xl font-bold text-(--color-accent-primary) tabular-nums min-w-10 sm:min-w-14 text-center">
                   {count}
                 </div>
                 <CounterControls
@@ -343,10 +343,10 @@ export default function PlaygroundPage(): React.ReactElement {
             />
             <EndpointCard
               method="GET"
-              path="/skills.md"
-              description={t.endpoints.skills}
-              state={state.skills}
-              onRun={testSkills}
+              path="/skill.md"
+              description={t.endpoints.skill}
+              state={state.skill}
+              onRun={testSkill}
               t={t}
             />
           </div>

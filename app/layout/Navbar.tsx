@@ -38,11 +38,13 @@ function NavLink({
   mobile = false,
 }: NavLinkProps): React.ReactElement {
   const className = [
-    mobile ? "px-2 py-1.5 rounded-md" : "px-3 py-1.5 rounded-lg",
-    "text-xs font-medium transition-colors",
+    mobile
+      ? "px-2 py-1.5 rounded-[var(--radius-tags)]"
+      : "px-3 py-1.5 rounded-[var(--radius-tags)]",
+    "text-xs font-medium transition-colors tracking-[-0.13px]",
     isActive
       ? "bg-(--color-bg-surface) text-(--color-text-primary)"
-      : "text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50",
+      : "text-(--color-text-muted) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50",
   ].join(" ")
 
   if (external) {
@@ -106,7 +108,7 @@ function MobileMenuButton({
       aria-label={label}
       aria-expanded={open}
       onClick={onToggle}
-      className="md:hidden inline-flex items-center justify-center w-8 h-8 rounded-lg text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50 transition-colors"
+      className="md:hidden inline-flex items-center justify-center w-8 h-8 rounded-(--radius-tags) text-(--color-text-muted) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50 transition-colors"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +145,7 @@ function Logo(): React.ReactElement {
       href="/"
       className="flex items-center gap-2 sm:gap-2.5 md:gap-3 hover:opacity-80 transition-opacity min-w-0"
     >
-      <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 shrink-0 relative logo-halo">
+      <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 shrink-0 relative logo-halo">
         <Image
           src="/images/logo.gif"
           alt=""
@@ -154,7 +156,7 @@ function Logo(): React.ReactElement {
           unoptimized
         />
       </div>
-      <span className="text-sm sm:text-base md:text-lg font-semibold text-(--color-text-primary) tracking-tight truncate -mt-1">
+      <span className="text-sm sm:text-base md:text-lg font-semibold text-(--color-text-primary) tracking-tighter truncate -mt-0.5">
         {siteConfig.shortName}
       </span>
     </Link>
@@ -198,10 +200,7 @@ export function NavBar(): React.ReactElement {
   const closeMobile = useCallback(() => setMobileOpen(false), [])
 
   return (
-    <header
-      ref={headerRef}
-      className="sticky top-0 z-50 bg-(--color-bg-primary)/80 backdrop-blur-xl border-b border-(--color-border-default)"
-    >
+    <header ref={headerRef} className="sticky top-0 z-50 backdrop-blur-xl">
       <div className="flex items-center justify-between h-(--navbar-height-mobile) sm:h-(--navbar-height) px-3 sm:px-4 md:px-6 w-full">
         <Logo />
 
@@ -224,7 +223,7 @@ export function NavBar(): React.ReactElement {
       </div>
 
       {mobileOpen && (
-        <nav className="md:hidden border-t border-(--color-border-default) bg-(--color-bg-primary)/95 backdrop-blur-xl">
+        <nav className="md:hidden bg-(--color-bg-primary)/95 backdrop-blur-xl">
           <div className="flex flex-col px-3 py-2 gap-0.5">
             <NavList
               pathname={pathname}

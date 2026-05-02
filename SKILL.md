@@ -19,7 +19,7 @@ metadata:
     - Biome
   features:
     - App Router + React Server Components
-    - Internationalization via a server-resolved locale (`NEXT_LOCALE` cookie + `Accept-Language`) and a client `LocaleProvider` — **no `[lang]` URL segment**. Ships with `en` only; delete extra locales when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
+    - Internationalization via a server-resolved locale (`NEXT_LOCALE` cookie + `Accept-Language`) and a client `LocaleProvider` — **no `[lang]` URL segment**. Ships with multiple locales (`en`, `fr`, `es`, `ro`); delete the ones you don't need when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
     - Dark mode via `next-themes` with FOUC prevention (theme-aware html background)
     - Mobile-first responsive layout
     - Error boundary, loading (Skeleton-based) and 404 pages
@@ -27,6 +27,7 @@ metadata:
     - Security headers, AVIF/WebP image optimization with strict SVG CSP
     - Site-wide config at `app/config/site.ts` as single source of truth
     - Multi-stage Dockerfile with Next.js standalone output
+    - Pre-configured design system with dark/light modes — see [`DESIGN.md`](./DESIGN.md) for complete reference
 ---
 
 # Next.js Template — Bootstrap Skill
@@ -51,18 +52,17 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 <project-name>/
 ├── app/
 │   ├── api/
-│   │   ├── hello/         # DEMO endpoint — delete or replace
-│   │   └── skills/        # Empty stub for an agent-facing API — keep or delete
-│   ├── skills.md/         # Route that serves SKILLS.md raw — KEEP
-│   ├── components/        # Shared UI (no barrel — import per file)
+│   │   └── hello/               # DEMO endpoint — delete or replace
+│   ├── skill.md/                # Route that serves SKILL.md raw — KEEP
+│   ├── components/              # Shared UI (no barrel — import per file)
 │   │   ├── Container.tsx        # Keep (generic width wrapper)
 │   │   ├── FeatureCard.tsx      # DEMO — delete if unused
 │   │   ├── Skeleton.tsx         # Keep (themed pulse placeholder)
 │   │   ├── StatusBadge.tsx      # DEMO — delete if unused
 │   │   └── ThemeToggle.tsx      # Keep (uses next-themes)
-│   ├── config/            # Site-wide config (single source of truth)
+│   ├── config/                  # Site-wide config (single source of truth)
 │   │   └── site.ts              # Name, description, nav (labelKey), socials, theme colors
-│   ├── i18n/              # Internationalization (provider-based, no URL segment)
+│   ├── i18n/                    # Internationalization (provider-based, no URL segment)
 │   │   ├── config.ts            # SINGLE REGISTRY: Locale, Dictionary, locales,
 │   │   │                        # localeMeta, hasLocale(), getDictionary()
 │   │   ├── dictionaries/        # en.json (default). Delete extra locales when customizing;
@@ -71,26 +71,27 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 │   │   ├── server.ts            # getCurrentLocale(), getCurrentDictionary()
 │   │   ├── actions.ts           # setLocaleAction Server Action (NEXT_LOCALE cookie)
 │   │   └── LocaleProvider.tsx   # Client context: useLocale(), useDict()
-│   ├── layout/            # Navbar.tsx (with LanguageSwitcher), Footer.tsx — driven by `@config/site`
-│   ├── stores/            # Zustand (no barrel — import per file)
+│   ├── layout/                  # Navbar.tsx (with LanguageSwitcher), Footer.tsx — driven by `@config/site`
+│   ├── stores/                  # Zustand (no barrel — import per file)
 │   │   └── counter.ts           # DEMO — delete
-│   ├── utils/             # cn(), debounce, media-query — Keep
-│   ├── playground/        # DEMO page — DELETE
-│   ├── globals.css        # Design tokens — CUSTOMIZE
-│   ├── layout.tsx         # Root layout + metadata — CUSTOMIZE
-│   ├── providers.tsx      # Client providers (next-themes) — Keep
-│   ├── page.tsx           # Landing page — REPLACE
+│   ├── utils/                   # cn(), debounce, media-query — Keep
+│   ├── playground/              # DEMO page — DELETE
+│   ├── globals.css              # Design tokens — CUSTOMIZE
+│   ├── layout.tsx               # Root layout + metadata — CUSTOMIZE
+│   ├── providers.tsx            # Client providers (next-themes) — Keep
+│   ├── page.tsx                 # Landing page — REPLACE
 │   ├── error.tsx / loading.tsx / not-found.tsx   # Keep, restyle
-├── public/                # favicon, logo, manifest, robots — REPLACE
-├── .env.example           # Customize variables
-├── next.config.mjs        # Security headers, image formats — review
-├── biome.json             # Lint/format config
-├── package.json           # name/description/repo — CUSTOMIZE
-├── Dockerfile / compose.yaml     # Ready to use — override names/port via .env
-├── README.md              # REWRITE for the new project
-├── AGENTS.md              # In-repo agent conventions — keep in sync as you modify the project
-├── SKILLS.md              # REWRITE to describe the new app (see §5) or delete if the app needs no agent surface
-└── CHECKLIST.md           # Tickable bootstrap checklist — delete once every box is ticked
+├── public/                      # favicon, logo, manifest, robots — REPLACE
+├── .env.example                 # Customize variables
+├── next.config.mjs              # Security headers, image formats — review
+├── biome.json                   # Lint/format config
+├── package.json                 # name/description/repo — CUSTOMIZE
+├── Dockerfile / compose.yaml    # Ready to use — override names/port via .env
+├── README.md                    # REWRITE for the new project
+├── AGENTS.md                    # In-repo agent conventions — keep in sync as you modify the project
+├── SKILL.md                     # REWRITE to describe the new app (see §5) or delete if the app needs no agent surface
+├── CHECKLIST.md                 # Tickable bootstrap checklist — delete once every box is ticked
+└── DESIGN.md                    # Complete design system reference
 ```
 
 **Path aliases** (`tsconfig.json`):
@@ -112,13 +113,13 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 document.** `CHECKLIST.md` is the single, tickable source of truth for
 every customization step (identity & metadata, public assets, layout /
 chrome, landing page, design tokens, internationalization, demo-code
-deletions, environment, Docker / CI, documentation, sanity checks). Work
+deletions, environment & infrastructure, documentation, sanity checks). Work
 through it top-to-bottom and tick boxes as you go so the next session
 sees exactly what is left.
 
 This skill covers the **conventions** needed to carry out those steps
-(i18n wiring, `siteConfig` as the identity single-source-of-truth, nav
-`labelKey` contract, common tasks); the project-wide instructions below
+correctly (i18n wiring, `siteConfig` as the identity single-source-of-truth,
+nav `labelKey` contract, common tasks); the project-wide instructions below
 support that work. For the task list itself, switch to `CHECKLIST.md`.
 
 ### Conventions worth knowing up front
@@ -138,21 +139,21 @@ These files exist only to showcase the template. Remove them before writing prod
 - `app/api/hello/` — replace with real endpoints or delete.
 - `app/stores/counter.ts`.
 - `app/components/FeatureCard.tsx`, `app/components/StatusBadge.tsx` (only if not reused). `Skeleton.tsx` is not demo — keep it.
-- The "Try the Playground" / "Read SKILLS.md" / "View on GitHub" / "Deploy to Vercel" buttons in `app/page.tsx`.
-- The `/skills.md` and `/playground` entries in `siteConfig.nav` (`app/config/site.ts`).
+- The "Try the Playground" / "Read SKILL.md" / "View on GitHub" / "Deploy to Vercel" buttons in `app/page.tsx`.
+- The `/skill.md` and `/playground` entries in `siteConfig.nav` (`app/config/site.ts`).
 
-Keep the `app/skills.md/route.ts` handler — it is the delivery mechanism for the rewritten `SKILLS.md` (see §5). The empty `app/api/skills/` directory is reserved for an agent-facing API: keep it if you plan to expose one, delete it otherwise.
+Keep the `app/skill.md/route.ts` handler — it is the delivery mechanism for the rewritten `SKILL.md` (see §5).
 
-## 5. Rewrite `SKILLS.md` for the new project (default) — or delete it
+## 5. Rewrite `SKILL.md` for the new project (default) — or delete it
 
-**Default path.** After customization, **this file must be rewritten** so agents can interact with the shipped application through `/skills.md`. Its new purpose is to describe the app — its routes, API, auth, and how an agent should consume it — not how to install the template.
+**Default path.** After customization, **this file must be rewritten** so agents can interact with the shipped application through `/skill.md`. Its new purpose is to describe the app — its routes, API, auth, and how an agent should consume it — not how to install the template.
 
 **Opt-out.** If the project has no agent-facing surface and the user does not want one, delete instead:
 
-- this `SKILLS.md` file,
-- the `app/skills.md/` route handler,
-- the `/skills.md` entry in `siteConfig.nav` (`app/config/site.ts`),
-- any landing-page button that links to `/skills.md` in `app/page.tsx`.
+- this `SKILL.md` file,
+- the `app/skill.md/` route handler,
+- the `/skill.md` entry in `siteConfig.nav` (`app/config/site.ts`),
+- any landing-page button that links to `/skill.md` in `app/page.tsx`.
 
 Suggested structure when rewriting:
 
@@ -228,7 +229,7 @@ Quick reference for the conventions baked into the template, needed while custom
 **Styling**
 
 - Tailwind CSS v4 via `@tailwindcss/postcss` (CSS-first config, no `tailwind.config`)
-- CSS variables in `app/globals.css` consumed as `bg-(--color-bg-surface)`, etc.
+- CSS variables in `app/globals.css` consumed as `bg-(--color-ghost-canvas)`, etc.
 - `cn()` helper from `@utils/tw` for conditional class merging (wraps `clsx` + `tailwind-merge`)
 
 **UI — HeroUI v3**
@@ -357,22 +358,18 @@ export function Example(): React.ReactElement {
 
 CSS variables (`app/globals.css`):
 
-Palette is a violet + cyan duotone (violet primary, cyan secondary). Tokens:
+See [`DESIGN.md`](./DESIGN.md) for the complete design reference including the color palette, typography, elevation, and component tokens.
 
-- `--color-bg-primary`, `--color-bg-secondary`, `--color-bg-surface` — backgrounds
-- `--color-text-primary`, `--color-text-secondary`, `--color-text-muted`, `--color-text-accent` — text (accent is violet)
-- `--color-accent-cyan`, `--color-accent-cyan-hover` — cyan companion accent
-- `--color-border-default`, `--color-border-subtle` — borders
-- `--space-xs` … `--space-2xl` — spacing
-- `--navbar-height`, `--navbar-height-mobile` — layout
+> **Important:** `DESIGN.md` and `app/globals.css` must always stay synchronized. When you modify any design token in `globals.css`, update the corresponding section in `DESIGN.md` immediately. These are twin source-of-truth files — the CSS is the implementation, the markdown is the documentation.
 
-Radius, shadow, and transitions are handled via Tailwind utilities (`rounded-*`, `shadow-*`, `transition-*`), not CSS vars. Dark mode overrides live under `.dark { … }` in the same file. One animation keyframe (`fade-in-up`) and `prefers-reduced-motion` handling are defined there too — add more as you need them.
+**Looking for design inspiration?** Browse curated design templates at [styles.refero.design](https://styles.refero.design/).
 
 Usage:
 
 ```tsx
 <div className="bg-(--color-bg-primary) text-(--color-text-primary)">
-  <Button className="bg-(--color-accent-cyan)">Click</Button>
+  <button className="btn-primary">Click</button>
+  <button className="btn-cta-ghost">Ghost</button>
 </div>
 ```
 
@@ -429,4 +426,5 @@ pnpm repomix  # Markdown snapshot of the codebase for agents
 - [Zustand](https://zustand.docs.pmnd.rs/)
 - [Biome](https://biomejs.dev/)
 - [AGENTS.md standard](https://agents.md/)
-- [Agent Skills spec](https://agentskills.io/specification)
+- [Agent Skill spec](https://agentskills.io/specification)
+- [DESIGN.md](./DESIGN.md) — Complete design system reference

@@ -33,10 +33,10 @@ export default function ErrorBoundary({
 
   return (
     <div className="relative flex-1 w-full flex items-center justify-center px-4 py-12 sm:py-20">
-      <Card className="max-w-md sm:max-w-lg w-full border border-rose-500/30 bg-(--color-bg-surface)/50 shadow-none">
+      <Card className="max-w-md sm:max-w-lg w-full border border-(--color-rose)/30 bg-(--color-bg-secondary) rounded-(--radius-cards) shadow-none">
         <CardHeader className="p-4 sm:p-6 pb-2">
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-(--radius-cards) bg-(--color-rose)/10 border border-(--color-rose)/30 flex items-center justify-center shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -47,7 +47,7 @@ export default function ErrorBoundary({
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="text-rose-500"
+                className="text-(--color-rose)"
               >
                 <title>{t.title}</title>
                 <circle cx="12" cy="12" r="10" />
@@ -67,11 +67,11 @@ export default function ErrorBoundary({
         </CardHeader>
 
         <CardContent className="p-4 sm:p-6 pt-3 sm:pt-4 space-y-3 sm:space-y-4">
-          <div className="rounded-lg bg-(--color-bg-primary) border border-(--color-border-default) p-2.5 sm:p-3">
+          <div className="rounded-(--radius-cards) bg-(--color-bg-primary) border border-(--color-border-default) p-2.5 sm:p-3">
             <p className="text-[10px] sm:text-xs text-(--color-text-muted) mb-1">
               {t.details}
             </p>
-            <p className="text-xs sm:text-sm text-rose-400 font-mono break-all">
+            <p className="text-xs sm:text-sm text-(--color-rose) font-mono break-all">
               {error.message || t.unknown}
             </p>
             {error.digest && (
@@ -85,7 +85,7 @@ export default function ErrorBoundary({
             <Button
               onPress={reset}
               size="sm"
-              className="bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-medium h-8 sm:h-9 text-xs sm:text-sm"
+              className="bg-(--color-accent-primary) hover:brightness-110 text-(--color-bg-primary) font-medium h-8 sm:h-9 text-xs sm:text-sm rounded-(--radius-buttons) transition-all duration-150"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -109,10 +109,10 @@ export default function ErrorBoundary({
             </Button>
 
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
               onPress={() => router.push("/")}
-              className="border-(--color-border-default) hover:bg-(--color-bg-surface) font-medium h-8 sm:h-9 text-xs sm:text-sm"
+              className="border border-(--color-border-default) hover:bg-(--color-bg-surface) font-medium h-8 sm:h-9 text-xs sm:text-sm rounded-(--radius-buttons) transition-all duration-150"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

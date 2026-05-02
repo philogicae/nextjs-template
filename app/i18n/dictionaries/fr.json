@@ -5,8 +5,8 @@
   },
   "nav": {
     "home": "Accueil",
-    "playground": "Bac à sable",
-    "skills": "SKILLS.md",
+    "playground": "Playground",
+    "skill": "SKILL.md",
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
     "toggleMenu": "Basculer le menu de navigation",
@@ -23,17 +23,22 @@
     "headingAccent": "Stack moderne",
     "subtitleLine1": "Un template Next.js prêt pour les agents, avec HeroUI et Biome.",
     "subtitleLine2": "Commencez à construire en quelques minutes.",
-    "ctaPlayground": "Essayer le bac à sable",
-    "ctaSkills": "Lire SKILLS.md",
+    "ctaPlayground": "Playground",
+    "ctaSkill": "Lire SKILL.md",
     "ctaGithub": "Voir sur GitHub",
     "ctaVercel": "Déployer sur Vercel",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "Conçu pour le développement moderne",
+    "featuresSubtitle": "Tout ce dont vous avez besoin pour livrer des applications prêtes pour la production.",
+    "ctaSectionTitle": "Prêt à commencer ?",
+    "ctaSectionSubtitle": "Explorez le bac à sable ou déployez sur Vercel en un clic.",
     "features": {
       "nextjs": "App Router + Turbo",
       "react": "Composants serveur",
       "tailwind": "Config CSS-first",
       "heroui": "Kit d'UI accessible",
       "biome": "Lint & format",
-      "skills": "Skills pour agents IA"
+      "skill": "Skill pour agents IA"
     }
   },
   "playground": {
@@ -58,7 +63,7 @@
     "endpoints": {
       "hello": "Renvoie un message de bienvenue avec horodatage.",
       "post": "Renvoie le corps JSON reçu avec un horodatage.",
-      "skills": "Sert le contenu brut de SKILLS.md pour la découverte par des agents IA."
+      "skill": "Sert le contenu brut de SKILL.md pour la découverte par des agents IA."
     }
   },
   "error": {

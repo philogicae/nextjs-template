@@ -4,7 +4,9 @@
 >
 > **Keep this file in sync while you work.** Every time you remove demo code, add a route/store/component, introduce an env variable, or change conventions, update the matching section of `AGENTS.md` in the same commit. The next agent reading it must see the current state of the project, not the template's baseline.
 >
-> **Track progress in `CHECKLIST.md`.** A structured, tickable bootstrap checklist lives at the repo root — it is the **only** source of truth for what has or hasn't been customized yet. This document deliberately does not duplicate that list; it covers conventions and patterns instead. When every box in `CHECKLIST.md` is ticked, delete it or replace it with a project-specific checklist.
+> **Track progress in [`CHECKLIST.md`](./CHECKLIST.md).** A structured, tickable bootstrap checklist lives at the repo root — it is the **only** source of truth for what has or hasn't been customized yet. This document deliberately does not duplicate that list; it covers conventions and patterns instead. When every box in `CHECKLIST.md` is ticked, delete it or replace it with a project-specific checklist.
+>
+> **Design Reference:** See [`DESIGN.md`](./DESIGN.md) for the complete design system reference (colors, typography, spacing, components).
 
 ## Requirements
 
@@ -16,10 +18,12 @@
 - **Framework**: Next.js 16 (App Router, Turbopack)
 - **UI**: HeroUI v3
 - **Styling**: Tailwind CSS v4 (CSS-first, via `@tailwindcss/postcss`)
+- **Design System**: Pre-configured dark and light modes. See [`DESIGN.md`](./DESIGN.md) for the complete reference (palette, typography, elevation, components).
 - **State**: Zustand + `persist` middleware
 - **Lint/format**: Biome 2
 - **Package manager**: pnpm 10
-- **i18n**: Provider-based (cookie + `Accept-Language`), no URL locale segment. Ships with `en` only; delete extra locales when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
+- **i18n**: Provider-based (cookie + `Accept-Language`), no URL locale segment. Ships with multiple locales (`en`, `fr`, `es`, `ro`); delete the ones you don't need when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
+- **Theme**: Light and dark mode support via next-themes. See [`DESIGN.md`](./DESIGN.md) for the complete token reference.
 
 ## Customization checklist
 
@@ -44,13 +48,13 @@ These exist **only** to showcase the template:
 - `app/api/hello/` — delete or replace with real endpoints
 - `app/stores/counter.ts`
 - `app/components/FeatureCard.tsx` and `app/components/StatusBadge.tsx` if unused
-- `/playground` entry in `siteConfig.nav` (`app/config/site.ts`); the `/skills.md` entry goes only if you also remove the agent surface (see the `SKILLS.md` section below)
-- Landing-page buttons in `app/page.tsx` that point to the playground, SKILLS.md, the GitHub repo, or "Deploy to Vercel"
+- `/playground` entry in `siteConfig.nav` (`app/config/site.ts`); the `/skill.md` entry goes only if you also remove the agent surface (see the `SKILL.md` section below)
+- Landing-page buttons in `app/page.tsx` that point to the playground, SKILL.md, the GitHub repo, or "Deploy to Vercel"
 
 Keep unless you have a reason to drop them:
 
-- `app/skills.md/route.ts` — serves `SKILLS.md` raw at `/skills.md`; useful for agent discovery
-- `app/api/skills/` — empty stub reserved for an agent-facing API; keep if you expose one, delete otherwise
+- `app/skill.md/route.ts` — serves `SKILL.md` raw at `/skill.md`; useful for agent discovery
+
 - `app/components/Container.tsx`, `Skeleton.tsx`, `ThemeToggle.tsx`
 - `app/config/site.ts`
 - `app/providers.tsx` (wraps children in `next-themes`'s `ThemeProvider`)
@@ -58,7 +62,7 @@ Keep unless you have a reason to drop them:
 - `app/{error,loading,not-found}.tsx`
 - `app/i18n/*` and `app/components/LanguageSwitcher.tsx` — the internationalization layer is core infrastructure. Drop a locale you don't want (see "Add a locale" above, in reverse) rather than ripping the whole system out.
 
-**`SKILLS.md` — rewrite by default, or delete.** The default expectation is that you **rewrite `SKILLS.md`** so agents can interact with the shipped application through the `/skills.md` endpoint. Describe the new project's routes, API, auth, env variables, and how an agent should consume it — not how to install the template. Suggested frontmatter + sections:
+**`SKILL.md` — rewrite by default, or delete.** The default expectation is that you **rewrite `SKILL.md`** so agents can interact with the shipped application through the `/skill.md` endpoint. Describe the new project's routes, API, auth, env variables, and how an agent should consume it — not how to install the template. Suggested frontmatter + sections:
 
 ```markdown
 ---
@@ -81,16 +85,24 @@ description: <what the app does, who it is for>
 ## How an agent should interact with the app
 ```
 
-If the project has no agent-facing surface and the user does not want one, delete instead: `SKILLS.md`, `app/skills.md/` (route handler), the `/skills.md` entry in `siteConfig.nav` (`app/config/site.ts`), and any landing-page button that links to `/skills.md` in `app/page.tsx`.
+If the project has no agent-facing surface and the user does not want one, delete instead: `SKILL.md`, `app/skill.md/` (route handler), the `/skill.md` entry in `siteConfig.nav` (`app/config/site.ts`), and any landing-page button that links to `/skill.md` in `app/page.tsx`.
 
 ## Project structure (template baseline)
 
 ```
 app/
 ├── api/                  # Route handlers (GET/POST/PUT/DELETE)
-├── skills.md/            # Serves SKILLS.md raw
+│   └── hello/            #   DEMO: example endpoint — delete or replace
+├── skill.md/             # Serves SKILL.md raw at /skill.md
 ├── components/           # Shared UI (no barrel — import per file)
+│   ├── Container.tsx     #   Width wrapper (keep)
+│   ├── Skeleton.tsx      #   Themed pulse placeholder (keep)
+│   ├── ThemeToggle.tsx   #   Dark/light switch (keep)
+│   ├── LanguageSwitcher.tsx # Locale dropdown (keep)
+│   ├── FeatureCard.tsx   #   DEMO: landing feature card — delete if unused
+│   └── StatusBadge.tsx   #   DEMO: status indicator — delete if unused
 ├── config/               # Site-wide config (site.ts) — edit here, not in layout/page
+│   └── site.ts           #   Name, description, nav, socials, theme colors
 ├── i18n/                 # Internationalization (provider-based, no URL segment)
 │   ├── config.ts         #   SINGLE REGISTRY: Locale, Dictionary, locales,
 │   │                     #   localeMeta, hasLocale(), getDictionary() — all
@@ -102,17 +114,44 @@ app/
 │   ├── actions.ts        #   setLocaleAction Server Action (writes NEXT_LOCALE cookie)
 │   └── LocaleProvider.tsx#   client context: useLocale(), useDict()
 ├── layout/               # Navbar.tsx (with LanguageSwitcher), Footer.tsx
+│   ├── Navbar.tsx
+│   └── Footer.tsx
+├── playground/           # DEMO: interactive playground page — delete
+│   └── page.tsx
 ├── stores/               # Zustand (no barrel — import per file)
+│   └── counter.ts        #   DEMO: counter store — delete if unused
 ├── utils/                # tw, debounce, media-query
+│   ├── tw.ts             #   cn() class merger
+│   ├── debounce.ts       #   Debounce hooks
+│   └── media-query.ts    #   Responsive hooks
 ├── globals.css           # Design tokens + CSS variables
 ├── layout.tsx            # Async root layout (reads locale, passes dict to providers)
 ├── providers.tsx         # Client providers (next-themes + LocaleProvider)
 ├── page.tsx              # Landing page
-├── error.tsx loading.tsx not-found.tsx
+├── error.tsx             # Error boundary
+├── loading.tsx           # Loading UI with Skeleton
+└── not-found.tsx         # 404 page
 public/                   # Static assets
-.env.example  next.config.mjs  biome.json  tsconfig.json
-Dockerfile  compose.yaml
-SKILLS.md  AGENTS.md  README.md
+├── images/
+│   ├── logo.gif
+│   ├── apple-touch-icon.png
+│   ├── 192x192.png
+│   ├── 512x512.png
+│   └── screenshot.jpeg
+├── favicon.ico
+├── manifest.json
+└── robots.txt
+.env.example              # Environment variable template
+next.config.mjs           # Next.js config (security headers, images, etc.)
+biome.json                # Lint/format config
+tsconfig.json             # TypeScript config (includes path aliases)
+Dockerfile                # Multi-stage build with standalone output
+compose.yaml              # Docker Compose configuration
+SKILL.md                  # Agent Skill definition (bootstrap instructions)
+AGENTS.md                 # In-repo agent conventions (this file)
+README.md                 # Human-facing project overview
+CHECKLIST.md              # Tickable bootstrap checklist
+DESIGN.md                 # Complete design system reference
 ```
 
 Path aliases (`tsconfig.json`, with `noUncheckedIndexedAccess` + `noImplicitOverride` on):
@@ -172,13 +211,39 @@ Path aliases (`tsconfig.json`, with `noUncheckedIndexedAccess` + `noImplicitOver
 
 **Styling**
 
-- Tailwind utilities + CSS variables.
+- Tailwind utilities + CSS variables from `globals.css`.
 - Use `cn()` from `@utils/tw` for conditional class merging.
+- **Always use CSS variables** — never raw hex values or Tailwind color classes like `text-emerald-500`.
 
 ```tsx
-<div className="bg-(--color-bg-surface) p-4">
-  <Button className="bg-(--color-accent-cyan)">Click</Button>
+// ✅ CORRECT — using CSS variables
+<div className="bg-(--color-bg-primary) text-(--color-text-primary)">
+  <span className="text-(--color-emerald)">Success</span>
+  <span className="text-(--color-rose)">Error</span>
+  <Button className="bg-(--color-accent-primary)">Click</Button>
 </div>
+
+// ❌ WRONG — raw values or Tailwind colors
+<div className="bg-[#08090a] text-[#f8fafc]">
+  <span className="text-emerald-500">Success</span>
+  <span className="text-rose-500">Error</span>
+</div>
+```
+
+**Available Color Tokens:**
+
+```
+Primitive:  --color-pitch-black, --color-graphite, --color-slate-elevated,
+            --color-neon-lime, --color-cyan-glow, --color-emerald,
+            --color-amber, --color-rose, --color-electric-violet, ...
+
+Semantic:   --color-bg-primary, --color-bg-secondary, --color-text-primary,
+            --color-text-secondary, --color-border-default, ...
+
+Accent:     --color-accent-primary, --color-accent-secondary, --color-accent-hover
+
+Status:     --color-emerald (success), --color-amber (warning),
+            --color-rose (error), --color-hot-pink (attention)
 ```
 
 **Example client component**
@@ -260,16 +325,11 @@ const { count } = useCounterStore();
 
 ## Theme system
 
-CSS variables live in `app/globals.css`. The palette is a violet + cyan duotone: soft violet-tinted paper in light mode, near-black violet-tinted surfaces in dark mode, with violet primary (`--color-text-accent`) and cyan secondary (`--color-accent-cyan`) accents that power the hero gradient and focus rings.
+CSS variables live in `app/globals.css`. See [`DESIGN.md`](./DESIGN.md) for the complete design reference including colors, typography, elevation, spacing, and component tokens.
 
-- `--color-bg-primary`, `--color-bg-secondary`, `--color-bg-surface`
-- `--color-text-primary`, `--color-text-secondary`, `--color-text-muted`, `--color-text-accent`
-- `--color-accent-cyan`, `--color-accent-cyan-hover`
-- `--color-border-default`, `--color-border-subtle`
-- `--space-xs` … `--space-2xl`
-- `--navbar-height`, `--navbar-height-mobile`
+> **Important:** `DESIGN.md` and `app/globals.css` must always stay synchronized. When you add, remove, or modify any design token in `globals.css`, update the corresponding section in `DESIGN.md` immediately. Both files are the source of truth — `globals.css` is the implementation, `DESIGN.md` is the documentation.
 
-The template uses Tailwind utilities for radius (`rounded-*`), shadow (`shadow-*`), and transitions (`transition-*`) instead of bespoke CSS vars. Add tokens here only when you need them across hand-written CSS. Animation keyframes (`fade-in-up`) and a `prefers-reduced-motion` override are also defined in `globals.css`.
+The template uses Tailwind utilities for radius (`rounded-*`), shadow (`shadow-*`), and transitions (`transition-*`) alongside CSS custom properties. Animation keyframes (`fade-in-up`, `fade-in`) and a `prefers-reduced-motion` override are defined in `globals.css`.
 
 Dark mode:
 
@@ -323,4 +383,5 @@ pnpm repomix  # Generate a markdown snapshot of the codebase for agents
 - [Zustand](https://zustand.docs.pmnd.rs/)
 - [Biome](https://biomejs.dev/)
 - [AGENTS.md standard](https://agents.md/)
-- [Agent Skills spec](https://agentskills.io/specification)
+- [Agent Skill spec](https://agentskills.io/specification)
+- [`DESIGN.md`](./DESIGN.md) — Complete design system reference

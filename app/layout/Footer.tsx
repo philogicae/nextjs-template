@@ -5,8 +5,6 @@ import { siteConfig } from "@config/site"
 import { useDict } from "@i18n/LocaleProvider"
 
 /**
- * Footer Component
- *
  * Shared site footer with meta links. Left side shows copyright,
  * right side shows social icons (GitHub, X). Maximum spacing between sides.
  *
@@ -20,7 +18,7 @@ export function Footer(): React.ReactElement {
   const x = siteConfig.social.find((s) => s.label === "X")?.href
 
   return (
-    <footer className="relative border-t border-(--color-border-default) bg-(--color-bg-primary)/60 backdrop-blur-sm">
+    <footer className="relative bg-(--color-bg-primary)/60 backdrop-blur-sm">
       <Container size="full" className="py-1 sm:py-1.5 md:py-2">
         <div className="flex items-center justify-between gap-2 text-[9px] sm:text-[11px] md:text-xs text-(--color-text-muted)">
           <div className="flex items-center gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1">

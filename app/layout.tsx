@@ -6,7 +6,7 @@ import { NavBar } from "@layout/Navbar"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata, Viewport } from "next"
-import { Roboto } from "next/font/google"
+import { IBM_Plex_Mono, Inter } from "next/font/google"
 import { Providers } from "./providers"
 
 const isVercel = !!process.env.VERCEL
@@ -14,12 +14,22 @@ const isVercel = !!process.env.VERCEL
 /**
  * Root layout for the Next.js application.
  * Configures fonts, metadata, and global viewport settings.
+ * Uses Linear design system: Inter for UI, IBM Plex Mono for code.
  */
 
-const font = Roboto({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-local",
-  weight: ["400", "500", "700"],
+  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700"],
+  preload: true,
+  display: "swap",
+  adjustFontFallback: true,
+})
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
   preload: true,
   display: "swap",
   adjustFontFallback: true,
@@ -84,7 +94,11 @@ export default async function RootLayout({
 }): Promise<React.ReactElement> {
   const { locale, dict } = await getCurrentDictionary()
   return (
-    <html lang={locale} className={font.variable} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${inter.variable} ${ibmPlexMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         {/*
          * Opt out of Dark Reader / Night Eye / Midnight Lizard style

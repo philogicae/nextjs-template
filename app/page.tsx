@@ -7,7 +7,7 @@ import { getCurrentDictionary } from "@i18n/server"
 import Link from "next/link"
 
 /**
- * Background grid pattern with radial accent glow.
+ * Background grid pattern with subtle Linear-style glow.
  */
 function BackgroundDecor(): React.ReactElement {
   return (
@@ -16,18 +16,18 @@ function BackgroundDecor(): React.ReactElement {
       className="absolute inset-0 overflow-hidden pointer-events-none"
     >
       <div
-        className="absolute inset-0 opacity-[0.035]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
-          backgroundImage: `linear-gradient(var(--color-text-accent) 1px, transparent 1px),
-            linear-gradient(90deg, var(--color-text-accent) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(var(--color-accent-primary) 1px, transparent 1px),
+            linear-gradient(90deg, var(--color-accent-primary) 1px, transparent 1px)`,
           backgroundSize: "80px 80px",
         }}
       />
       <div
-        className="absolute left-1/2 top-[-10%] h-[500px] w-[500px] -translate-x-1/2 rounded-full blur-3xl opacity-20"
+        className="absolute left-1/2 top-[-10%] h-[500px] w-[500px] -translate-x-1/2 rounded-full blur-3xl opacity-[0.15]"
         style={{
           background:
-            "radial-gradient(circle, var(--color-accent-cyan) 0%, transparent 70%)",
+            "radial-gradient(circle, var(--color-accent-primary) 0%, transparent 70%)",
         }}
       />
     </div>
@@ -67,7 +67,7 @@ const features = [
   { name: "Tailwind 4", icon: "🌊", descKey: "tailwind" },
   { name: "HeroUI v3", icon: "🎨", descKey: "heroui" },
   { name: "Biome", icon: "🛠️", descKey: "biome" },
-  { name: "SKILLS.md", icon: "📄", descKey: "skills" },
+  { name: "SKILL.md", icon: "📄", descKey: "skill" },
 ] as const satisfies readonly {
   name: string
   icon: string
@@ -91,16 +91,14 @@ export default async function LandingPage(): Promise<React.ReactElement> {
       <section className="relative w-full flex-1 flex flex-col justify-center px-4 py-8 sm:py-12">
         <Container size="md">
           <AnimatedSection delay={100} className="mb-4 sm:mb-6">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-(--color-text-primary) tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-(--color-text-primary) tracking-tight">
               {t.headingPrefix}{" "}
-              <span className="bg-linear-to-r from-(--color-text-accent) to-cyan-400 bg-clip-text text-transparent">
-                {t.headingAccent}
-              </span>
+              <span className="heading-accent-gradient">{t.headingAccent}</span>
             </h1>
           </AnimatedSection>
 
           <AnimatedSection delay={200} className="mb-6 sm:mb-8">
-            <p className="text-xs sm:text-sm md:text-base text-(--color-text-secondary) text-center max-w-xl mx-auto leading-relaxed px-2">
+            <p className="text-xs sm:text-sm md:text-base text-(--color-text-secondary) text-center max-w-xl mx-auto leading-relaxed px-2 tracking-[-0.13px]">
               {t.subtitleLine1}
               <br />
               {t.subtitleLine2}
@@ -112,16 +110,16 @@ export default async function LandingPage(): Promise<React.ReactElement> {
               <Link href="/playground" className="w-40 sm:w-auto">
                 <Button
                   size="sm"
-                  className="w-full sm:w-auto h-6 sm:h-8 px-2 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-semibold shadow-lg shadow-(--color-accent-cyan)/20"
+                  className="w-full sm:w-auto h-8 sm:h-9 px-4 sm:px-6 bg-(--color-accent-primary) hover:brightness-110 text-(--color-bg-primary) font-semibold rounded-(--radius-buttons) transition-all duration-150"
                 >
                   {t.ctaPlayground}
                 </Button>
               </Link>
-              <a href="/skills.md" className="w-40 sm:w-auto">
+              <a href="/skill.md" className="w-40 sm:w-auto">
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="sm"
-                  className="w-full sm:w-auto h-6 sm:h-8 px-2 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs border-(--color-border-default) hover:bg-(--color-bg-surface)"
+                  className="w-full sm:w-auto h-8 sm:h-9 px-4 text-xs text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface) rounded-(--radius-buttons) transition-all duration-150"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -133,14 +131,14 @@ export default async function LandingPage(): Promise<React.ReactElement> {
                     strokeWidth="2"
                     className="mr-1 sm:mr-1.5"
                   >
-                    <title>{t.ctaSkills}</title>
+                    <title>{t.ctaSkill}</title>
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                     <polyline points="14 2 14 8 20 8" />
                     <line x1="16" y1="13" x2="8" y2="13" />
                     <line x1="16" y1="17" x2="8" y2="17" />
                     <polyline points="10 9 9 9 8 9" />
                   </svg>
-                  {t.ctaSkills}
+                  {t.ctaSkill}
                 </Button>
               </a>
               <a
@@ -150,9 +148,9 @@ export default async function LandingPage(): Promise<React.ReactElement> {
                 className="w-40 sm:w-auto"
               >
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="sm"
-                  className="w-full sm:w-auto h-6 sm:h-8 px-2 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs border-(--color-border-default) hover:bg-(--color-bg-surface)"
+                  className="w-full sm:w-auto h-8 sm:h-9 px-4 text-xs text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface) rounded-(--radius-buttons) transition-all duration-150"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -177,9 +175,9 @@ export default async function LandingPage(): Promise<React.ReactElement> {
                 className="w-40 sm:w-auto"
               >
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="sm"
-                  className="w-full sm:w-auto h-6 sm:h-8 px-2 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs border-(--color-border-default) hover:bg-(--color-bg-surface)"
+                  className="w-full sm:w-auto h-8 sm:h-9 px-4 text-xs text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface) rounded-(--radius-buttons) transition-all duration-150"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

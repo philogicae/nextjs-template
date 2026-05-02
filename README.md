@@ -10,7 +10,7 @@ A modern, production-ready Next.js template featuring the latest technologies an
 - **Tailwind CSS 4** — Utility-first styling with CSS variables
 - **HeroUI v3** — Beautiful, accessible UI components
 - **Zustand** — Lightweight state management with persistence
-- **Dark Mode** — `next-themes` with `localStorage` persistence, system preference, and FOUC prevention
+- **Dark Mode** — `next-themes` with `localStorage` persistence, system preference, and FOUC prevention (see [`DESIGN.md`](./DESIGN.md))
 - **Biome** — Fast linting and code formatting
 - **Mobile-first** — Fully responsive layout
 - **Path Aliases** — Clean per-file imports with `@components/*`, `@config/*`, `@layout/*`, `@stores/*`, `@utils/*`
@@ -19,8 +19,8 @@ A modern, production-ready Next.js template featuring the latest technologies an
 - **Utility hooks** — `useDebounce`, `useDebouncedCallback`, `useDebounceState`, `useMediaQuery`, `useBreakpoint`
 - **Reduced-motion aware** — `prefers-reduced-motion` handled globally in `globals.css`
 - **Production-ready** — Multi-stage `Dockerfile` with `output: "standalone"`, GitHub Actions CI/CD, 6 security headers, AVIF/WebP images (with strict CSP), long-term static caching
-- **Agent-ready** — `AGENTS.md`, `SKILLS.md`, and a `/skills.md` route for dynamic agent discovery
-- **Internationalization** — server-resolved locale (cookie + `Accept-Language`) with a typed JSON-dictionary system, a client `LocaleProvider`, and a navbar `LanguageSwitcher`. Ships with **English** only; delete extra locales when customizing, add more as needed — no `[lang]` URL segment. **All user-visible text must use i18n** — no hardcoded strings in components
+- **Agent-ready** — [`AGENTS.md`](./AGENTS.md), [`SKILL.md`](./SKILL.md), [`DESIGN.md`](./DESIGN.md), [`CHECKLIST.md`](./CHECKLIST.md), and a `/skill.md` route for dynamic agent discovery
+- **Internationalization** — server-resolved locale (cookie + `Accept-Language`) with a typed JSON-dictionary system, a client `LocaleProvider`, and a navbar `LanguageSwitcher`. Ships with **English, French, Spanish, Romanian**; delete the ones you don't need when customizing, add more as needed — no `[lang]` URL segment. **All user-visible text must use i18n** — no hardcoded strings in components
 
 ## Getting Started
 
@@ -55,11 +55,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ```
 app/
 ├── api/                   # API routes
-│   ├── hello/
-│   │   └── route.ts       # (demo) Example GET/POST endpoint
-│   └── skills/            # Empty stub reserved for an agent-facing API
-├── skills.md/
-│   └── route.ts           # Serves SKILLS.md as raw text (cached 1h)
+│   └── hello/
+│       └── route.ts       # (demo) Example GET/POST endpoint
+├── skill.md/
+│   └── route.ts           # Serves SKILL.md as raw text (cached 1h)
 ├── components/            # Reusable UI components
 │   ├── Container.tsx      # Page width wrapper
 │   ├── FeatureCard.tsx    # (demo) Landing page feature card
@@ -108,9 +107,10 @@ public/                    # Static assets
 ├── manifest.json
 └── robots.txt
 
-SKILLS.md                  # Agent Skills definition (served at /skills.md)
+SKILL.md                   # Agent Skill definition (served at /skill.md)
 AGENTS.md                  # In-repo agent conventions
 CHECKLIST.md               # Tickable bootstrap checklist (delete once done)
+DESIGN.md                  # Complete design system reference
 ```
 
 ## AI Agent Configuration
@@ -118,8 +118,8 @@ CHECKLIST.md               # Tickable bootstrap checklist (delete once done)
 This project includes AI agent configuration files:
 
 - **AGENTS.md** — conventions for an agent working inside an already-cloned repo: customization checklist, code style, and architecture guidance. Meant to be kept in sync as the project evolves.
-- **SKILLS.md** — bootstrap skill for an agent starting a **new** project from this template: clone, folder tour, customize / delete checklist, and the conventions it needs to do that correctly. Once the project ships, this file should be rewritten to describe the new app (routes, API, env) — or deleted if there is no agent-facing surface.
-- **CHECKLIST.md** — structured, tickable bootstrap checklist that mirrors the customization / delete / sanity-check steps from `AGENTS.md` and `SKILLS.md`. Agents should tick boxes as they go so the next session sees exactly what is left. Delete it once every box is ticked.
+- **SKILL.md** — bootstrap skill for an agent starting a **new** project from this template: clone, folder tour, customize / delete checklist, and the conventions it needs to do that correctly. Once the project ships, this file should be rewritten to describe the new app (routes, API, env) — or deleted if there is no agent-facing surface.
+- **CHECKLIST.md** — structured, tickable bootstrap checklist that mirrors the customization / delete / sanity-check steps from `AGENTS.md` and `SKILL.md`. Agents should tick boxes as they go so the next session sees exactly what is left. Delete it once every box is ticked.
 
 Usable with (and beyond): [Claude Code](https://claude.ai/code), [Cursor](https://www.cursor.com/), [Windsurf](https://windsurf.com/), [OpenClaw](https://openclaw.ai/), [Hermes](https://hermes-agent.nousresearch.com/)
 
@@ -132,20 +132,20 @@ Standardized instructions following the [AGENTS.md standard](https://agents.md/)
 - Component patterns (Client vs Server)
 - Development workflows and commands
 
-### SKILLS.md
+### SKILL.md
 
-Agent Skills definition following the [Agent Skills specification](https://agentskills.io/specification):
+Agent Skill definition following the [Agent Skill specification](https://agentskills.io/specification):
 
 - Skill metadata and compatibility
 - Bootstrap workflow (clone, folder tour, customize / delete checklist)
 - Template conventions reference (stack, code style, common tasks, theme, utilities)
-- Template for rewriting `SKILLS.md` after customization so agents can interact with the shipped app
+- Template for rewriting `SKILL.md` after customization so agents can interact with the shipped app
 
-The skills definition is also served at `/skills.md` as raw text for dynamic discovery by AI agents.
+The skill definition is also served at `/skill.md` as raw text for dynamic discovery by AI agents.
 
 ### Live Demo
 
-Visit the [live demo](https://fractal-nextjs.vercel.app/) to see the template in action, including the AI Agent Integration section with tabs for AGENTS.md, SKILLS.md, and Repomix documentation.
+Visit the [live demo](https://fractal-nextjs.vercel.app/) to see the template in action, including the AI Agent Integration section with tabs for AGENTS.md, SKILL.md, and Repomix documentation.
 
 ## Deployment
 
@@ -177,25 +177,45 @@ docker compose up --build       # Build and run on :3000
 
 ### Design Tokens
 
-Edit `app/globals.css` to customize colors, spacing, and layout vars. It ships with a violet + cyan duotone (violet primary, cyan secondary — pairs beautifully for the hero gradient):
+Edit `app/globals.css` to customize colors, spacing, and layout vars. See [`DESIGN.md`](./DESIGN.md) for the complete reference:
+
+> **Note:** These files must stay synchronized — `globals.css` is the implementation, `DESIGN.md` is the documentation. When you modify tokens in one, update the other immediately.
 
 ```css
 :root {
-  /* Light — soft violet-tinted paper */
-  --color-bg-primary: #fbfaff;
-  --color-text-accent: #7c3aed; /* violet-600 */
-  --color-accent-cyan: #06b6d4; /* cyan-500  */
-  /* ... */
+  /* Dark Mode: Pitch Black Canvas */
+  --color-bg-primary: #08090a; /* Page background */
+  --color-bg-secondary: #0f1011; /* Elevated surfaces */
+  --color-bg-elevated: #161718; /* Cards */
+  --color-text-primary: #f7f8f8; /* Primary text */
+  --color-text-secondary: #d0d6e0; /* Secondary text */
+  --color-text-muted: #8a8f98; /* Tertiary text */
+
+  /* Primary accent (dark mode) */
+  --color-accent-primary: #e4f222; /* Buttons, links, focus */
+  --color-accent-secondary: #5e6ad2; /* Secondary highlight */
 }
-.dark {
-  /* Dark — near-black with a faint violet hue */
-  --color-bg-primary: #07060d;
-  --color-text-accent: #a78bfa; /* violet-400 */
-  --color-accent-cyan: #22d3ee; /* cyan-400  */
+
+.light {
+  /* Light Mode: Pure White Canvas */
+  --color-bg-primary: #ffffff; /* Page background */
+  --color-bg-secondary: #f9fafb; /* Elevated surfaces */
+  --color-bg-elevated: #f3f4f6; /* Cards */
+  --color-text-primary: #111827; /* Primary text */
+  --color-text-secondary: #4b5563; /* Secondary text */
+  --color-text-muted: #6b7280; /* Tertiary text */
+
+  /* Primary accent (light mode) */
+  --color-accent-primary: #5e6ad2; /* Buttons, links, focus */
+  --color-accent-secondary: #e4f222; /* Secondary highlight */
 }
 ```
 
-Radius, shadow, and transitions are driven by Tailwind utilities (`rounded-*`, `shadow-*`, `transition-*`) rather than bespoke CSS vars.
+**Typography:** Inter Variable (weights 300, 400, 510, 590) with tight tracking (-0.13px to -0.22px).
+
+**Components:** 6px radius buttons/cards/inputs, 2px tags, 4px badges. Compact density with 8px element gaps. Layered surfaces for elevation with subtle shadows.
+
+**Looking for design inspiration?** Browse curated design templates at [styles.refero.design](https://styles.refero.design/).
 
 ### Path Aliases
 
@@ -283,7 +303,7 @@ import { getCurrentDictionary } from "@i18n/server";
 const { dict, locale } = await getCurrentDictionary();
 ```
 
-**Supported locales** (see `app/i18n/config.ts`): `en` (default). Delete extra locale files when customizing; add more only when needed. **All user-visible text must use i18n** — in Server Components use `const { dict } = await getCurrentDictionary()`, in Client Components use `const dict = useDict()`.
+**Supported locales** (see `app/i18n/config.ts`): `en` (default), `fr`, `es`, `ro`. Delete extra locale files when customizing; add more only when needed. **All user-visible text must use i18n** — in Server Components use `const { dict } = await getCurrentDictionary()`, in Client Components use `const dict = useDict()`.
 
 Site-wide nav entries in `app/config/site.ts` carry a `labelKey` (not a literal label); the `Navbar` resolves it against `dict.nav`, which guarantees translation coverage at the type level.
 
@@ -292,10 +312,10 @@ Site-wide nav entries in `app/config/site.ts` carry a `labelKey` (not a literal 
 Visit `/playground` to test the API endpoints and Zustand state management:
 
 - GET/POST requests to `/api/hello` with live status badges
-- GET request to `/skills.md` (returns raw SKILLS.md content)
+- GET request to `/skill.md` (returns raw SKILL.md content)
 - Zustand counter demo (increment, decrement, +5, reset, undo)
 
-> The `/playground` page, `/api/hello` route, the counter store, and `FeatureCard` / `StatusBadge` components are included as examples only. When starting a new project from this template, remove them — see `SKILLS.md` and `AGENTS.md` for the full customization checklist.
+> The `/playground` page, `/api/hello` route, the counter store, and `FeatureCard` / `StatusBadge` components are included as examples only. When starting a new project from this template, remove them — see `SKILL.md` and `AGENTS.md` for the full customization checklist.
 
 ## License
 

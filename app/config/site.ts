@@ -11,7 +11,7 @@
 export type NavLabelKey =
   | "home"
   | "playground"
-  | "skills"
+  | "skill"
   | "openMenu"
   | "closeMenu"
   | "toggleMenu"
@@ -26,7 +26,7 @@ export interface NavLink {
   labelKey: NavLabelKey
   /**
    * When true, rendered with a plain `<a>` instead of `next/link`.
-   * Use for route handlers (e.g. `/skills.md`) or absolute URLs.
+   * Use for route handlers (e.g. `/skill.md`) or absolute URLs.
    */
   external?: boolean
 }
@@ -37,21 +37,21 @@ export interface SocialLink {
 }
 
 export const siteConfig = {
-  name: "Next.js Template",
-  shortName: "Next.js Template",
+  name: "Fractal Template",
+  shortName: "Fractal Template",
   description:
     "A modern Next.js template with HeroUI, Tailwind CSS, and TypeScript",
   keywords: ["Next.js", "React", "TypeScript", "Tailwind CSS", "HeroUI"],
   url: "https://fractal-nextjs.vercel.app/",
   license: "MIT License",
   themeColor: {
-    light: "#fbfaff",
-    dark: "#07060d",
+    light: "#ffffff", // Pure White canvas
+    dark: "#08090a", // Pitch Black canvas
   },
   nav: [
     { href: "/", labelKey: "home" },
     { href: "/playground", labelKey: "playground" },
-    { href: "/skills.md", labelKey: "skills", external: true },
+    { href: "/skill.md", labelKey: "skill", external: true },
   ] as const satisfies readonly NavLink[],
   social: [
     { label: "GitHub", href: "https://github.com/philogicae/nextjs-template" },

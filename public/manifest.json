@@ -1,11 +1,11 @@
 {
-  "name": "Next.js Template",
-  "short_name": "Template",
+  "name": "Fractal Template",
+  "short_name": "Fractal Template",
   "description": "A modern Next.js template with HeroUI, Tailwind CSS, and TypeScript",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#07060d",
-  "theme_color": "#07060d",
+  "background_color": "#08090a",
+  "theme_color": "#08090a",
   "orientation": "portrait-primary",
   "icons": [
     {

@@ -6,7 +6,7 @@
   "nav": {
     "home": "Acasă",
     "playground": "Playground",
-    "skills": "SKILLS.md",
+    "skill": "SKILL.md",
     "openMenu": "Deschide meniul",
     "closeMenu": "Închide meniul",
     "toggleMenu": "Comută meniul de navigare",
@@ -23,17 +23,22 @@
     "headingAccent": "Stack Modern",
     "subtitleLine1": "Un șablon Next.js pregătit pentru agenți, cu HeroUI și Biome.",
     "subtitleLine2": "Începe să construiești în câteva minute.",
-    "ctaPlayground": "Încearcă Playground-ul",
-    "ctaSkills": "Citește SKILLS.md",
+    "ctaPlayground": "Playground",
+    "ctaSkill": "Citește SKILL.md",
     "ctaGithub": "Vezi pe GitHub",
     "ctaVercel": "Publică pe Vercel",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "Construit pentru dezvoltare modernă",
+    "featuresSubtitle": "Tot ce ai nevoie pentru a livra aplicații pregătite pentru producție.",
+    "ctaSectionTitle": "Gata să începi?",
+    "ctaSectionSubtitle": "Explorează playground-ul sau publică pe Vercel cu un singur click.",
     "features": {
       "nextjs": "App Router + Turbo",
       "react": "Server Components",
       "tailwind": "Configurare CSS-first",
       "heroui": "Kit UI accesibil",
       "biome": "Lint și formatare",
-      "skills": "Abilități pentru agenți AI"
+      "skill": "Abilități pentru agenți AI"
     }
   },
   "playground": {
@@ -58,7 +63,7 @@
     "endpoints": {
       "hello": "Returnează un mesaj de salut cu marcaj temporal.",
       "post": "Returnează înapoi un corp JSON cu marcaj temporal.",
-      "skills": "Servește conținutul brut SKILLS.md pentru descoperirea de către agenți AI."
+      "skill": "Servește conținutul brut SKILL.md pentru descoperirea de către agenți AI."
     }
   },
   "error": {

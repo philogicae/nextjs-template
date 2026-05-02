@@ -57,7 +57,7 @@ export function LanguageSwitcher(): React.ReactElement {
                 {isActive && (
                   <span
                     aria-hidden="true"
-                    className="ml-auto text-(--color-accent-cyan)"
+                    className="ml-auto text-(--color-accent-primary)"
                   >
                     ✓
                   </span>

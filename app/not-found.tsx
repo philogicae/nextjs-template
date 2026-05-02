@@ -14,7 +14,7 @@ export default async function NotFound(): Promise<React.ReactElement> {
   const t = dict.notFound
   return (
     <div className="relative flex-1 w-full flex items-center justify-center px-4 py-12 sm:py-20">
-      <Card className="max-w-sm sm:max-w-md w-full p-4 sm:p-6 md:p-8 text-center border border-(--color-border-default) bg-(--color-bg-surface)/50 shadow-none">
+      <Card className="max-w-sm sm:max-w-md w-full p-4 sm:p-6 md:p-8 text-center border border-(--color-border-default) bg-(--color-bg-secondary) rounded-(--radius-cards) shadow-none">
         <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto mb-4 sm:mb-6 rounded-full bg-(--color-bg-primary) border border-(--color-border-default) flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ export default async function NotFound(): Promise<React.ReactElement> {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-(--color-text-accent)"
+            className="text-(--color-accent-primary)"
           >
             <title>{t.title}</title>
             <circle cx="12" cy="12" r="10" />
@@ -45,7 +45,7 @@ export default async function NotFound(): Promise<React.ReactElement> {
 
         <Link
           href="/"
-          className="inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 rounded-lg bg-(--color-accent-cyan) hover:bg-(--color-accent-cyan-hover) text-(--color-accent-cyan-fg) font-medium w-full transition-colors text-sm sm:text-base"
+          className="inline-flex items-center justify-center px-4 py-2.5 rounded-(--radius-buttons) bg-(--color-accent-primary) hover:brightness-110 text-(--color-bg-primary) font-medium w-full transition-all duration-150 text-sm sm:text-base tracking-[-0.11px]"
         >
           {t.home}
         </Link>

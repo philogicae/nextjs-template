@@ -44,8 +44,8 @@ RUN addgroup --system --gid 1001 nodejs \
 COPY --from=builder --chown=nextjs:nodejs /webapp/public ./public
 COPY --from=builder --chown=nextjs:nodejs /webapp/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /webapp/.next/static ./.next/static
-# SKILLS.md is read at runtime by app/skills.md/route.ts via process.cwd()
-COPY --from=builder --chown=nextjs:nodejs /webapp/SKILLS.md ./SKILLS.md
+# SKILL.md is read at runtime by app/skill.md/route.ts via process.cwd()
+COPY --from=builder --chown=nextjs:nodejs /webapp/SKILL.md ./SKILL.md
 
 USER nextjs
 EXPOSE 3000

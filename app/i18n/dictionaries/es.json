@@ -5,8 +5,8 @@
   },
   "nav": {
     "home": "Inicio",
-    "playground": "Área de pruebas",
-    "skills": "SKILLS.md",
+    "playground": "Playground",
+    "skill": "SKILL.md",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
     "toggleMenu": "Alternar menú de navegación",
@@ -23,17 +23,22 @@
     "headingAccent": "Stack moderno",
     "subtitleLine1": "Una plantilla Next.js lista para agentes, con HeroUI y Biome.",
     "subtitleLine2": "Empieza a construir en minutos.",
-    "ctaPlayground": "Probar el área de pruebas",
-    "ctaSkills": "Leer SKILLS.md",
+    "ctaPlayground": "Playground",
+    "ctaSkill": "Leer SKILL.md",
     "ctaGithub": "Ver en GitHub",
     "ctaVercel": "Desplegar en Vercel",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "Construido para el desarrollo moderno",
+    "featuresSubtitle": "Todo lo que necesitas para implementar aplicaciones listas para producción.",
+    "ctaSectionTitle": "¿Listo para empezar?",
+    "ctaSectionSubtitle": "Explora el área de pruebas o despliega en Vercel con un clic.",
     "features": {
       "nextjs": "App Router + Turbo",
       "react": "Componentes de servidor",
       "tailwind": "Config CSS-first",
       "heroui": "Kit de UI accesible",
       "biome": "Lint y formato",
-      "skills": "Skills para agentes IA"
+      "skill": "Skill para agentes IA"
     }
   },
   "playground": {
@@ -58,7 +63,7 @@
     "endpoints": {
       "hello": "Devuelve un mensaje de bienvenida con marca de tiempo.",
       "post": "Devuelve el cuerpo JSON recibido con una marca de tiempo.",
-      "skills": "Sirve el contenido crudo de SKILLS.md para descubrimiento por agentes IA."
+      "skill": "Sirve el contenido crudo de SKILL.md para descubrimiento por agentes IA."
     }
   },
   "error": {

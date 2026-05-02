@@ -6,7 +6,7 @@
   "nav": {
     "home": "Home",
     "playground": "Playground",
-    "skills": "SKILLS.md",
+    "skill": "SKILL.md",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "toggleMenu": "Toggle navigation menu",
@@ -23,17 +23,22 @@
     "headingAccent": "Modern Stack",
     "subtitleLine1": "An Agent-ready Next.js template with HeroUI & Biome.",
     "subtitleLine2": "Start building in minutes.",
-    "ctaPlayground": "Try the Playground",
-    "ctaSkills": "Read SKILLS.md",
+    "ctaPlayground": "Playground",
+    "ctaSkill": "Read SKILL.md",
     "ctaGithub": "View on GitHub",
     "ctaVercel": "Deploy to Vercel",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "Built for modern development",
+    "featuresSubtitle": "Everything you need to ship production-ready applications.",
+    "ctaSectionTitle": "Ready to get started?",
+    "ctaSectionSubtitle": "Explore the playground or deploy to Vercel in one click.",
     "features": {
       "nextjs": "App Router + Turbo",
       "react": "Server Components",
       "tailwind": "CSS-first config",
       "heroui": "Accessible UI kit",
       "biome": "Lint & format",
-      "skills": "AI agent skills"
+      "skill": "AI agent skill"
     }
   },
   "playground": {
@@ -58,7 +63,7 @@
     "endpoints": {
       "hello": "Returns a hello message with timestamp.",
       "post": "Echoes back a JSON body with timestamp.",
-      "skills": "Serves raw SKILLS.md content for AI agent discovery."
+      "skill": "Serves raw SKILL.md content for AI agent discovery."
     }
   },
   "error": {

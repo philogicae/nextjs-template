@@ -15,7 +15,7 @@ function SunIcon(): React.ReactElement {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-3 h-3 sm:w-4 sm:h-4 text-(--color-text-accent)"
+      className="w-3 h-3 sm:w-4 sm:h-4 text-(--color-accent-primary)"
     >
       <title>Sun icon</title>
       <circle cx="12" cy="12" r="5" />

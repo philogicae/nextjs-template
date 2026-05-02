@@ -2,91 +2,262 @@
 @import "@heroui/styles";
 @custom-variant dark (&:is(.dark *));
 
-/* ============================================
-   CRITICAL CSS - Above the fold optimizations
-   ============================================ */
-
-/* Prevent FOUC. Matches --color-bg-primary below; `next-themes` adds the
-   `dark` class before first paint when needed. */
-html {
-  background-color: #fbfaff;
-}
-html.dark {
-  background-color: #07060d;
-}
-
-/* Preload critical font display */
-@font-face {
-  font-family: "Roboto Fallback";
-  src: local("Arial");
-  size-adjust: 100%;
-  ascent-override: 90%;
-  descent-override: 20%;
-  line-gap-override: 0%;
-}
+/*
+ * Design System
+ * Evolved from Linear "Midnight Command Center"
+ *
+ * Principles:
+ * - Dark Mode: Pitch black (#08090a) canvas + Neon Lime (#a3e635) + Cyan (#06b6d4) accents
+ * - Light Mode: Sky White (#f0f9ff) canvas with warm Orange (#ea580c) → Amber (#f59e0b) →
+ *   Yellow (#fbbf24) → Sand (#fde68a) → Azure Mist (#bae6fd) navbar gradient,
+ *   plus Turquoise (#06b6d4) accents — evoking sunrise over Mediterranean waters
+ * - Typography: Inter Variable with tight tracking
+ * - Shapes: 6px radius, compact density
+ * - Accents: Paired complementary colors for beautiful gradients
+ */
 
 /* ============================================
-   DESIGN TOKENS - Global Theme Variables
+   CRITICAL CSS - FOUC Prevention
    ============================================ */
 
 /*
- * Palette: violet + cyan duotone.
- *   Light — soft violet-tinted paper, indigo ink, violet/cyan accents.
- *   Dark  — near-black with a faint violet hue, violet-400 + cyan-400
- *           for vivid accents and hero gradient.
- * The `--color-accent-cyan` and `--color-text-accent` pair powers the
- * hero gradient (`from-(--color-text-accent) to-cyan-400`) and focus rings.
+ * These hardcoded values are INTENTIONAL for FOUC prevention.
+ * They match the --color-bg-primary values for each mode to ensure
+ * the browser shows the correct background color before CSS loads.
  */
-:root {
-  /* Surfaces */
-  --color-bg-primary: #fbfaff;
-  --color-bg-secondary: #eef2ff;
-  --color-bg-surface: rgba(224, 231, 255, 0.55);
 
-  /* Borders */
-  --color-border-default: rgba(165, 180, 252, 0.45);
-  --color-border-subtle: rgba(199, 210, 254, 0.55);
-
-  /* Text */
-  --color-text-primary: #1e1b4b;
-  --color-text-secondary: #475569;
-  --color-text-muted: #94a3b8;
-  --color-text-accent: #7c3aed;
-
-  /* Accents (cyan companion, used with text-accent for gradients) */
-  --color-accent-cyan: #06b6d4;
-  --color-accent-cyan-hover: #0891b2;
-  --color-accent-cyan-fg: #ffffff;
-
-  /* Spacing */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-
-  /* Layout */
-  --navbar-height: 3rem;
-  --navbar-height-mobile: 2rem;
+html {
+  background-color: #f0f9ff; /* Matches --color-sky-white (light mode bg) */
+}
+html.dark {
+  background-color: #08090a; /* Matches --color-pitch-black (dark mode bg) */
 }
 
-.dark {
-  --color-bg-primary: #07060d;
-  --color-bg-secondary: #120d24;
-  --color-bg-surface: rgba(139, 92, 246, 0.08);
+/* ============================================
+   DESIGN TOKENS
+   ============================================ */
 
-  --color-border-default: rgba(139, 92, 246, 0.22);
-  --color-border-subtle: rgba(139, 92, 246, 0.12);
+:root {
+  /* ----------------------------------------
+     Primitive Colors - Dark Mode
+     Pitch black base with vibrant accents
+     ---------------------------------------- */
+  --color-pitch-black: #08090a;
+  --color-void: #0a0a0f;
+  --color-graphite: #111113;
+  --color-slate-elevated: #1a1a1e;
+  --color-slate-border: #27272a;
+  --color-slate-muted: #3f3f46;
 
-  --color-text-primary: #f5f3ff;
-  --color-text-secondary: #d4d4d8;
-  --color-text-muted: #71717a;
-  --color-text-accent: #a78bfa;
+  --color-ghost-white: #f8fafc;
+  --color-cloud: #cbd5e1;
+  --color-steel-blue: #94a3b8;
+  --color-slate-dim: #64748b;
 
-  --color-accent-cyan: #22d3ee;
-  --color-accent-cyan-hover: #67e8f9;
-  --color-accent-cyan-fg: #000000;
+  --color-neon-lime: #a3e635;
+  --color-cyan-glow: #06b6d4;
+  --color-electric-violet: #8b5cf6;
+  --color-hot-pink: #ec4899;
+  --color-emerald: #10b981;
+  --color-amber: #f59e0b;
+  --color-rose: #f43f5e;
+
+  /* ----------------------------------------
+     Primitive Colors - Light Mode
+     Sky white background with warm orange-amber-yellow-sand-to-azure
+     navbar gradient evoking sunrise over Mediterranean waters
+     ---------------------------------------- */
+  --color-sky-white: #f0f9ff;
+  --color-cloud-light: #e0f2fe;
+  --color-azure-mist: #bae6fd;
+  --color-sand-pale: #fefce8;
+
+  --color-deep-ocean: #0c4a6e;
+  --color-sea-stone: #334155;
+  --color-warm-slate: #475569;
+
+  --color-turquoise: #06b6d4;
+  --color-azure: #0ea5e9;
+  --color-coral-soft: #fda4af;
+  --color-sand-warm: #fde68a;
+
+  /* Navbar gradient colors (light mode Mediterranean theme) */
+  --color-navbar-orange: #ea580c;
+  --color-navbar-amber: #f59e0b;
+  --color-navbar-yellow: #fbbf24;
+  --color-navbar-sand: #fde68a;
+
+  /* Heading gradient colors (used in .heading-accent-gradient) */
+  --color-heading-gradient-start: var(--color-neon-lime);
+  --color-heading-gradient-end: var(--color-cyan-glow);
+
+  /* ----------------------------------------
+     Semantic Tokens - Dark Mode
+     ---------------------------------------- */
+  --color-bg-primary: var(--color-pitch-black);
+  --color-bg-secondary: var(--color-graphite);
+  --color-bg-elevated: var(--color-slate-elevated);
+  --color-bg-surface: var(--color-slate-border);
+
+  --color-text-primary: var(--color-ghost-white);
+  --color-text-secondary: var(--color-cloud);
+  --color-text-muted: var(--color-steel-blue);
+  --color-text-tertiary: var(--color-slate-dim);
+
+  --color-border-default: var(--color-slate-border);
+  --color-border-subtle: var(--color-slate-muted);
+  --color-border-input: var(--color-slate-muted);
+
+  --color-accent-primary: var(--color-neon-lime);
+  --color-accent-secondary: var(--color-cyan-glow);
+  --color-accent-hover: #bef264;
+
+  /* ----------------------------------------
+     Typography
+     ---------------------------------------- */
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
+
+  /* Type Scale - sizes with line height and tracking */
+  --text-caption: 10px;
+  --leading-caption: 1.4;
+  --tracking-caption: -0.1px;
+
+  --text-body: 14px;
+  --leading-body: 1.4;
+  --tracking-body: -0.13px;
+
+  --text-body-sm: 13px;
+  --leading-body-sm: 1.4;
+  --tracking-body-sm: -0.11px;
+
+  --text-body-lg: 16px;
+  --leading-body-lg: 1.47;
+  --tracking-body-lg: -0.15px;
+
+  --text-heading-sm: 17px;
+  --leading-heading-sm: 1.2;
+  --tracking-heading-sm: -0.12px;
+
+  --text-heading: 24px;
+  --leading-heading: 1.33;
+  --tracking-heading: -0.22px;
+
+  --text-heading-lg: 32px;
+  --leading-heading-lg: 1.2;
+  --tracking-heading-lg: -0.22px;
+
+  --text-display-sm: 48px;
+  --leading-display-sm: 1.2;
+  --tracking-display-sm: -0.22px;
+
+  --text-display: 72px;
+  --leading-display: 1;
+  --tracking-display: -0.22px;
+
+  /* ----------------------------------------
+     Spacing (Base unit: 4px)
+     ---------------------------------------- */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+  --spacing-36: 36px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-128: 128px;
+
+  /* ----------------------------------------
+     Layout
+     ---------------------------------------- */
+  --element-gap: 8px;
+  --section-gap: 24px;
+  --card-padding: 12px;
+  --page-max-width: 1200px;
+  --navbar-height: 48px;
+  --navbar-height-mobile: 44px;
+
+  /* ----------------------------------------
+     Border Radius
+     ---------------------------------------- */
+  --radius-pill: 9999px;
+  --radius-tags: 2px;
+  --radius-badges: 4px;
+  --radius-cards: 6px;
+  --radius-inputs: 6px;
+  --radius-buttons: 6px;
+  --radius-default: 6px;
+
+  /* ----------------------------------------
+     Shadows - Dark Mode
+     ---------------------------------------- */
+  --shadow-sm: rgba(0, 0, 0, 0.4) 0px 2px 4px 0px;
+  --shadow-md: rgba(0, 0, 0, 0.2) 0px 0px 12px 0px inset;
+  --shadow-subtle: rgb(35, 37, 42) 0px 0px 0px 1px inset;
+  --shadow-subtle-2: rgba(0, 0, 0, 0.2) 0px 0px 0px 1px;
+  --shadow-subtle-3:
+    rgba(0, 0, 0, 0.01) 0px 5px 2px 0px, rgba(0, 0, 0, 0.04) 0px 3px 2px 0px,
+    rgba(0, 0, 0, 0.07) 0px 1px 1px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px;
+  --shadow-xl: rgba(8, 9, 10, 0.6) 0px 4px 32px 0px;
+  --shadow-input: rgba(0, 0, 0, 0.2) 0px 0px 0px 1px;
+  --shadow-focus: rgba(228, 242, 34, 0.4) 0px 0px 0px 2px;
+  --shadow-halo-color: transparent;
+}
+
+/* ============================================
+   Light Mode Overrides
+   ============================================ */
+
+html:not(.dark) {
+  /* Semantic Tokens - Mediterranean Summer Morning */
+  --color-bg-primary: var(--color-sky-white);
+  --color-bg-secondary: var(--color-cloud-light);
+  --color-bg-elevated: var(--color-sky-white);
+  --color-bg-surface: var(--color-azure-mist);
+
+  --color-text-primary: var(--color-deep-ocean);
+  --color-text-secondary: var(--color-sea-stone);
+  --color-text-muted: var(--color-warm-slate);
+  --color-text-tertiary: #64748b;
+
+  --color-border-default: var(--color-azure-mist);
+  --color-border-subtle: var(--color-cloud-light);
+  --color-border-input: var(--color-azure-mist);
+
+  --color-accent-primary: var(--color-turquoise);
+  --color-accent-secondary: var(--color-azure);
+  --color-accent-hover: #0891b2;
+
+  /* Shadows - fresh morning tints */
+  --shadow-sm: rgba(6, 182, 212, 0.06) 0px 2px 4px 0px;
+  --shadow-md: rgba(14, 165, 233, 0.04) 0px 0px 12px 0px inset;
+  --shadow-subtle: rgb(224, 242, 254) 0px 0px 0px 1px inset;
+  --shadow-subtle-2: rgba(6, 182, 212, 0.08) 0px 0px 0px 1px;
+  --shadow-subtle-3:
+    rgba(6, 182, 212, 0.02) 0px 5px 2px 0px,
+    rgba(14, 165, 233, 0.03) 0px 3px 2px 0px,
+    rgba(6, 182, 212, 0.04) 0px 1px 1px 0px,
+    rgba(14, 165, 233, 0.05) 0px 0px 1px 0px;
+  --shadow-xl: rgba(6, 182, 212, 0.1) 0px 4px 32px 0px;
+  --shadow-input: rgba(6, 182, 212, 0.08) 0px 0px 0px 1px;
+  --shadow-focus: rgba(6, 182, 212, 0.3) 0px 0px 0px 2px;
+  --shadow-halo-color: rgba(0, 0, 0, 0.3);
+
+  /* Light mode heading gradient override */
+  --color-heading-gradient-start: var(--color-amber);
+  --color-heading-gradient-end: var(--color-azure);
 }
 
 /* ============================================
@@ -94,35 +265,19 @@ html.dark {
    ============================================ */
 
 html {
-  @apply font-sans antialiased;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   color: var(--color-text-primary);
   min-height: 100dvh;
 }
 
-/*
- * Page layout: topbar -> main -> footer, sticky footer pattern.
- * When content fits the viewport, `main` grows via `flex: 1` and its children
- * may use `justify-center` to vertically center. When content overflows,
- * the body grows and the native page scrollbar kicks in — no forced overflow.
- */
 body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
   margin: 0;
-  background:
-    radial-gradient(
-      ellipse at 15% -10%,
-      color-mix(in oklab, var(--color-text-accent) 14%, transparent) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse at 110% 10%,
-      color-mix(in oklab, var(--color-accent-cyan) 12%, transparent) 0%,
-      transparent 60%
-    ),
-    linear-gradient(135deg, var(--color-bg-primary), var(--color-bg-secondary));
-  background-attachment: fixed;
+  background: var(--color-bg-primary);
 }
 
 main {
@@ -132,30 +287,126 @@ main {
 }
 
 /* ============================================
-    CUSTOM COMPONENTS
-    ============================================ */
+   UTILITY CLASSES
+   ============================================ */
 
-/*
- * Logo halo — the logo.gif is pure white. In light mode we need a strong
- * dark glow behind it so it stays visible; in dark mode the image sits
- * directly on the dark background.
- */
-.logo-halo img {
-  filter: drop-shadow(0 0 2px var(--color-text-primary))
-    drop-shadow(
-      0 0 6px color-mix(in oklab, var(--color-text-accent) 70%, transparent)
-    )
-    drop-shadow(
-      0 0 10px color-mix(in oklab, var(--color-accent-cyan) 50%, transparent)
-    );
+/* Typography utilities */
+.text-caption {
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  letter-spacing: var(--tracking-caption);
 }
+
+.text-body {
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+}
+
+.text-body-sm {
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+  letter-spacing: var(--tracking-body-sm);
+}
+
+.text-heading {
+  font-size: var(--text-heading);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+}
+
+.text-heading-lg {
+  font-size: var(--text-heading-lg);
+  line-height: var(--leading-heading-lg);
+  letter-spacing: var(--tracking-heading-lg);
+}
+
+/* Logo halo effect — subtle shadow for white logo in light mode */
+.logo-halo img {
+  filter: drop-shadow(0 0 4px var(--shadow-halo-color, rgba(0, 0, 0, 0.3)));
+}
+
 .dark .logo-halo img {
   filter: none;
 }
 
+/* Navbar in light mode — Mediterranean palette gradient */
+html:not(.dark) header {
+  background: linear-gradient(
+    90deg,
+    var(--color-navbar-orange) 0%,
+    var(--color-navbar-amber) 25%,
+    var(--color-navbar-yellow) 50%,
+    var(--color-navbar-sand) 75%,
+    var(--color-azure-mist) 100%
+  );
+}
+
+/* Logo and nav text: white for contrast on the warm gradient */
+html:not(.dark) header > div > a span {
+  color: var(--color-ghost-white);
+}
+
+html:not(.dark) header > div > div button,
+html:not(.dark) header > div > div nav a {
+  color: var(--color-deep-ocean);
+}
+
+html:not(.dark) header > div > div svg {
+  stroke: var(--color-deep-ocean);
+}
+
+/* Active nav pill: soft white wash with opacity */
+html:not(.dark) header > div > div nav a.bg-\(--color-bg-surface\) {
+  background-color: var(--color-ghost-white);
+  opacity: 0.55;
+  color: var(--color-deep-ocean);
+}
+
+html:not(.dark) header > div > div nav a:hover,
+html:not(.dark) header > div > div button:hover {
+  background-color: var(--color-ghost-white);
+  opacity: 0.35;
+}
+
+/* Soft gradient edges for navbar and footer */
+header::after,
+footer::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+}
+
+header::after {
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-border-default) 10%,
+    var(--color-border-default) 90%,
+    transparent 100%
+  );
+  opacity: 0.6;
+}
+
+footer::after {
+  top: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-border-default) 10%,
+    var(--color-border-default) 90%,
+    transparent 100%
+  );
+  opacity: 0.4;
+}
+
 /* ============================================
-    ANIMATIONS
-    ============================================ */
+   ANIMATIONS
+   ============================================ */
 
 @keyframes fade-in-up {
   from {
@@ -168,34 +419,71 @@ main {
   }
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
 }
 
 .fill-mode-forwards {
   animation-fill-mode: forwards;
 }
 
-/*
- * Robust gradient text — Tailwind v4's `text-transparent` emits only
- * `color: transparent`, which some aggressive dark-mode extensions (Dark
- * Reader, Night Eye…) override with a forced text color, wiping out
- * `bg-clip-text` gradients. The explicit `-webkit-text-fill-color` below is
- * harder to clobber and also fixes rendering in older WebKit.
- */
+/* Stagger delays */
+.stagger-1 {
+  animation-delay: 100ms;
+}
+.stagger-2 {
+  animation-delay: 200ms;
+}
+.stagger-3 {
+  animation-delay: 300ms;
+}
+.stagger-4 {
+  animation-delay: 400ms;
+}
+.stagger-5 {
+  animation-delay: 500ms;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+/* Text gradient support */
 .text-transparent {
   -webkit-text-fill-color: transparent;
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-text-accent);
-  outline-offset: 2px;
+/* Heading accent gradient — uses semantic gradient colors */
+.heading-accent-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--color-heading-gradient-start),
+    var(--color-heading-gradient-end)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* ============================================
-   REDUCED MOTION
-   ============================================ */
-
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

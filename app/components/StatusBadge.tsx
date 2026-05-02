@@ -12,18 +12,18 @@ const statusStyles: Record<
     label: "Idle",
   },
   loading: {
-    dot: "bg-(--color-accent-cyan) animate-pulse",
-    text: "text-(--color-text-accent)",
+    dot: "bg-(--color-accent-primary) animate-pulse",
+    text: "text-(--color-accent-primary)",
     label: "Loading",
   },
   success: {
-    dot: "bg-emerald-500",
-    text: "text-emerald-500",
+    dot: "bg-(--color-emerald)",
+    text: "text-(--color-emerald)",
     label: "OK",
   },
   error: {
-    dot: "bg-rose-500",
-    text: "text-rose-500",
+    dot: "bg-(--color-rose)",
+    text: "text-(--color-rose)",
     label: "Error",
   },
 }

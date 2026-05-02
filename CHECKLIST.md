@@ -6,11 +6,12 @@
 >
 > **Companion docs.**
 >
-> - `AGENTS.md` — in-repo conventions for agents (code style, patterns, common tasks).
-> - `SKILLS.md` — bootstrap skill served at `/skills.md` for agent discovery.
-> - `README.md` — human-facing overview.
+> - [`AGENTS.md`](./AGENTS.md) — in-repo conventions for agents (code style, patterns, common tasks).
+> - [`SKILL.md`](./SKILL.md) — bootstrap skill served at `/skill.md` for agent discovery.
+> - [`DESIGN.md`](./DESIGN.md) — complete design system reference (colors, typography, components).
+> - [`README.md`](./README.md) — human-facing overview.
 >
-> Keep those three in sync with this checklist whenever you add/remove routes, stores, components, or env variables.
+> Keep these in sync with this checklist whenever you add/remove routes, stores, components, or env variables.
 
 ---
 
@@ -25,7 +26,7 @@
 - [ ] `app/config/site.ts` → `url`
 - [ ] `app/config/site.ts` → `license`
 - [ ] `app/config/site.ts` → `themeColor.light` / `themeColor.dark`
-- [ ] `app/config/site.ts` → `nav` entries (remove `/playground`; keep or drop `/skills.md` — see §5)
+- [ ] `app/config/site.ts` → `nav` entries (remove `/playground`; keep or drop `/skill.md` — see §5)
 - [ ] `app/config/site.ts` → `social` entries (GitHub, X)
 - [ ] `package.json` → `name`
 - [ ] `package.json` → `description`
@@ -55,12 +56,21 @@
 
 ## 4. Landing page & design tokens
 
+> **Note:** This template ships with a pre-configured design system. See [`DESIGN.md`](./DESIGN.md) for the complete reference (colors, typography, spacing, components). When customizing, you can either:
+> - Keep the existing system and just update content (hero text, CTAs, features)
+> - Or fully replace the design tokens in `globals.css` with your own brand
+>
+> **Looking for design inspiration?** Browse curated design templates at [styles.refero.design](https://styles.refero.design/).
+>
+> **Critical:** `DESIGN.md` and `app/globals.css` must always stay in sync. When you modify design tokens in `globals.css`, immediately update `DESIGN.md` to match. These are twin source-of-truth files — the CSS is the implementation, the markdown is the documentation.
+
 - [ ] `app/page.tsx` → replace hero headline and subtitle (user-visible strings live in `app/i18n/dictionaries/*.json` under `landing.*`)
-- [ ] `app/page.tsx` → replace / prune CTA buttons (`/playground`, `/skills.md`, GitHub from `siteConfig.url`, Deploy to Vercel)
+- [ ] `app/page.tsx` → replace / prune CTA buttons (`/playground`, `/skill.md`, GitHub from `siteConfig.url`, Deploy to Vercel)
 - [ ] `app/page.tsx` → replace the `features` array (names stay in TS, descriptions live in `dict.landing.features.*`)
-- [ ] `app/globals.css` → adjust `--color-*` tokens to the new brand
-- [ ] `app/globals.css` → update the FOUC `html` / `html.dark` `background-color` to match the new tokens
-- [ ] `app/globals.css` → adjust `--space-*` / `--navbar-height*` if the layout changes
+- [x] [`DESIGN.md`](./DESIGN.md) → Design system reference (light/dark modes)
+- [x] `app/globals.css` → Design tokens with dark/light mode color variables
+- [x] `app/globals.css` → FOUC prevention with white/black background colors
+- [x] `app/globals.css` → Complete spacing scale and component classes
 
 ### Internationalization
 
@@ -84,20 +94,16 @@ These exist **only** to showcase the template. Remove unless the user explicitly
 - [ ] `app/stores/counter.ts`
 - [ ] `app/components/FeatureCard.tsx` — if unused, delete
 - [ ] `app/components/StatusBadge.tsx` — if unused, delete
-- [ ] Landing-page buttons in `app/page.tsx` pointing to `/playground`, `/skills.md`, the GitHub repo, or "Deploy to Vercel"
+- [ ] Landing-page buttons in `app/page.tsx` pointing to `/playground`, `/skill.md`, the GitHub repo, or "Deploy to Vercel"
 - [ ] `/playground` entry in `siteConfig.nav` (`app/config/site.ts`)
-- [ ] `/skills.md` entry in `siteConfig.nav` — **only if** you also remove the agent surface (see next section)
+- [ ] `/skill.md` entry in `siteConfig.nav` — **only if** you also remove the agent surface (see next section)
 
-### `SKILLS.md` — rewrite (default) or delete
+### `SKILL.md` — rewrite (default) or delete
 
 Choose one path:
 
-- [ ] **Rewrite** `SKILLS.md` to describe the new app (routes, API, env, how an agent should interact). Use the template in `SKILLS.md` §5 as a starting point. Keep `app/skills.md/route.ts` and the `/skills.md` nav entry.
-- [ ] **Delete** the agent surface entirely: remove `SKILLS.md`, `app/skills.md/`, the `/skills.md` entry in `siteConfig.nav`, and any landing-page button that links to `/skills.md`.
-
-### `app/api/skills/` (empty stub)
-
-- [ ] Keep the directory if you plan to expose an agent-facing API, otherwise delete it.
+- [ ] **Rewrite** `SKILL.md` to describe the new app (routes, API, env, how an agent should interact). Use the template in `SKILL.md` §5 as a starting point. Keep `app/skill.md/route.ts` and the `/skill.md` nav entry.
+- [ ] **Delete** the agent surface entirely: remove `SKILL.md`, `app/skill.md/`, the `/skill.md` entry in `siteConfig.nav`, and any landing-page button that links to `/skill.md`.
 
 ## 6. Environment & infrastructure
 
@@ -110,6 +116,7 @@ Choose one path:
 ## 7. Documentation
 
 - [ ] `README.md` → rewrite for the new project (title, features, scripts, deployment)
+- [ ] `DESIGN.md` → customize to describe your app's design system (or delete if not needed)
 - [ ] `AGENTS.md` → update the **Customization checklist**, **Demo code to remove**, and **Project structure** sections to reflect what actually remains. Keep it in sync as you add routes / stores / env variables.
 - [ ] `CHECKLIST.md` (this file) → once every box is ticked, either delete it or replace it with a project-specific checklist (deploy steps, release process, etc.)
 
@@ -121,7 +128,7 @@ Run these and fix anything that fails.
 - [ ] `pnpm build` — production build succeeds
 - [ ] `pnpm dev` — app boots on http://localhost:3000 with no console errors
 - [ ] Every route in `navLinks` resolves (no 404s)
-- [ ] `/playground`, `/api/hello`, `/skills.md` return the expected result (200 if kept, 404 if deleted)
+- [ ] `/playground`, `/api/hello`, `/skill.md` return the expected result (200 if kept, 404 if deleted)
 - [ ] Language switcher in the navbar cycles through every locale you ship and the visible strings actually change (no stale English)
 - [ ] No leftover template branding — grep should return only intentional matches:
 
@@ -130,4 +137,4 @@ Run these and fix anything that fails.
   ```
 
 - [ ] `AGENTS.md` customization checklist no longer lists items that have been completed
-- [ ] `SKILLS.md` either describes the new app or has been deleted (with its route handler)
+- [ ] `SKILL.md` either describes the new app or has been deleted (with its route handler)

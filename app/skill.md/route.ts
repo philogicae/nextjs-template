@@ -4,24 +4,24 @@ import { unstable_cache } from "next/cache"
 import { version as appVersion } from "../../package.json"
 
 /**
- * Cached file reader for SKILLS.md.
+ * Cached file reader for SKILL.md.
  * Uses async fs/promises and caches the content for 1 hour to avoid
- * repeated disk reads. Revalidate on demand with `revalidateTag("skills-md")`.
+ * repeated disk reads. Revalidate on demand with `revalidateTag("skill-md")`.
  */
-const getSkillsContent = unstable_cache(
+const getSkillContent = unstable_cache(
   async (): Promise<string> =>
-    readFile(join(process.cwd(), "SKILLS.md"), "utf-8"),
-  ["skills-md-content"],
-  { revalidate: 3600, tags: ["skills-md"] }
+    readFile(join(process.cwd(), "SKILL.md"), "utf-8"),
+  ["skill-md-content"],
+  { revalidate: 3600, tags: ["skill-md"] }
 )
 
 /** Regex to match version in YAML frontmatter (e.g., `version: "1.0.0"`). Matches at line start with optional indentation. */
 const VERSION_REGEX = /^(\s*version:\s*")[^"]*("\s*)$/m
 
-/** Serves SKILLS.md as raw markdown at `/skills.md`, with version auto-synced from package.json. */
+/** Serves SKILL.md as raw markdown at `/skill.md`, with version auto-synced from package.json. */
 export async function GET(): Promise<Response> {
   try {
-    const content = await getSkillsContent()
+    const content = await getSkillContent()
     const updatedContent = content.replace(VERSION_REGEX, `$1${appVersion}$2`)
 
     return new Response(updatedContent, {
@@ -32,7 +32,7 @@ export async function GET(): Promise<Response> {
     })
   } catch (error) {
     return new Response(
-      `Error: ${error instanceof Error ? error.message : "Failed to read SKILLS.md"}`,
+      `Error: ${error instanceof Error ? error.message : "Failed to read SKILL.md"}`,
       { status: 500 }
     )
   }
