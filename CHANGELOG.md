@@ -46,6 +46,34 @@
 - Update next.config.mjs with security headers and caching
 - Delete app/stores/theme.ts and app/utils/theme-script.ts (obsolete)
 - Update tsconfig.json path aliases (remove @components barrel)
+- Feat: add Vercel Analytics and Speed Insights with environment-based conditional rendering
+- Feat: add complete internationalization (i18n) system with 4 locales
+
+- Add provider-based i18n layer (no URL segment) with cookie + Accept-Language detection
+- Implement server-side locale resolution via getCurrentDictionary()
+- Add client LocaleProvider with useLocale() and useDict() hooks
+- Create LanguageSwitcher component with HeroUI dropdown
+- Add 4 locale dictionaries: en, fr, es, ro with full translations
+- Update all pages (landing, error, not-found, playground) for i18n
+- Integrate i18n into Navbar, Footer, ThemeToggle components
+- Update site config to use labelKey-based navigation
+- Add @i18n path alias and update tsconfig
+- Update AGENTS.md, SKILLS.md, README.md with i18n conventions
+- Feat: auto-sync SKILLS.md version from package.json in /skills.md route
+- Feat: add comprehensive design system with dual-theme support and SKILL.md rename
+
+- Add DESIGN.md with complete design tokens, colors, typography, and patterns
+- Rename SKILLS.md → SKILL.md (singular) across all files and routes
+- Refactor globals.css with dark/light mode CSS variables (pitch black canvas
+  with neon lime/cyan in dark; sky white with Mediterranean sunrise in light)
+- Update all components to use new --color-\* token naming conventions
+- Ship with 4 locales (en, fr, es, ro) by default
+- Remove empty app/api/skills/ stub
+- Sync AGENTS.md, CHECKLIST.md, README.md with DESIGN.md references
+
+### 🐛 Bug Fixes
+
+- Fix: update navbar logo styling and site config shortName
 
 ### 💼 Changes
 
@@ -56,6 +84,12 @@
 - Refactor: standardize counter button min-width values in playground
 - Refactor: reduce component sizes and spacing for more compact UI
 - Refactor: make Docker Compose configuration fully customizable via .env
+- Refactor: remove redundant `code` field from locale metadata
+
+### 📚 Documentation
+
+- Docs: add OpenGraph/Twitter card image and update siteConfig.url to production domain
+- Docs: clarify i18n best practices and simplify default locale setup
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -66,4 +100,5 @@
 - Remove Google Fonts preconnect links from layout (not used)
 - Replace unoptimized prop with responsive sizes in Navbar Logo
 - Clean up robots.txt formatting (remove empty sitemap reference)
+- Chore: update changelog
 - Chore: update changelog
