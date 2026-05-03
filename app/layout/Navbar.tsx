@@ -200,7 +200,10 @@ export function NavBar(): React.ReactElement {
   const closeMobile = useCallback(() => setMobileOpen(false), [])
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 backdrop-blur-xl">
+    <header
+      ref={headerRef}
+      className="sticky top-3 z-50 mx-3 sm:mx-4 md:mx-6 rounded-lg border border-(--color-border-default) bg-(--color-bg-primary)/70 backdrop-blur-xl shadow-lg"
+    >
       <div className="flex items-center justify-between h-(--navbar-height-mobile) sm:h-(--navbar-height) px-3 sm:px-4 md:px-6 w-full">
         <Logo />
 
@@ -223,7 +226,7 @@ export function NavBar(): React.ReactElement {
       </div>
 
       {mobileOpen && (
-        <nav className="md:hidden bg-(--color-bg-primary)/95 backdrop-blur-xl">
+        <nav className="md:hidden bg-(--color-bg-primary)/95 backdrop-blur-xl rounded-b-lg border-t border-(--color-border-default)">
           <div className="flex flex-col px-3 py-2 gap-0.5">
             <NavList
               pathname={pathname}
