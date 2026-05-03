@@ -221,6 +221,28 @@ Light mode: Background `#06b6d4` (Turquoise), text `#f0f9ff` (Sky White), border
 
 Background transparent, text `--color-text-primary`, border-radius 0px (in nav) or 6px (standalone), no explicit padding. Hover: subtle background fill at 50% opacity of surface color.
 
+### Dropdown Menus (Language & Mobile)
+**Role:** Floating menus that overlay content without pushing page elements
+
+- **Position:** Absolute, floating over content (`absolute top-[calc(100%+8px)] right-0`)
+- **Background:** `--color-bg-secondary` (graphite in dark, cloud-light in light)
+- **Border:** 1px solid `--color-border-default`
+- **Border radius:** `--radius-cards` (6px)
+- **Shadow:** `--shadow-xl`
+- **Z-index:** 50 to overlay other content
+- **Minimum width:** 160px (lang), 200px (mobile)
+- **Spacing:** 8px gap from trigger (`top-[calc(100%+8px)]`)
+
+**Click-outside behavior:** Menus close when clicking anywhere on the page, including the navbar/topbar, except when clicking inside the dropdown menu itself. Implemented via `useClickOutside` hook.
+
+### Theme Toggle Icon
+**Role:** Sun/moon icon for dark/light mode switching
+
+- **Default color:** `--color-accent-primary` (neon lime in dark, turquoise in light)
+- **Dark mode hover:** `--color-text-primary` background (white) with `--color-bg-primary` icon (black)
+- **Light mode hover:** `--color-text-primary` background (black) with `--color-bg-primary` icon (white)
+- **Size:** 6x6 (mobile), 8x8 (desktop) rounded button
+
 ### Default Card
 **Role:** Content container
 

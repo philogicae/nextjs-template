@@ -1,72 +1,98 @@
 "use client"
 
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownPopover,
-  DropdownTrigger,
-} from "@heroui/react"
 import { type Locale, localeMeta, locales } from "@i18n/config"
 import { useLocale } from "@i18n/LocaleProvider"
+import { useClickOutside } from "@utils/click-outside"
+import { cn } from "@utils/tw"
+import { useCallback, useState } from "react"
 
 /**
  * Navbar locale picker. Reads from `useLocale()` and persists the choice
  * via `setLocale` → Server Action → RSC refresh.
  *
- * HeroUI's `DropdownTrigger` already renders a `<button>`; never wrap a
- * `<Button>` inside it (nested buttons break hydration). Style the trigger
- * directly via `className`.
+ * Custom dropdown implementation that floats over content.
+ * Styled with template design system:
+ * - Dark mode: Graphite surfaces with neon lime accents
+ * - Light mode: Azure mist surfaces with turquoise accents
  */
 export function LanguageSwitcher(): React.ReactElement {
   const { locale, setLocale, dict, isPending } = useLocale()
   const current = localeMeta[locale]
+  const [open, setOpen] = useState(false)
+
+  useClickOutside(open, "lang-dropdown", () => setOpen(false))
+
+  const handleSelect = useCallback(
+    (loc: Locale) => {
+      setLocale(loc)
+      setOpen(false)
+    },
+    [setLocale]
+  )
+
+  const toggle = useCallback(() => setOpen((v) => !v), [])
 
   return (
-    <Dropdown>
-      <DropdownTrigger
-        isDisabled={isPending}
+    <div className="relative">
+      <button
+        type="button"
+        disabled={isPending}
         aria-label={`${dict.nav.language}: ${current.native}`}
-        className="inline-flex items-center justify-center h-6 w-6 sm:h-8 sm:w-8 rounded-lg text-sm sm:text-base leading-none hover:bg-(--color-bg-surface)/50 transition-colors disabled:opacity-50"
+        aria-expanded={open}
+        onClick={toggle}
+        className={cn(
+          "inline-flex items-center justify-center h-6 w-6 sm:h-8 sm:w-8 rounded-lg text-sm sm:text-base leading-none",
+          "text-(--color-accent-primary) hover:bg-(--color-bg-surface)/50",
+          "transition-colors disabled:opacity-50"
+        )}
       >
         <span aria-hidden="true">{current.flag}</span>
-      </DropdownTrigger>
-      <DropdownPopover
-        className="min-w-36 border border-(--color-border-default) bg-(--color-bg-primary) p-1 shadow-lg"
-        placement="bottom end"
-      >
-        <DropdownMenu aria-label={dict.nav.language}>
-          {locales.map((loc: Locale) => {
-            const meta = localeMeta[loc]
-            const isActive = loc === locale
-            return (
-              <DropdownItem
-                key={loc}
-                onClick={() => setLocale(loc)}
-                className={[
-                  "flex items-center gap-2 rounded-md px-2 py-1.5 text-xs cursor-pointer outline-none",
-                  isActive
-                    ? "bg-(--color-bg-secondary) text-(--color-text-primary)"
-                    : "text-(--color-text-secondary) hover:bg-(--color-bg-secondary)/60 hover:text-(--color-text-primary)",
-                ].join(" ")}
-              >
-                <span aria-hidden="true" className="text-base leading-none">
-                  {meta.flag}
-                </span>
-                <span>{meta.native}</span>
-                {isActive && (
-                  <span
-                    aria-hidden="true"
-                    className="ml-auto text-(--color-accent-primary)"
+      </button>
+
+      {open && (
+        <div
+          id="lang-dropdown"
+          className={cn(
+            "absolute top-[calc(100%+8px)] right-0 min-w-[160px]",
+            "bg-(--color-bg-secondary) border border-(--color-border-default)",
+            "rounded-[var(--radius-cards)] shadow-lg z-50 p-1"
+          )}
+        >
+          <ul aria-label={dict.nav.language} className="flex flex-col gap-0.5">
+            {locales.map((loc: Locale) => {
+              const meta = localeMeta[loc]
+              const isActive = loc === locale
+              return (
+                <li key={loc}>
+                  <button
+                    type="button"
+                    onClick={() => handleSelect(loc)}
+                    className={cn(
+                      "w-full flex items-center gap-2 rounded-md px-2 py-1.5 text-xs cursor-pointer outline-none text-left",
+                      isActive
+                        ? "bg-(--color-bg-elevated) text-(--color-text-primary)"
+                        : "text-(--color-text-secondary) hover:bg-(--color-bg-elevated)/60 hover:text-(--color-text-primary)"
+                    )}
                   >
-                    ✓
-                  </span>
-                )}
-              </DropdownItem>
-            )
-          })}
-        </DropdownMenu>
-      </DropdownPopover>
-    </Dropdown>
+                    <span aria-hidden="true" className="text-base leading-none">
+                      {meta.flag}
+                    </span>
+                    <span>{meta.native}</span>
+                    {isActive && (
+                      <span
+                        aria-hidden="true"
+                        className="ml-auto text-(--color-accent-primary)"
+                      >
+                        ✓
+                      </span>
+                    )}
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      )}
+    </div>
   )
 }

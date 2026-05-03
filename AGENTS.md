@@ -58,7 +58,7 @@ Keep unless you have a reason to drop them:
 - `app/components/Container.tsx`, `Skeleton.tsx`, `ThemeToggle.tsx`
 - `app/config/site.ts`
 - `app/providers.tsx` (wraps children in `next-themes`'s `ThemeProvider`)
-- `app/utils/{tw,debounce,media-query}.ts`
+- `app/utils/{tw,debounce,media-query,click-outside}.ts`
 - `app/{error,loading,not-found}.tsx`
 - `app/i18n/*` and `app/components/LanguageSwitcher.tsx` — the internationalization layer is core infrastructure. Drop a locale you don't want (see "Add a locale" above, in reverse) rather than ripping the whole system out.
 
@@ -120,17 +120,19 @@ app/
 │   └── page.tsx
 ├── stores/               # Zustand (no barrel — import per file)
 │   └── counter.ts        #   DEMO: counter store — delete if unused
-├── utils/                # tw, debounce, media-query
+├── utils/                 # tw, debounce, media-query, click-outside
 │   ├── tw.ts             #   cn() class merger
 │   ├── debounce.ts       #   Debounce hooks
-│   └── media-query.ts    #   Responsive hooks
+│   ├── media-query.ts    #   Responsive hooks
+│   └── click-outside.ts  #   useClickOutside hook for dropdowns
 ├── globals.css           # Design tokens + CSS variables
 ├── layout.tsx            # Async root layout (reads locale, passes dict to providers)
 ├── providers.tsx         # Client providers (next-themes + LocaleProvider)
 ├── page.tsx              # Landing page
 ├── error.tsx             # Error boundary
 ├── loading.tsx           # Loading UI with Skeleton
-└── not-found.tsx         # 404 page
+├── not-found.tsx         # 404 page
+└── sitemap.ts            # SEO sitemap generation
 public/                   # Static assets
 ├── images/
 │   ├── logo.gif
@@ -323,6 +325,16 @@ const count = useCounterStore((s) => s.count);
 const { count } = useCounterStore();
 ```
 
+**SEO / Sitemap**
+
+The template ships with `app/sitemap.ts` for automatic sitemap generation. When you add/remove routes:
+
+1. Update `app/sitemap.ts` to include new pages
+2. Update `public/robots.txt` to reference your production URL
+3. Ensure `siteConfig.url` in `app/config/site.ts` matches your production domain
+
+See `app/layout.tsx` for the base metadata, OpenGraph, and Twitter card configuration.
+
 ## Theme system
 
 CSS variables live in `app/globals.css`. See [`DESIGN.md`](./DESIGN.md) for the complete design reference including colors, typography, elevation, spacing, and component tokens.
@@ -349,11 +361,13 @@ import {
   useDebouncedCallback,
   useDebounceState,
 } from "@utils/debounce";
+import { useClickOutside } from "@utils/click-outside";
 ```
 
 - `cn(...)` — class merge with Tailwind conflict resolution.
 - `useMediaQuery("(max-width: 768px)")`, `useBreakpoint("md")` — `sm | md | lg | xl | 2xl`.
 - `useDebounce(value, ms)`, `useDebouncedCallback(fn, ms)`, `useDebounceState(initial, ms)`.
+- `useClickOutside(isOpen, elementId, onClose)` — closes dropdowns/menus when clicking outside the specified element. Used by `LanguageSwitcher` and mobile menu in `Navbar`.
 
 ## Performance
 

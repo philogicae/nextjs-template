@@ -37,6 +37,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  manifest: "/manifest.json",
   title: siteConfig.name,
   description: siteConfig.description,
   applicationName: siteConfig.name,

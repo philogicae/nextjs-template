@@ -62,7 +62,7 @@ app/
 ├── components/            # Reusable UI components
 │   ├── Container.tsx      # Page width wrapper
 │   ├── FeatureCard.tsx    # (demo) Landing page feature card
-│   ├── LanguageSwitcher.tsx # Locale dropdown (HeroUI Dropdown)
+│   ├── LanguageSwitcher.tsx # Locale dropdown (custom implementation)
 │   ├── Skeleton.tsx       # Themed pulse placeholder
 │   ├── StatusBadge.tsx    # (demo) Status indicator with colored dot
 │   └── ThemeToggle.tsx    # Dark/light theme switch (uses next-themes)
@@ -87,7 +87,8 @@ app/
 ├── utils/                 # Utility functions
 │   ├── tw.ts              # cn() class merger
 │   ├── debounce.ts        # Debounce hooks
-│   └── media-query.ts     # Responsive hooks
+│   ├── media-query.ts     # Responsive hooks
+│   └── click-outside.ts   # useClickOutside hook for dropdowns
 ├── globals.css            # Global styles and design tokens
 ├── layout.tsx             # Root layout (Navbar + main + Footer)
 ├── providers.tsx          # Client providers (next-themes + LocaleProvider)
@@ -275,11 +276,13 @@ import {
   useDebouncedCallback,
   useDebounceState,
 } from "@utils/debounce";
+import { useClickOutside } from "@utils/click-outside";
 ```
 
 - `cn(...)` — Tailwind-aware class merge (clsx + tailwind-merge).
 - `useMediaQuery("(max-width: 768px)")`, `useBreakpoint("md")` — `sm | md | lg | xl | 2xl`.
 - `useDebounce(value, ms)` / `useDebouncedCallback(fn, ms)` / `useDebounceState(initial, ms)`.
+- `useClickOutside(isOpen, elementId, onClose)` — closes dropdowns/menus when clicking outside the specified element.
 
 ### HeroUI Button Variants
 

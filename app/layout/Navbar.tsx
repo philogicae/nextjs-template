@@ -5,10 +5,11 @@ import { ThemeToggle } from "@components/ThemeToggle"
 import { siteConfig } from "@config/site"
 import type { Dictionary } from "@i18n/config"
 import { useDict } from "@i18n/LocaleProvider"
+import { useClickOutside } from "@utils/click-outside"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 const navLinks = siteConfig.nav
 
@@ -108,7 +109,7 @@ function MobileMenuButton({
       aria-label={label}
       aria-expanded={open}
       onClick={onToggle}
-      className="md:hidden inline-flex items-center justify-center w-8 h-8 rounded-(--radius-tags) text-(--color-text-muted) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50 transition-colors"
+      className="md:hidden inline-flex items-center justify-center w-8 h-8 rounded-(--radius-tags) text-(--color-accent-primary) hover:text-(--color-accent-primary) hover:bg-(--color-bg-surface)/50 transition-colors"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -170,40 +171,22 @@ export function NavBar(): React.ReactElement {
   const pathname = usePathname()
   const dict = useDict()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const headerRef = useRef<HTMLElement>(null)
 
   // Close menu on route change.
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
 
-  // Close menu when clicking/tapping outside.
-  useEffect(() => {
-    if (!mobileOpen) return
-    const handle = (event: MouseEvent | TouchEvent) => {
-      if (
-        headerRef.current &&
-        !headerRef.current.contains(event.target as Node)
-      ) {
-        setMobileOpen(false)
-      }
-    }
-    document.addEventListener("mousedown", handle)
-    document.addEventListener("touchstart", handle)
-    return () => {
-      document.removeEventListener("mousedown", handle)
-      document.removeEventListener("touchstart", handle)
-    }
-  }, [mobileOpen])
+  // Close menu when clicking anywhere on the page, except inside the dropdown itself.
+  useClickOutside(mobileOpen, "mobile-menu-dropdown", () =>
+    setMobileOpen(false)
+  )
 
   const toggleMobile = useCallback(() => setMobileOpen((v) => !v), [])
   const closeMobile = useCallback(() => setMobileOpen(false), [])
 
   return (
-    <header
-      ref={headerRef}
-      className="sticky top-3 z-50 mx-3 sm:mx-4 md:mx-6 rounded-lg border border-(--color-border-default) bg-(--color-bg-primary)/70 backdrop-blur-xl shadow-lg"
-    >
+    <header className="sticky top-3 z-50 mx-3 sm:mx-4 md:mx-6 rounded-lg border border-(--color-border-default) bg-(--color-bg-primary)/70 backdrop-blur-xl shadow-lg">
       <div className="flex items-center justify-between h-(--navbar-height-mobile) sm:h-(--navbar-height) px-3 sm:px-4 md:px-6 w-full">
         <Logo />
 
@@ -225,9 +208,13 @@ export function NavBar(): React.ReactElement {
         </div>
       </div>
 
+      {/* Mobile menu dropdown - positioned absolutely to overlay content */}
       {mobileOpen && (
-        <nav className="md:hidden bg-(--color-bg-primary)/95 backdrop-blur-xl rounded-b-lg border-t border-(--color-border-default)">
-          <div className="flex flex-col px-3 py-2 gap-0.5">
+        <nav
+          id="mobile-menu-dropdown"
+          className="md:hidden absolute top-[calc(100%+8px)] right-0 min-w-[200px] bg-(--color-bg-secondary) border border-(--color-border-default) rounded-[var(--radius-cards)] shadow-lg z-50"
+        >
+          <div className="flex flex-col p-2 gap-1">
             <NavList
               pathname={pathname}
               dict={dict}

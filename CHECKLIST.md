@@ -33,8 +33,9 @@
 - [ ] `package.json` → `repository.url`
 - [ ] `package.json` → `homepage`
 - [ ] `package.json` → `version` (reset to `0.1.0`)
-- [ ] `public/manifest.json` → `name`, `short_name`, `description`, colors, icons (align with `siteConfig`)
-- [ ] `public/robots.txt` → update host / sitemap
+- [ ] `public/manifest.json` → full PWA config: `name`, `short_name`, `id`, `description`, `scope`, `start_url`, `icons` (192x192 + 512x512 with `any` and `maskable` purposes), `screenshots`
+- [ ] `app/sitemap.ts` → update routes and URLs to match your site
+- [ ] `public/robots.txt` → update host to match `siteConfig.url`
 - [ ] `LICENSE` → update copyright holder or replace
 
 ## 2. Public assets

@@ -1,2 +1,5 @@
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+# Sitemap location
+Sitemap: https://fractal-nextjs.vercel.app/sitemap.xml

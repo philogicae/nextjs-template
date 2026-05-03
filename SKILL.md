@@ -74,7 +74,7 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 │   ├── layout/                  # Navbar.tsx (with LanguageSwitcher), Footer.tsx — driven by `@config/site`
 │   ├── stores/                  # Zustand (no barrel — import per file)
 │   │   └── counter.ts           # DEMO — delete
-│   ├── utils/                   # cn(), debounce, media-query — Keep
+│   ├── utils/                   # cn(), debounce, media-query, click-outside — Keep
 │   ├── playground/              # DEMO page — DELETE
 │   ├── globals.css              # Design tokens — CUSTOMIZE
 │   ├── layout.tsx               # Root layout + metadata — CUSTOMIZE
@@ -391,6 +391,7 @@ import {
   useDebouncedCallback,
   useDebounceState,
 } from "@utils/debounce";
+import { useClickOutside } from "@utils/click-outside";
 ```
 
 - `cn(...classes)` — Tailwind-aware class merge.
@@ -398,6 +399,7 @@ import {
 - `useDebounce(value, ms)` — debounced value.
 - `useDebouncedCallback(fn, ms)` — debounced callback.
 - `useDebounceState(initial, ms)` — returns `[value, debouncedValue, setValue]`.
+- `useClickOutside(isOpen, elementId, onClose)` — closes dropdowns/menus when clicking outside the specified element.
 
 ## Performance notes
 

@@ -1,11 +1,11 @@
 "use client"
 
-import { Button } from "@heroui/react"
 import { useDict } from "@i18n/LocaleProvider"
+import { cn } from "@utils/tw"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 
-function SunIcon(): React.ReactElement {
+function SunIcon({ className }: { className?: string }): React.ReactElement {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +15,7 @@ function SunIcon(): React.ReactElement {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-3 h-3 sm:w-4 sm:h-4 text-(--color-accent-primary)"
+      className={cn(className)}
     >
       <title>Sun icon</title>
       <circle cx="12" cy="12" r="5" />
@@ -31,7 +31,7 @@ function SunIcon(): React.ReactElement {
   )
 }
 
-function MoonIcon(): React.ReactElement {
+function MoonIcon({ className }: { className?: string }): React.ReactElement {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ function MoonIcon(): React.ReactElement {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-3 h-3 sm:w-4 sm:h-4 text-(--color-text-secondary)"
+      className={cn(className)}
     >
       <title>Moon icon</title>
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
@@ -53,22 +53,29 @@ function MoonIcon(): React.ReactElement {
  * Toggles between light and dark themes via `next-themes`, which handles
  * class application, localStorage persistence, and pre-hydration FOUC
  * prevention.
+ *
+ * Styling respects template design system:
+ * - Dark mode: Neon lime accent for sun, cyan for moon
+ * - Light mode: Turquoise accent
+ * - Hover: White bg + black icon (dark mode), Black bg + white icon (light mode)
  */
 export function ThemeToggle(): React.ReactElement {
   const { resolvedTheme, setTheme } = useTheme()
-  const dict = useDict()
   const [mounted, setMounted] = useState(false)
+  const dict = useDict()
 
   useEffect(() => setMounted(true), [])
 
   const isDark = mounted && resolvedTheme === "dark"
 
+  const handleClick = () => {
+    setTheme(isDark ? "light" : "dark")
+  }
+
   return (
-    <Button
-      isIconOnly
-      variant="ghost"
-      size="sm"
-      onPress={() => setTheme(isDark ? "light" : "dark")}
+    <button
+      type="button"
+      onClick={handleClick}
       aria-label={
         mounted
           ? isDark
@@ -76,11 +83,25 @@ export function ThemeToggle(): React.ReactElement {
             : dict.nav.themeToDark
           : dict.nav.themeToggle
       }
-      className="h-6 w-6 sm:h-8 sm:w-8 min-w-0"
+      className={cn(
+        "inline-flex items-center justify-center h-6 w-6 sm:h-8 sm:w-8 min-w-0 rounded-lg",
+        "text-(--color-accent-primary)",
+        "transition-colors",
+        "dark:hover:bg-(--color-text-primary) dark:hover:text-(--color-bg-primary)",
+        "hover:bg-(--color-text-primary) hover:text-(--color-bg-primary)"
+      )}
     >
       <span suppressHydrationWarning>
-        {mounted ? isDark ? <SunIcon /> : <MoonIcon /> : <MoonIcon />}
+        {mounted ? (
+          isDark ? (
+            <SunIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+          ) : (
+            <MoonIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+          )
+        ) : (
+          <MoonIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+        )}
       </span>
-    </Button>
+    </button>
   )
 }
