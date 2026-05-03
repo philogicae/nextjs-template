@@ -54,6 +54,13 @@ A sophisticated interface with two distinct personalities. In dark mode, pitch b
 | Yellow | `#fbbf24` | `--color-navbar-yellow` | Navbar gradient middle — bright sun at 50% |
 | Sand | `#fde68a` | `--color-navbar-sand` | Navbar gradient end — soft beach at 75% before azure |
 
+### Heading Gradient Tokens
+
+| Name | Token | Dark Mode Value | Light Mode Value |
+|------|-------|---------------|------------------|
+| Gradient Start | `--color-heading-gradient-start` | `var(--color-neon-lime)` | `var(--color-amber)` |
+| Gradient End | `--color-heading-gradient-end` | `var(--color-cyan-glow)` | `var(--color-azure)` |
+
 ### Semantic Tokens — Dark Mode
 
 | Role | Token | Value |
@@ -191,6 +198,7 @@ A sophisticated interface with two distinct personalities. In dark mode, pitch b
 | xl | `rgba(8, 9, 10, 0.6) 0px 4px 32px 0px` | `--shadow-xl` |
 | input | `rgba(0, 0, 0, 0.2) 0px 0px 0px 1px` | `--shadow-input` |
 | focus | `rgba(228, 242, 34, 0.4) 0px 0px 0px 2px` | `--shadow-focus` |
+| halo-color | `transparent` | `--shadow-halo-color` | Logo halo effect (used in light mode) |
 
 ### Shadows — Light Mode
 
@@ -204,6 +212,7 @@ A sophisticated interface with two distinct personalities. In dark mode, pitch b
 | xl | `rgba(6, 182, 212, 0.1) 0px 4px 32px 0px` | `--shadow-xl` |
 | input | `rgba(6, 182, 212, 0.08) 0px 0px 0px 1px` | `--shadow-input` |
 | focus | `rgba(6, 182, 212, 0.3) 0px 0px 0px 2px` | `--shadow-focus` |
+| halo-color | `rgba(0, 0, 0, 0.3)` | `--shadow-halo-color` | Logo halo for white logo on light bg |
 
 ---
 

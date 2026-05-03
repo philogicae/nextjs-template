@@ -41,8 +41,9 @@ export function LanguageSwitcher(): React.ReactElement {
         aria-expanded={open}
         onClick={toggle}
         className={cn(
+          "lang-switcher",
           "inline-flex items-center justify-center h-6 w-6 sm:h-8 sm:w-8 rounded-lg text-sm sm:text-base leading-none",
-          "text-(--color-accent-primary) hover:bg-(--color-bg-surface)/50",
+          "text-(--color-accent-primary)",
           "transition-colors disabled:opacity-50"
         )}
       >
@@ -55,7 +56,7 @@ export function LanguageSwitcher(): React.ReactElement {
           className={cn(
             "absolute top-[calc(100%+8px)] right-0 min-w-[160px]",
             "bg-(--color-bg-secondary) border border-(--color-border-default)",
-            "rounded-[var(--radius-cards)] shadow-lg z-50 p-1"
+            "rounded-(--radius-cards) shadow-lg z-50 p-1"
           )}
         >
           <ul aria-label={dict.nav.language} className="flex flex-col gap-0.5">
@@ -71,7 +72,7 @@ export function LanguageSwitcher(): React.ReactElement {
                       "w-full flex items-center gap-2 rounded-md px-2 py-1.5 text-xs cursor-pointer outline-none text-left",
                       isActive
                         ? "bg-(--color-bg-elevated) text-(--color-text-primary)"
-                        : "text-(--color-text-secondary) hover:bg-(--color-bg-elevated)/60 hover:text-(--color-text-primary)"
+                        : "text-(--color-text-secondary) hover:text-(--color-ghost-white) hover:bg-(--color-pitch-black) dark:hover:bg-(--color-ghost-white) dark:hover:text-(--color-pitch-black)"
                     )}
                   >
                     <span aria-hidden="true" className="text-base leading-none">

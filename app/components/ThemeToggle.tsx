@@ -57,7 +57,7 @@ function MoonIcon({ className }: { className?: string }): React.ReactElement {
  * Styling respects template design system:
  * - Dark mode: Neon lime accent for sun, cyan for moon
  * - Light mode: Turquoise accent
- * - Hover: White bg + black icon (dark mode), Black bg + white icon (light mode)
+ * - Hover: text-primary bg + bg-primary icon (swapped colors)
  */
 export function ThemeToggle(): React.ReactElement {
   const { resolvedTheme, setTheme } = useTheme()
@@ -84,11 +84,12 @@ export function ThemeToggle(): React.ReactElement {
           : dict.nav.themeToggle
       }
       className={cn(
+        "theme-toggle",
         "inline-flex items-center justify-center h-6 w-6 sm:h-8 sm:w-8 min-w-0 rounded-lg",
         "text-(--color-accent-primary)",
         "transition-colors",
-        "dark:hover:bg-(--color-text-primary) dark:hover:text-(--color-bg-primary)",
-        "hover:bg-(--color-text-primary) hover:text-(--color-bg-primary)"
+        "dark:hover:bg-(--color-ghost-white) dark:hover:text-(--color-pitch-black)",
+        "hover:bg-(--color-pitch-black) hover:text-(--color-ghost-white)"
       )}
     >
       <span suppressHydrationWarning>

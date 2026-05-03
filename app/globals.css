@@ -353,20 +353,43 @@ html:not(.dark) header > div > div nav a {
 }
 
 html:not(.dark) header > div > div svg {
-  stroke: var(--color-deep-ocean);
+  stroke: currentColor;
 }
 
-/* Active nav pill: soft white wash with opacity */
-html:not(.dark) header > div > div nav a.bg-\(--color-bg-surface\) {
-  background-color: var(--color-ghost-white);
-  opacity: 0.55;
-  color: var(--color-deep-ocean);
-}
-
+/* Light mode nav hover: subtle surface fill with primary text (excluding theme toggle) */
 html:not(.dark) header > div > div nav a:hover,
-html:not(.dark) header > div > div button:hover {
-  background-color: var(--color-ghost-white);
-  opacity: 0.35;
+html:not(.dark) header > div > div button:not(.theme-toggle):hover {
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+html:not(.dark) .lang-switcher:hover {
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+/* Active nav pill: surface bg with primary text */
+html:not(.dark) header > div > div nav a.bg-\(--color-bg-surface\) {
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+/* Dark mode nav hover: surface fill with primary text (excluding theme toggle) */
+html.dark header > div > div nav a:hover,
+html.dark header > div > div button:not(.theme-toggle):hover {
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+html.dark .lang-switcher:hover {
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+/* Theme toggle specific: high contrast swap in light mode */
+html:not(.dark) header > div > div > button.theme-toggle:hover {
+  background-color: var(--color-pitch-black);
+  color: var(--color-ghost-white);
 }
 
 /* Soft gradient edges for navbar and footer */

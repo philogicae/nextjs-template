@@ -40,12 +40,12 @@ function NavLink({
 }: NavLinkProps): React.ReactElement {
   const className = [
     mobile
-      ? "px-2 py-1.5 rounded-[var(--radius-tags)]"
-      : "px-3 py-1.5 rounded-[var(--radius-tags)]",
+      ? "px-2 py-1.5 rounded-(--radius-tags)"
+      : "px-3 py-1.5 rounded-(--radius-tags)",
     "text-xs font-medium transition-colors tracking-[-0.13px]",
     isActive
       ? "bg-(--color-bg-surface) text-(--color-text-primary)"
-      : "text-(--color-text-muted) hover:text-(--color-text-primary) hover:bg-(--color-bg-surface)/50",
+      : "text-(--color-text-muted) hover:text-(--color-ghost-white) hover:bg-(--color-pitch-black) dark:hover:bg-(--color-ghost-white) dark:hover:text-(--color-pitch-black)",
   ].join(" ")
 
   if (external) {
@@ -109,7 +109,7 @@ function MobileMenuButton({
       aria-label={label}
       aria-expanded={open}
       onClick={onToggle}
-      className="md:hidden inline-flex items-center justify-center w-8 h-8 rounded-(--radius-tags) text-(--color-accent-primary) hover:text-(--color-accent-primary) hover:bg-(--color-bg-surface)/50 transition-colors"
+      className="md:hidden inline-flex items-center justify-center w-8 h-8 rounded-(--radius-tags) text-(--color-accent-primary) hover:text-(--color-ghost-white) hover:bg-(--color-pitch-black) dark:hover:bg-(--color-ghost-white) dark:hover:text-(--color-pitch-black) transition-colors"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -186,7 +186,7 @@ export function NavBar(): React.ReactElement {
   const closeMobile = useCallback(() => setMobileOpen(false), [])
 
   return (
-    <header className="sticky top-3 z-50 mx-3 sm:mx-4 md:mx-6 rounded-lg border border-(--color-border-default) bg-(--color-bg-primary)/70 backdrop-blur-xl shadow-lg">
+    <header className="sticky top-3 z-50 mx-3 sm:mx-4 md:mx-6 rounded-lg border border-(--color-border-default) bg-(--color-bg-primary) shadow-lg">
       <div className="flex items-center justify-between h-(--navbar-height-mobile) sm:h-(--navbar-height) px-3 sm:px-4 md:px-6 w-full">
         <Logo />
 
@@ -212,7 +212,7 @@ export function NavBar(): React.ReactElement {
       {mobileOpen && (
         <nav
           id="mobile-menu-dropdown"
-          className="md:hidden absolute top-[calc(100%+8px)] right-0 min-w-[200px] bg-(--color-bg-secondary) border border-(--color-border-default) rounded-[var(--radius-cards)] shadow-lg z-50"
+          className="md:hidden absolute top-[calc(100%+8px)] right-0 min-w-[200px] bg-(--color-bg-secondary) border border-(--color-border-default) rounded-(--radius-cards) shadow-lg z-50"
         >
           <div className="flex flex-col p-2 gap-1">
             <NavList
