@@ -70,6 +70,40 @@
 - Ship with 4 locales (en, fr, es, ro) by default
 - Remove empty app/api/skills/ stub
 - Sync AGENTS.md, CHECKLIST.md, README.md with DESIGN.md references
+- Feat: add floating navbar with rounded corners and border styling
+- Feat: add useClickOutside hook, custom dropdowns, and SEO sitemap
+
+- Add useClickOutside utility hook for dropdown dismiss behavior
+- Refactor LanguageSwitcher to custom implementation (replaces HeroUI Dropdown)
+- Update ThemeToggle with design-system hover states (inverted colors on hover)
+- Add click-outside behavior to mobile menu in Navbar
+- Add app/sitemap.ts for automatic SEO sitemap generation
+- Update manifest.json with full PWA config (icons, screenshots, display_override)
+- Update robots.txt with sitemap reference
+- Sync all documentation: AGENTS.md, CHECKLIST.md, DESIGN.md, README.md, SKILL.md
+- Update public assets (favicon, PWA icons, OpenGraph screenshot)
+- Feat: replace raw color values with CSS variables, fix Tailwind v4 syntax, sync DESIGN.md
+
+- Replace hardcoded white/black in hover states with --color-ghost-white/--color-pitch-black
+- Update ThemeToggle, LanguageSwitcher, Navbar hover classes to use semantic tokens
+- Fix globals.css theme toggle comment and values
+- Fix Tailwind v4 syntax: rounded-[var(--*)] → rounded-(--\*)
+- Add Heading Gradient tokens section to DESIGN.md
+- Add shadow-halo-color to Shadows tables in DESIGN.md
+- Ensure DESIGN.md and globals.css stay synchronized
+- Feat: content-negotiated skill.md with minification, home button, mobile fonts
+
+- Transform /skill.md route with content negotiation: styled HTML for browsers
+  (markdown rendering, YAML frontmatter highlighting, dark/light theme toggle)
+  and raw markdown for agents/curl via Accept header + User-Agent detection
+- Add home button (house icon) to left of theme toggle in skill.md header
+- Remove all CSS/HTML comments from STYLES and template to prevent pollution
+- Add terser + csso dependencies for proper minification
+- Minify inline CSS using csso, minify + obfuscate JS using terser
+- Add mobile-responsive font sizes (smaller base on <640px screens)
+- Add removeConsole to next.config.mjs for app-wide optimization
+- Sync DESIGN.md Quick Start CSS with globals.css structure
+- Update README.md design token examples to match actual color system
 
 ### 🐛 Bug Fixes
 
@@ -100,5 +134,6 @@
 - Remove Google Fonts preconnect links from layout (not used)
 - Replace unoptimized prop with responsive sizes in Navbar Logo
 - Clean up robots.txt formatting (remove empty sitemap reference)
+- Chore: update changelog
 - Chore: update changelog
 - Chore: update changelog
