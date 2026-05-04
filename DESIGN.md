@@ -411,22 +411,6 @@ Uses status colors directly on the dot: `--color-emerald` for success, `--color-
   --color-accent-secondary: var(--color-cyan-glow);
   --color-accent-hover: #bef264;
 
-  /* Semantic - Light Mode */
-  --color-bg-primary: var(--color-sky-white);
-  --color-bg-secondary: var(--color-cloud-light);
-  --color-bg-elevated: var(--color-sky-white);
-  --color-bg-surface: var(--color-azure-mist);
-  --color-text-primary: var(--color-deep-ocean);
-  --color-text-secondary: var(--color-sea-stone);
-  --color-text-muted: var(--color-warm-slate);
-  --color-text-tertiary: #64748b;
-  --color-border-default: var(--color-azure-mist);
-  --color-border-subtle: var(--color-cloud-light);
-  --color-border-input: var(--color-azure-mist);
-  --color-accent-primary: var(--color-turquoise);
-  --color-accent-secondary: var(--color-azure);
-  --color-accent-hover: #0891b2;
-
   /* Typography - Font Families */
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -435,27 +419,35 @@ Uses status colors directly on the dot: `--color-emerald` for success, `--color-
   --text-caption: 10px;
   --leading-caption: 1.4;
   --tracking-caption: -0.1px;
-  --text-body-sm: 13px;
-  --leading-body-sm: 1.4;
-  --tracking-body-sm: -0.11px;
+
   --text-body: 14px;
   --leading-body: 1.4;
   --tracking-body: -0.13px;
+
+  --text-body-sm: 13px;
+  --leading-body-sm: 1.4;
+  --tracking-body-sm: -0.11px;
+
   --text-body-lg: 16px;
   --leading-body-lg: 1.47;
   --tracking-body-lg: -0.15px;
+
   --text-heading-sm: 17px;
   --leading-heading-sm: 1.2;
   --tracking-heading-sm: -0.12px;
+
   --text-heading: 24px;
   --leading-heading: 1.33;
   --tracking-heading: -0.22px;
+
   --text-heading-lg: 32px;
   --leading-heading-lg: 1.2;
   --tracking-heading-lg: -0.22px;
+
   --text-display-sm: 48px;
   --leading-display-sm: 1.2;
   --tracking-display-sm: -0.22px;
+
   --text-display: 72px;
   --leading-display: 1;
   --tracking-display: -0.22px;
@@ -508,11 +500,26 @@ Uses status colors directly on the dot: `--color-emerald` for success, `--color-
 }
 
 html:not(.dark) {
-  /* Heading Gradients - Light Mode Override */
-  --color-heading-gradient-start: var(--color-amber);
-  --color-heading-gradient-end: var(--color-azure);
+  /* Semantic Tokens - Mediterranean Summer Morning */
+  --color-bg-primary: var(--color-sky-white);
+  --color-bg-secondary: var(--color-cloud-light);
+  --color-bg-elevated: var(--color-sky-white);
+  --color-bg-surface: var(--color-azure-mist);
 
-  /* Shadows - Light Mode */
+  --color-text-primary: var(--color-deep-ocean);
+  --color-text-secondary: var(--color-sea-stone);
+  --color-text-muted: var(--color-warm-slate);
+  --color-text-tertiary: #64748b;
+
+  --color-border-default: var(--color-azure-mist);
+  --color-border-subtle: var(--color-cloud-light);
+  --color-border-input: var(--color-azure-mist);
+
+  --color-accent-primary: var(--color-turquoise);
+  --color-accent-secondary: var(--color-azure);
+  --color-accent-hover: #0891b2;
+
+  /* Shadows - fresh morning tints */
   --shadow-sm: rgba(6, 182, 212, 0.06) 0px 2px 4px 0px;
   --shadow-md: rgba(14, 165, 233, 0.04) 0px 0px 12px 0px inset;
   --shadow-subtle: rgb(224, 242, 254) 0px 0px 0px 1px inset;
@@ -522,5 +529,9 @@ html:not(.dark) {
   --shadow-input: rgba(6, 182, 212, 0.08) 0px 0px 0px 1px;
   --shadow-focus: rgba(6, 182, 212, 0.3) 0px 0px 0px 2px;
   --shadow-halo-color: rgba(0, 0, 0, 0.3);
+
+  /* Light mode heading gradient override */
+  --color-heading-gradient-start: var(--color-amber);
+  --color-heading-gradient-end: var(--color-azure);
 }
 ```

@@ -39,6 +39,13 @@ const nextConfig = {
     optimizeCss: true,
   },
 
+  compiler: {
+    // Remove console.* and debugger statements in production
+    removeConsole: {
+      exclude: ["error"],
+    },
+  },
+
   // Headers for caching and security
   async headers() {
     return [

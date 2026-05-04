@@ -53,7 +53,7 @@ These exist **only** to showcase the template:
 
 Keep unless you have a reason to drop them:
 
-- `app/skill.md/route.ts` — serves `SKILL.md` raw at `/skill.md`; useful for agent discovery
+- `app/skill.md/route.ts` — serves `SKILL.md` at `/skill.md` with content negotiation: styled HTML for browsers, raw markdown for agents/curl
 
 - `app/components/Container.tsx`, `Skeleton.tsx`, `ThemeToggle.tsx`
 - `app/config/site.ts`

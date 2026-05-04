@@ -58,7 +58,7 @@ app/
 │   └── hello/
 │       └── route.ts       # (demo) Example GET/POST endpoint
 ├── skill.md/
-│   └── route.ts           # Serves SKILL.md as raw text (cached 1h)
+│   └── route.ts           # Serves SKILL.md: HTML for browsers, raw markdown for agents (cached 1h)
 ├── components/            # Reusable UI components
 │   ├── Container.tsx      # Page width wrapper
 │   ├── FeatureCard.tsx    # (demo) Landing page feature card
@@ -142,7 +142,7 @@ Agent Skill definition following the [Agent Skill specification](https://agentsk
 - Template conventions reference (stack, code style, common tasks, theme, utilities)
 - Template for rewriting `SKILL.md` after customization so agents can interact with the shipped app
 
-The skill definition is also served at `/skill.md` as raw text for dynamic discovery by AI agents.
+The skill definition is served at `/skill.md` with content negotiation: beautiful HTML for human browsers, raw markdown for agents and curl.
 
 ### Live Demo
 
@@ -186,29 +186,29 @@ Edit `app/globals.css` to customize colors, spacing, and layout vars. See [`DESI
 :root {
   /* Dark Mode: Pitch Black Canvas */
   --color-bg-primary: #08090a; /* Page background */
-  --color-bg-secondary: #0f1011; /* Elevated surfaces */
-  --color-bg-elevated: #161718; /* Cards */
-  --color-text-primary: #f7f8f8; /* Primary text */
-  --color-text-secondary: #d0d6e0; /* Secondary text */
-  --color-text-muted: #8a8f98; /* Tertiary text */
+  --color-bg-secondary: #111113; /* Elevated surfaces */
+  --color-bg-elevated: #1a1a1e; /* Cards */
+  --color-text-primary: #f8fafc; /* Primary text */
+  --color-text-secondary: #cbd5e1; /* Secondary text */
+  --color-text-muted: #94a3b8; /* Tertiary text */
 
   /* Primary accent (dark mode) */
-  --color-accent-primary: #e4f222; /* Buttons, links, focus */
-  --color-accent-secondary: #5e6ad2; /* Secondary highlight */
+  --color-accent-primary: #a3e635; /* Neon lime - buttons, links, focus */
+  --color-accent-secondary: #06b6d4; /* Cyan glow - gradients, highlights */
 }
 
-.light {
-  /* Light Mode: Pure White Canvas */
-  --color-bg-primary: #ffffff; /* Page background */
-  --color-bg-secondary: #f9fafb; /* Elevated surfaces */
-  --color-bg-elevated: #f3f4f6; /* Cards */
-  --color-text-primary: #111827; /* Primary text */
-  --color-text-secondary: #4b5563; /* Secondary text */
-  --color-text-muted: #6b7280; /* Tertiary text */
+html:not(.dark) {
+  /* Light Mode: Mediterranean Sky */
+  --color-bg-primary: #f0f9ff; /* Sky white - page background */
+  --color-bg-secondary: #e0f2fe; /* Cloud light - elevated surfaces */
+  --color-bg-elevated: #f0f9ff; /* Cards */
+  --color-text-primary: #0c4a6e; /* Deep ocean - primary text */
+  --color-text-secondary: #334155; /* Sea stone - secondary text */
+  --color-text-muted: #475569; /* Warm slate - tertiary text */
 
   /* Primary accent (light mode) */
-  --color-accent-primary: #5e6ad2; /* Buttons, links, focus */
-  --color-accent-secondary: #e4f222; /* Secondary highlight */
+  --color-accent-primary: #06b6d4; /* Turquoise - buttons, links, focus */
+  --color-accent-secondary: #0ea5e9; /* Azure - gradients, highlights */
 }
 ```
 
