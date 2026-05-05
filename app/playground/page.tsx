@@ -261,7 +261,7 @@ export default function PlaygroundPage(): React.ReactElement {
 
   const testSkill = useCallback((): void => {
     runRequest("skill", async () => {
-      const res = await fetch("/skill.md")
+      const res = await fetch("/skill.md?raw=1")
       const text = await res.text()
       return text.slice(0, 500) + (text.length > 500 ? "..." : "")
     })
@@ -343,7 +343,7 @@ export default function PlaygroundPage(): React.ReactElement {
             />
             <EndpointCard
               method="GET"
-              path="/skill.md"
+              path="/skill.md?raw=1"
               description={t.endpoints.skill}
               state={state.skill}
               onRun={testSkill}

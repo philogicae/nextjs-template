@@ -2,6 +2,10 @@
 @import "@heroui/styles";
 @custom-variant dark (&:is(.dark *));
 
+/* Exclude CHANGELOG.md from Tailwind scanning to prevent interference */
+@source not "../CHANGELOG.md";
+@source not "../*.md";
+
 /*
  * Design System
  * Evolved from Linear "Midnight Command Center"
