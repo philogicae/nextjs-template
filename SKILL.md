@@ -2,7 +2,7 @@
 name: nextjs-template-bootstrap
 description: Bootstrap skill for starting a new project from the philogicae/nextjs-template. Use when a user asks to scaffold a new webapp. Covers cloning, the folder layout, what must be customized/deleted, and the template's conventions.
 license: MIT
-notes: Fetch this file with '?raw=1' query parameter to get raw markdown (e.g., /skill.md?raw=1). Without it, the endpoint returns HTML for browser viewing.
+notes: Content negotiation - Returns raw markdown for agents/curl (detected via User-Agent). Returns styled HTML for browsers. Use '?raw=1' query parameter to force raw markdown (e.g., /skill.md?raw=1).
 metadata:
   author: philogicae
   version: "0.0.0-auto-synced"

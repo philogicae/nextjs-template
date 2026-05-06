@@ -19,15 +19,30 @@ const VERSION_REGEX = /^(\s*version:\s*")[^"]*("\s*)$/m;
 /** Regex to extract frontmatter block (content between --- delimiters) */
 const FRONTMATTER_REGEX = /^---\n([\s\S]*?)\n---\n/;
 
-/** Browser User-Agent substrings for detection */
+/** Browser User-Agent substrings (lowercase for case-insensitive matching) */
 const BROWSER_USER_AGENTS = [
-	"Mozilla",
-	"Chrome",
-	"Safari",
-	"Firefox",
-	"Edge",
-	"Opera",
-	"Edg",
+	"chrome",
+	"safari",
+	"firefox",
+	"edge",
+	"opera",
+	"edg", // Edge without 'e'
+];
+
+/** Non-browser tool User-Agent indicators (lowercase) */
+const NON_BROWSER_USER_AGENTS = [
+	"curl",
+	"wget",
+	"httpie",
+	"python-requests",
+	"node",
+	"axios",
+	"postman",
+	"insomnia",
+	"go-http-client",
+	"ruby",
+	"java",
+	"okhttp",
 ];
 
 const STYLES = `
@@ -970,33 +985,36 @@ async function generateHtmlPage(
 // ============================================================================
 
 /**
- * Determines if the request should receive HTML based on Accept header and User-Agent.
+ * Content negotiation: determines if request should receive HTML.
+ *
+ * Priority (returns markdown unless explicitly browser):
+ * 1. ?raw=1 → markdown
+ * 2. Tool User-Agent (curl, wget, etc.) → markdown
+ * 3. Accept: text/markdown|plain|json → markdown
+ * 4. Accept: text/html (explicit) → HTML
+ * 5. Browser User-Agent → HTML
+ * 6. Default → markdown (safe for unknown agents)
  */
 function wantsHtml(request: Request): boolean {
 	const url = new URL(request.url);
+	if (url.searchParams.get("raw") === "1") return false;
 
-	// Explicit override: ?raw=1 forces raw markdown
-	if (url.searchParams.get("raw") === "1") {
-		return false;
-	}
-
-	// Check Accept header
 	const accept = request.headers.get("accept") || "";
-	if (accept.includes("text/html")) {
-		return true;
-	}
+	const userAgent = (request.headers.get("user-agent") || "").toLowerCase();
 
-	// If explicitly requesting markdown or plain text, respect that
-	if (
-		accept.includes("text/markdown") ||
-		accept.includes("text/plain") ||
-		accept.includes("application/json")
-	) {
+	// Tools/CLI agents get markdown immediately
+	if (NON_BROWSER_USER_AGENTS.some((ua) => userAgent.includes(ua))) return false;
+
+	// Parse Accept header (strip quality values)
+	const types = accept.split(",").map((t) => t.split(";")[0]?.trim() ?? "");
+
+	// Explicit content type requests
+	if (types.includes("text/markdown") || types.includes("text/plain") || types.includes("application/json")) {
 		return false;
 	}
+	if (types.includes("text/html")) return true;
 
-	// Fallback: Check User-Agent for browser indicators
-	const userAgent = request.headers.get("user-agent") || "";
+	// User-Agent as final signal (browser = HTML, unknown = markdown for safety)
 	return BROWSER_USER_AGENTS.some((ua) => userAgent.includes(ua));
 }
 
@@ -1005,10 +1023,22 @@ function wantsHtml(request: Request): boolean {
 // ============================================================================
 
 /**
- * Serves SKILL.md at \`/skill.md\`.
- * - For browsers: Renders as styled HTML with proper frontmatter display
- * - For agents/curl: Returns raw markdown
- * - Query param ?raw=1 forces raw markdown
+ * Serves SKILL.md at `/skill.md` with smart content negotiation:
+ *
+ * **HTML Response (styled page):**
+ * - Browser User-Agents: Chrome, Safari, Firefox, Edge, Opera
+ * - Accept: text/html (explicit)
+ *
+ * **Raw Markdown Response:**
+ * - Tool User-Agents: curl, wget, httpie, python-requests, node, axios, postman, etc.
+ * - Accept: text/markdown, text/plain, application/json
+ * - Query param: `?raw=1`
+ * - Default for unknown agents (safer for agents)
+ *
+ * **Examples:**
+ * - Browser visit → HTML page
+ * - `curl /skill.md` → raw markdown
+ * - `curl /skill.md?raw=1` → raw markdown (explicit)
  */
 export async function GET(request: Request): Promise<Response> {
 	const shouldReturnHtml = wantsHtml(request);
