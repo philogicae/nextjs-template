@@ -11,14 +11,14 @@
 # Base: shared Node + pnpm toolchain. Pin pnpm to match `packageManager`
 # in package.json for reproducible builds.
 FROM platformatic/node-caged:25-alpine AS base
-ENV PNPM_VERSION=10.33.0 \
+ENV PNPM_VERSION=11.0.8 \
     NEXT_TELEMETRY_DISABLED=1
 WORKDIR /webapp
 RUN npm install -g pnpm@${PNPM_VERSION}
 
 # deps: install all dependencies from the lockfile (cached layer)
 FROM base AS deps
-COPY package.json pnpm-lock.yaml .npmrc ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 RUN pnpm install --frozen-lockfile
 
 # builder: compile the Next.js app
