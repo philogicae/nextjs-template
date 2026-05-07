@@ -44,7 +44,7 @@ pnpm install
 pnpm dev           # http://localhost:3000
 ```
 
-Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
+Requirements: **Node.js 24+**, **pnpm 11+**, modern browser.
 
 ## 2. Repository tour
 
@@ -57,6 +57,7 @@ Requirements: **Node.js 24+**, **pnpm 10+**, modern browser.
 │   ├── components/              # Shared UI (no barrel — import per file)
 │   │   ├── Container.tsx        # Keep (generic width wrapper)
 │   │   ├── FeatureCard.tsx      # DEMO — delete if unused
+│   │   ├── LanguageSwitcher.tsx # Keep (locale dropdown)
 │   │   ├── Skeleton.tsx         # Keep (themed pulse placeholder)
 │   │   ├── StatusBadge.tsx      # DEMO — delete if unused
 │   │   └── ThemeToggle.tsx      # Keep (uses next-themes)
@@ -246,8 +247,8 @@ Quick reference for the conventions baked into the template, needed while custom
 
 **Dev tooling**
 
-- Biome 2 for lint + format (`pnpm lint` runs `biome check --write --unsafe` over the whole repo)
-- pnpm 10 with a committed `pnpm-lock.yaml`
+- Biome 2 for lint + format (`pnpm lint` runs `biome check --write app --unsafe` over the app directory)
+- pnpm 11 with a committed `pnpm-lock.yaml`
 
 ## Code conventions
 

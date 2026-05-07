@@ -27,7 +27,7 @@ A modern, production-ready Next.js template featuring the latest technologies an
 ### Prerequisites
 
 - Node.js 24+
-- pnpm 10+
+- pnpm 11+
 
 ### Clone and Setup
 

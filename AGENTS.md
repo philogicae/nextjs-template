@@ -11,7 +11,7 @@
 ## Requirements
 
 - Node.js 24+
-- pnpm 10+
+- pnpm 11+
 
 ## Stack
 
@@ -21,7 +21,7 @@
 - **Design System**: Pre-configured dark and light modes. See [`DESIGN.md`](./DESIGN.md) for the complete reference (palette, typography, elevation, components).
 - **State**: Zustand + `persist` middleware
 - **Lint/format**: Biome 2
-- **Package manager**: pnpm 10
+- **Package manager**: pnpm 11
 - **i18n**: Provider-based (cookie + `Accept-Language`), no URL locale segment. Ships with 12 locales (`en`, `zh`, `es`, `ar`, `fr`, `pt`, `ru`, `ja`, `de`, `ko`, `it`, `ro`); delete the ones you don't need when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
 - **Theme**: Light and dark mode support via next-themes. See [`DESIGN.md`](./DESIGN.md) for the complete token reference.
 
@@ -195,7 +195,7 @@ Path aliases (`tsconfig.json`, with `noUncheckedIndexedAccess` + `noImplicitOver
 
 **Formatting**
 
-- `pnpm lint` runs `biome check --write --unsafe` over the whole repo. Run it before finishing a task.
+- `pnpm lint` runs `biome check --write app --unsafe` over the app directory. Run it before finishing a task.
 
 ## Component patterns
 
