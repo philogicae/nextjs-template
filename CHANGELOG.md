@@ -104,6 +104,18 @@
 - Add removeConsole to next.config.mjs for app-wide optimization
 - Sync DESIGN.md Quick Start CSS with globals.css structure
 - Update README.md design token examples to match actual color system
+- Feat: add ?raw=1 query parameter for raw markdown in /skill.md route
+
+- Update SKILL.md frontmatter notes to document ?raw=1 parameter usage
+- Add @source exclusions in globals.css to prevent Tailwind scanning markdown files
+- Update playground endpoint tests to use /skill.md?raw=1 for raw markdown fetch
+- Feat: improve content negotiation in /skill.md with tool detection and priority logic
+- Feat: expand i18n to 12 locales, rebrand to fractal-template, polish footer
+
+- i18n: add 8 new locales (ar, de, it, ja, ko, pt, ru, zh) sorted by speakers
+- brand: rename nextjs-template → fractal-template across all files
+- site: update URL to fractal-template.binaryeyelabs.xyz
+- footer: add credits link, a11y improvements (sr-only, aria-hidden), cleaner layout
 
 ### 🐛 Bug Fixes
 
@@ -138,3 +150,11 @@
 - Chore: update changelog
 - Chore: update changelog
 - Chore: update changelog
+- Chore: bump pnpm to 11.0.8 and version to 1.5.0
+- Chore: bump Next.js to 16.2.5, update docs to reflect pnpm 11 and scoped lint command
+
+- deps: upgrade next from 16.2.4 to 16.2.5
+- docs: update pnpm requirement from 10+ to 11+ across AGENTS.md, README.md, SKILL.md
+- docs: clarify lint command runs `biome check --write app --unsafe` (scoped to app directory)
+- version: bump to 1.5.1
+- chore: add LanguageSwitcher.tsx to SKILL.md component tour
