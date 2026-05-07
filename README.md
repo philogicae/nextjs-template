@@ -1,4 +1,4 @@
-# Next.js Template
+# Fractal Template
 
 A modern, production-ready Next.js template featuring the latest technologies and best practices.
 
@@ -20,7 +20,7 @@ A modern, production-ready Next.js template featuring the latest technologies an
 - **Reduced-motion aware** — `prefers-reduced-motion` handled globally in `globals.css`
 - **Production-ready** — Multi-stage `Dockerfile` with `output: "standalone"`, GitHub Actions CI/CD, 6 security headers, AVIF/WebP images (with strict CSP), long-term static caching
 - **Agent-ready** — [`AGENTS.md`](./AGENTS.md), [`SKILL.md`](./SKILL.md), [`DESIGN.md`](./DESIGN.md), [`CHECKLIST.md`](./CHECKLIST.md), and a `/skill.md` route for dynamic agent discovery
-- **Internationalization** — server-resolved locale (cookie + `Accept-Language`) with a typed JSON-dictionary system, a client `LocaleProvider`, and a navbar `LanguageSwitcher`. Ships with **English, French, Spanish, Romanian**; delete the ones you don't need when customizing, add more as needed — no `[lang]` URL segment. **All user-visible text must use i18n** — no hardcoded strings in components
+- **Internationalization** — server-resolved locale (cookie + `Accept-Language`) with a typed JSON-dictionary system, a client `LocaleProvider`, and a navbar `LanguageSwitcher`. Ships with **12 locales** (`en`, `zh`, `es`, `ar`, `fr`, `pt`, `ru`, `ja`, `de`, `ko`, `it`, `ro`); delete the ones you don't need when customizing, add more only when needed — no `[lang]` URL segment. **All user-visible text must use i18n** — no hardcoded strings in components
 
 ## Getting Started
 
@@ -32,7 +32,7 @@ A modern, production-ready Next.js template featuring the latest technologies an
 ### Clone and Setup
 
 ```bash
-git clone https://github.com/philogicae/nextjs-template.git my-project
+git clone https://github.com/philogicae/fractal-template.git my-project
 cd my-project
 pnpm install
 pnpm dev
@@ -146,7 +146,7 @@ The skill definition is served at `/skill.md` with content negotiation: beautifu
 
 ### Live Demo
 
-Visit the [live demo](https://fractal-nextjs.vercel.app/) to see the template in action, including the AI Agent Integration section with tabs for AGENTS.md, SKILL.md, and Repomix documentation.
+Visit the [live demo](https://fractal-template.binaryeyelabs.xyz) to see the template in action, including the AI Agent Integration section with tabs for AGENTS.md, SKILL.md, and Repomix documentation.
 
 ## Deployment
 
@@ -158,7 +158,7 @@ A multi-stage `Dockerfile` (`base` → `deps` → `builder` → slim `runner`) a
 docker compose up --build       # Build and run on :3000
 ```
 
-`compose.yaml` sets `NODE_ENV=production` and optionally loads a local `.env` file. Project name, container name, image name/tag, and host port are all configurable via `.env` (`DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT`) — defaults fall back to `nextjs-template` / `3000`.
+`compose.yaml` sets `NODE_ENV=production` and optionally loads a local `.env` file. Project name, container name, image name/tag, and host port are all configurable via `.env` (`DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT`) — defaults fall back to `fractal-template` / `3000`.
 
 ### GitHub Actions
 
@@ -306,7 +306,7 @@ import { getCurrentDictionary } from "@i18n/server";
 const { dict, locale } = await getCurrentDictionary();
 ```
 
-**Supported locales** (see `app/i18n/config.ts`): `en` (default), `fr`, `es`, `ro`. Delete extra locale files when customizing; add more only when needed. **All user-visible text must use i18n** — in Server Components use `const { dict } = await getCurrentDictionary()`, in Client Components use `const dict = useDict()`.
+**Supported locales** (see `app/i18n/config.ts`): `en` (default), `zh`, `es`, `ar`, `fr`, `pt`, `ru`, `ja`, `de`, `ko`, `it`, `ro`. Delete extra locale files when customizing; add more only when needed. **All user-visible text must use i18n** — in Server Components use `const { dict } = await getCurrentDictionary()`, in Client Components use `const dict = useDict()`.
 
 Site-wide nav entries in `app/config/site.ts` carry a `labelKey` (not a literal label); the `Navbar` resolves it against `dict.nav`, which guarantees translation coverage at the type level.
 

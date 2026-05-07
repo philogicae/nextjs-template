@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "flag": "🇯🇵",
+    "native": "日本語"
+  },
+  "nav": {
+    "home": "ホーム",
+    "playground": "プレイグラウンド",
+    "skill": "SKILL.md",
+    "openMenu": "メニューを開く",
+    "closeMenu": "メニューを閉じる",
+    "toggleMenu": "ナビゲーションメニューの切り替え",
+    "language": "言語",
+    "themeToLight": "ライトモードに切り替え",
+    "themeToDark": "ダークモードに切り替え",
+    "themeToggle": "テーマの切り替え"
+  },
+  "footer": {
+    "credits": "Built with Fractal Template"
+  },
+  "landing": {
+    "headingPrefix": "より速く、よりスマートに構築する",
+    "headingAccent": "モダンスタック",
+    "subtitleLine1": "HeroUI と Biome を備えた、エージェント対応の Next.js テンプレート。",
+    "subtitleLine2": "数分で構築を開始。",
+    "ctaPlayground": "プレイグラウンド",
+    "ctaSkill": "SKILL.md を読む",
+    "ctaGithub": "GitHub で見る",
+    "ctaVercel": "Vercel にデプロイ",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "モダン開発のために構築",
+    "featuresSubtitle": "本番対応アプリケーションの配信に必要なすべて。",
+    "ctaSectionTitle": "始める準備はできましたか？",
+    "ctaSectionSubtitle": "プレイグラウンドを探索するか、ワンクリックで Vercel にデプロイ。",
+    "features": {
+      "nextjs": "App Router + Turbo",
+      "react": "サーバーコンポーネント",
+      "tailwind": "CSS-first 設定",
+      "heroui": "アクセシブルな UI キット",
+      "biome": "Lint & フォーマット",
+      "skill": "AI エージェントスキル"
+    }
+  },
+  "playground": {
+    "title": "プレイグラウンド",
+    "subtitle": "サーバーサイド API エンドポイントと Zustand による状態管理をライブでテスト。",
+    "stateSection": "状態管理",
+    "stateHint": "Zustand ストア",
+    "apiSection": "API エンドポイント",
+    "apiCount": "{count} エンドポイント",
+    "historyLabel": "履歴",
+    "reset": "リセット",
+    "undo": "元に戻す",
+    "send": "送信",
+    "sending": "送信中...",
+    "response": "レスポンス",
+    "status": {
+      "idle": "待機中",
+      "loading": "読み込み中",
+      "success": "OK",
+      "error": "エラー"
+    },
+    "endpoints": {
+      "hello": "タイムスタンプ付きの挨拶メッセージを返します。",
+      "post": "受信した JSON ボディをタイムスタンプ付きで返します。",
+      "skill": "AI エージェントの検出のため SKILL.md の生コンテンツを提供します。"
+    }
+  },
+  "error": {
+    "title": "エラーが発生しました",
+    "subtitle": "このページの読み込み中にエラーが発生しました",
+    "details": "エラーの詳細",
+    "unknown": "不明なエラー",
+    "errorId": "エラー ID",
+    "retry": "再試行",
+    "home": "ホームへ戻る"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "ページが見つかりません。お探しのページは存在しないか、移動されました。",
+    "home": "ホームへ戻る"
+  }
+}

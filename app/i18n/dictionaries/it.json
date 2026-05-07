@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "flag": "🇮🇹",
+    "native": "Italiano"
+  },
+  "nav": {
+    "home": "Home",
+    "playground": "Playground",
+    "skill": "SKILL.md",
+    "openMenu": "Apri menu",
+    "closeMenu": "Chiudi menu",
+    "toggleMenu": "Attiva/disattiva menu di navigazione",
+    "language": "Lingua",
+    "themeToLight": "Passa alla modalità chiara",
+    "themeToDark": "Passa alla modalità scura",
+    "themeToggle": "Cambia tema"
+  },
+  "footer": {
+    "credits": "Built with Fractal Template"
+  },
+  "landing": {
+    "headingPrefix": "Costruisci più velocemente e in modo più intelligente con uno",
+    "headingAccent": "stack moderno",
+    "subtitleLine1": "Un template Next.js pronto per agenti, con HeroUI e Biome.",
+    "subtitleLine2": "Inizia a costruire in pochi minuti.",
+    "ctaPlayground": "Playground",
+    "ctaSkill": "Leggi SKILL.md",
+    "ctaGithub": "Vedi su GitHub",
+    "ctaVercel": "Deploy su Vercel",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "Costruito per lo sviluppo moderno",
+    "featuresSubtitle": "Tutto ciò che ti serve per rilasciare applicazioni pronte per la produzione.",
+    "ctaSectionTitle": "Pronto per iniziare?",
+    "ctaSectionSubtitle": "Esplora il playground o esegui il deploy su Vercel con un click.",
+    "features": {
+      "nextjs": "App Router + Turbo",
+      "react": "Componenti Server",
+      "tailwind": "Configurazione CSS-first",
+      "heroui": "Kit UI accessibile",
+      "biome": "Lint e formattazione",
+      "skill": "Skill per agenti AI"
+    }
+  },
+  "playground": {
+    "title": "Playground",
+    "subtitle": "Testa live gli endpoint API lato server e la gestione dello stato con Zustand.",
+    "stateSection": "Gestione Stato",
+    "stateHint": "Store Zustand",
+    "apiSection": "Endpoint API",
+    "apiCount": "{count} endpoint",
+    "historyLabel": "cron",
+    "reset": "Reimposta",
+    "undo": "Annulla",
+    "send": "Invia",
+    "sending": "Invio...",
+    "response": "Risposta",
+    "status": {
+      "idle": "Inattivo",
+      "loading": "Caricamento",
+      "success": "OK",
+      "error": "Errore"
+    },
+    "endpoints": {
+      "hello": "Restituisce un messaggio di benvenuto con timestamp.",
+      "post": "Restituisce il body JSON ricevuto con timestamp.",
+      "skill": "Fornisce il contenuto grezzo di SKILL.md per la scoperta da parte di agenti AI."
+    }
+  },
+  "error": {
+    "title": "Qualcosa è andato storto",
+    "subtitle": "Si è verificato un errore durante il caricamento di questa pagina",
+    "details": "Dettagli errore",
+    "unknown": "Errore sconosciuto",
+    "errorId": "ID errore",
+    "retry": "Riprova",
+    "home": "Torna alla Home"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Pagina non trovata. La pagina che stai cercando non esiste o è stata spostata.",
+    "home": "Torna alla Home"
+  }
+}

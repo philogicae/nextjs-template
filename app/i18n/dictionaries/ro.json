@@ -16,7 +16,7 @@
     "themeToggle": "Comută tema"
   },
   "footer": {
-    "license": "Licență MIT"
+    "credits": "Built with Fractal Template"
   },
   "landing": {
     "headingPrefix": "Construiește mai rapid și mai inteligent cu",
@@ -31,10 +31,10 @@
     "featuresTitle": "Construit pentru dezvoltare modernă",
     "featuresSubtitle": "Tot ce ai nevoie pentru a livra aplicații pregătite pentru producție.",
     "ctaSectionTitle": "Gata să începi?",
-    "ctaSectionSubtitle": "Explorează playground-ul sau publică pe Vercel cu un singur click.",
+    "ctaSectionSubtitle": "Explorează zona de test sau publică pe Vercel cu un singur click.",
     "features": {
       "nextjs": "App Router + Turbo",
-      "react": "Server Components",
+      "react": "Componente Server",
       "tailwind": "Configurare CSS-first",
       "heroui": "Kit UI accesibil",
       "biome": "Lint și formatare",
@@ -42,7 +42,7 @@
     }
   },
   "playground": {
-    "title": "Playground",
+    "title": "Zonă de test",
     "subtitle": "Testează live endpoint-urile API server-side și gestionarea stării cu Zustand.",
     "stateSection": "Manager de stare",
     "stateHint": "Store Zustand",

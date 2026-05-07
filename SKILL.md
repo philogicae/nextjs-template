@@ -1,14 +1,14 @@
 ---
-name: nextjs-template-bootstrap
-description: Bootstrap skill for starting a new project from the philogicae/nextjs-template. Use when a user asks to scaffold a new webapp. Covers cloning, the folder layout, what must be customized/deleted, and the template's conventions.
+name: fractal-template-bootstrap
+description: Bootstrap skill for starting a new project from the philogicae/fractal-template. Use when a user asks to scaffold a new webapp. Covers cloning, the folder layout, what must be customized/deleted, and the template's conventions.
 license: MIT
 notes: Content negotiation - Returns raw markdown for agents/curl (detected via User-Agent). Returns styled HTML for browsers. Use '?raw=1' query parameter to force raw markdown (e.g., /skill.md?raw=1).
 metadata:
   author: philogicae
   version: "0.0.0-auto-synced"
   template-type: nextjs
-  source: https://github.com/philogicae/nextjs-template
-  live-demo: https://fractal-nextjs.vercel.app/
+  source: https://github.com/philogicae/fractal-template
+  live-demo: https://fractal-template.binaryeyelabs.xyz
   stack:
     - Next.js 16 (App Router, Turbopack)
     - React 19
@@ -19,7 +19,7 @@ metadata:
     - Biome
   features:
     - App Router + React Server Components
-    - Internationalization via a server-resolved locale (`NEXT_LOCALE` cookie + `Accept-Language`) and a client `LocaleProvider` — **no `[lang]` URL segment**. Ships with multiple locales (`en`, `fr`, `es`, `ro`); delete the ones you don't need when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
+    - Internationalization via a server-resolved locale (`NEXT_LOCALE` cookie + `Accept-Language`) and a client `LocaleProvider` — **no `[lang]` URL segment**. Ships with 12 locales (`en`, `zh`, `es`, `ar`, `fr`, `pt`, `ru`, `ja`, `de`, `ko`, `it`, `ro`); delete the ones you don't need when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
     - Dark mode via `next-themes` with FOUC prevention (theme-aware html background)
     - Mobile-first responsive layout
     - Error boundary, loading (Skeleton-based) and 404 pages
@@ -30,14 +30,14 @@ metadata:
     - Pre-configured design system with dark/light modes — see [`DESIGN.md`](./DESIGN.md) for complete reference
 ---
 
-# Next.js Template — Bootstrap Skill
+# Fractal Template — Bootstrap Skill
 
-> **Audience.** AI agents spinning up a **new project** from `philogicae/nextjs-template`. This document is self-contained: it covers both the bootstrap steps and the conventions the agent needs to customize the repo correctly.
+> **Audience.** AI agents spinning up a **new project** from `philogicae/fractal-template`. This document is self-contained: it covers both the bootstrap steps and the conventions the agent needs to customize the repo correctly.
 
 ## 1. Clone and install
 
 ```bash
-git clone https://github.com/philogicae/nextjs-template.git <project-name>
+git clone https://github.com/philogicae/fractal-template.git <project-name>
 cd <project-name>
 rm -rf .git && git init
 pnpm install
@@ -207,7 +207,7 @@ pnpm build       # Production build must succeed
 Grep for any leftover template branding:
 
 ```bash
-rg -i "next\.js template|philogicae|fractal-nextjs|playground|counter"
+rg -i "next\.js template|philogicae|fractal-template|playground|counter"
 ```
 
 Every match should be intentional.

@@ -8,15 +8,36 @@
  * the `LanguageSwitcher`) derives from that map.
  */
 
+import ar from "./dictionaries/ar.json"
+import de from "./dictionaries/de.json"
 import en from "./dictionaries/en.json"
 import es from "./dictionaries/es.json"
 import fr from "./dictionaries/fr.json"
+import it from "./dictionaries/it.json"
+import ja from "./dictionaries/ja.json"
+import ko from "./dictionaries/ko.json"
+import pt from "./dictionaries/pt.json"
 import ro from "./dictionaries/ro.json"
+import ru from "./dictionaries/ru.json"
+import zh from "./dictionaries/zh.json"
 
-const dictionaries = { en, fr, es, ro } as const satisfies Record<
-  string,
-  Dictionary
->
+// Sorted by total speakers (most spoken to least spoken):
+// en ~1.5B, zh ~1.1B, es ~500M, ar ~420M, fr ~300M, pt ~260M, ru ~260M,
+// ja ~125M, de ~95M, ko ~80M, it ~65M, ro ~24M
+const dictionaries = {
+  en,
+  zh,
+  es,
+  ar,
+  fr,
+  pt,
+  ru,
+  ja,
+  de,
+  ko,
+  it,
+  ro,
+} as const satisfies Record<string, Dictionary>
 
 export type Locale = keyof typeof dictionaries
 export type Dictionary = typeof en

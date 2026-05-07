@@ -16,10 +16,10 @@
     "themeToggle": "Basculer le thème"
   },
   "footer": {
-    "license": "Licence MIT"
+    "credits": "Built with Fractal Template"
   },
   "landing": {
-    "headingPrefix": "Développez plus vite et plus intelligemment avec une",
+    "headingPrefix": "Développez plus vite et plus intelligemment avec un",
     "headingAccent": "Stack moderne",
     "subtitleLine1": "Un template Next.js prêt pour les agents, avec HeroUI et Biome.",
     "subtitleLine2": "Commencez à construire en quelques minutes.",
@@ -31,7 +31,7 @@
     "featuresTitle": "Conçu pour le développement moderne",
     "featuresSubtitle": "Tout ce dont vous avez besoin pour livrer des applications prêtes pour la production.",
     "ctaSectionTitle": "Prêt à commencer ?",
-    "ctaSectionSubtitle": "Explorez le bac à sable ou déployez sur Vercel en un clic.",
+    "ctaSectionSubtitle": "Explorez le Playground ou déployez sur Vercel en un clic.",
     "features": {
       "nextjs": "App Router + Turbo",
       "react": "Composants serveur",
@@ -42,7 +42,7 @@
     }
   },
   "playground": {
-    "title": "Bac à sable",
+    "title": "Playground",
     "subtitle": "Testez en direct les endpoints d'API et la gestion d'état Zustand.",
     "stateSection": "Gestion d'état",
     "stateHint": "Store Zustand",

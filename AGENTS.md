@@ -1,6 +1,6 @@
 # AGENTS.md
 
-> **Audience.** AI agents working inside a repository **already cloned** from `philogicae/nextjs-template` who need to customize it into a real product. This document is self-contained.
+> **Audience.** AI agents working inside a repository **already cloned** from `philogicae/fractal-template` who need to customize it into a real product. This document is self-contained.
 >
 > **Keep this file in sync while you work.** Every time you remove demo code, add a route/store/component, introduce an env variable, or change conventions, update the matching section of `AGENTS.md` in the same commit. The next agent reading it must see the current state of the project, not the template's baseline.
 >
@@ -22,7 +22,7 @@
 - **State**: Zustand + `persist` middleware
 - **Lint/format**: Biome 2
 - **Package manager**: pnpm 10
-- **i18n**: Provider-based (cookie + `Accept-Language`), no URL locale segment. Ships with multiple locales (`en`, `fr`, `es`, `ro`); delete the ones you don't need when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
+- **i18n**: Provider-based (cookie + `Accept-Language`), no URL locale segment. Ships with 12 locales (`en`, `zh`, `es`, `ar`, `fr`, `pt`, `ru`, `ja`, `de`, `ko`, `it`, `ro`); delete the ones you don't need when customizing, add more only when needed. **All user-visible text must use i18n** — no hardcoded strings in components
 - **Theme**: Light and dark mode support via next-themes. See [`DESIGN.md`](./DESIGN.md) for the complete token reference.
 
 ## Customization checklist

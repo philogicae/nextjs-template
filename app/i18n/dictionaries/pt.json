@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "flag": "🇵🇹",
+    "native": "Português"
+  },
+  "nav": {
+    "home": "Início",
+    "playground": "Playground",
+    "skill": "SKILL.md",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "toggleMenu": "Alternar menu de navegação",
+    "language": "Idioma",
+    "themeToLight": "Mudar para modo claro",
+    "themeToDark": "Mudar para modo escuro",
+    "themeToggle": "Alternar tema"
+  },
+  "footer": {
+    "credits": "Built with Fractal Template"
+  },
+  "landing": {
+    "headingPrefix": "Construa mais rápido e inteligente com o",
+    "headingAccent": "Stack Moderno",
+    "subtitleLine1": "Um template Next.js pronto para agentes, com HeroUI e Biome.",
+    "subtitleLine2": "Comece a construir em minutos.",
+    "ctaPlayground": "Playground",
+    "ctaSkill": "Ler SKILL.md",
+    "ctaGithub": "Ver no GitHub",
+    "ctaVercel": "Deploy no Vercel",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "Construído para desenvolvimento moderno",
+    "featuresSubtitle": "Tudo que você precisa para entregar aplicações prontas para produção.",
+    "ctaSectionTitle": "Pronto para começar?",
+    "ctaSectionSubtitle": "Explore o playground ou faça deploy no Vercel com um clique.",
+    "features": {
+      "nextjs": "App Router + Turbo",
+      "react": "Componentes de Servidor",
+      "tailwind": "Configuração CSS-first",
+      "heroui": "Kit UI Acessível",
+      "biome": "Lint e formatação",
+      "skill": "Skill para agentes de IA"
+    }
+  },
+  "playground": {
+    "title": "Playground",
+    "subtitle": "Teste endpoints de API server-side e gerenciamento de estado com Zustand em tempo real.",
+    "stateSection": "Gerenciador de Estado",
+    "stateHint": "Store Zustand",
+    "apiSection": "Endpoints de API",
+    "apiCount": "{count} endpoints",
+    "historyLabel": "hist",
+    "reset": "Redefinir",
+    "undo": "Desfazer",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "response": "Resposta",
+    "status": {
+      "idle": "Ocioso",
+      "loading": "Carregando",
+      "success": "OK",
+      "error": "Erro"
+    },
+    "endpoints": {
+      "hello": "Retorna uma mensagem de saudação com timestamp.",
+      "post": "Retorna o corpo JSON recebido com um timestamp.",
+      "skill": "Serve o conteúdo bruto de SKILL.md para descoberta por agentes de IA."
+    }
+  },
+  "error": {
+    "title": "Algo deu errado",
+    "subtitle": "Ocorreu um erro ao carregar esta página",
+    "details": "Detalhes do erro",
+    "unknown": "Erro desconhecido",
+    "errorId": "ID do erro",
+    "retry": "Tentar novamente",
+    "home": "Ir para Início"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Página não encontrada. A página que você está procurando não existe ou foi movida.",
+    "home": "Ir para Início"
+  }
+}

@@ -16,7 +16,7 @@
     "themeToggle": "Alternar tema"
   },
   "footer": {
-    "license": "Licencia MIT"
+    "credits": "Built with Fractal Template"
   },
   "landing": {
     "headingPrefix": "Construye más rápido e inteligente con un",
@@ -31,7 +31,7 @@
     "featuresTitle": "Construido para el desarrollo moderno",
     "featuresSubtitle": "Todo lo que necesitas para implementar aplicaciones listas para producción.",
     "ctaSectionTitle": "¿Listo para empezar?",
-    "ctaSectionSubtitle": "Explora el área de pruebas o despliega en Vercel con un clic.",
+    "ctaSectionSubtitle": "Prueba el playground o despliega en Vercel con un clic.",
     "features": {
       "nextjs": "App Router + Turbo",
       "react": "Componentes de servidor",

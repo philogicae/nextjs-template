@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "flag": "🇷🇺",
+    "native": "Русский"
+  },
+  "nav": {
+    "home": "Главная",
+    "playground": "Песочница",
+    "skill": "SKILL.md",
+    "openMenu": "Открыть меню",
+    "closeMenu": "Закрыть меню",
+    "toggleMenu": "Переключить меню навигации",
+    "language": "Язык",
+    "themeToLight": "Переключиться на светлую тему",
+    "themeToDark": "Переключиться на тёмную тему",
+    "themeToggle": "Переключить тему"
+  },
+  "footer": {
+    "credits": "Built with Fractal Template"
+  },
+  "landing": {
+    "headingPrefix": "Создавайте быстрее и умнее с",
+    "headingAccent": "Современным Стеком",
+    "subtitleLine1": "Шаблон Next.js, готовый для агентов, с HeroUI и Biome.",
+    "subtitleLine2": "Начните строить за считанные минуты.",
+    "ctaPlayground": "Песочница",
+    "ctaSkill": "Прочитать SKILL.md",
+    "ctaGithub": "Смотреть на GitHub",
+    "ctaVercel": "Развернуть на Vercel",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "Создано для современной разработки",
+    "featuresSubtitle": "Всё необходимое для запуска приложений, готовых к продакшену.",
+    "ctaSectionTitle": "Готовы начать?",
+    "ctaSectionSubtitle": "Попробуйте песочницу или разверните на Vercel одним кликом.",
+    "features": {
+      "nextjs": "App Router + Turbo",
+      "react": "Серверные компоненты",
+      "tailwind": "CSS-first конфигурация",
+      "heroui": "Доступный UI-кит",
+      "biome": "Линт и форматирование",
+      "skill": "Навык для ИИ-агентов"
+    }
+  },
+  "playground": {
+    "title": "Песочница",
+    "subtitle": "Тестируйте серверные API-эндпоинты и управление состоянием через Zustand в реальном времени.",
+    "stateSection": "Менеджер состояния",
+    "stateHint": "Zustand-хранилище",
+    "apiSection": "API-эндпоинты",
+    "apiCount": "{count} эндпоинтов",
+    "historyLabel": "ист",
+    "reset": "Сброс",
+    "undo": "Отмена",
+    "send": "Отправить",
+    "sending": "Отправка...",
+    "response": "Ответ",
+    "status": {
+      "idle": "Простой",
+      "loading": "Загрузка",
+      "success": "OK",
+      "error": "Ошибка"
+    },
+    "endpoints": {
+      "hello": "Возвращает приветственное сообщение с временной меткой.",
+      "post": "Возвращает полученный JSON с временной меткой.",
+      "skill": "Предоставляет сырой контент SKILL.md для обнаружения ИИ-агентами."
+    }
+  },
+  "error": {
+    "title": "Что-то пошло не так",
+    "subtitle": "При загрузке этой страницы произошла ошибка",
+    "details": "Детали ошибки",
+    "unknown": "Неизвестная ошибка",
+    "errorId": "ID ошибки",
+    "retry": "Попробовать снова",
+    "home": "На главную"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Страница не найдена. Запрашиваемая страница не существует или была перемещена.",
+    "home": "На главную"
+  }
+}

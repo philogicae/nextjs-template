@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "flag": "🇩🇪",
+    "native": "Deutsch"
+  },
+  "nav": {
+    "home": "Startseite",
+    "playground": "Spielplatz",
+    "skill": "SKILL.md",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "toggleMenu": "Navigationsmenü umschalten",
+    "language": "Sprache",
+    "themeToLight": "Zu hellem Modus wechseln",
+    "themeToDark": "Zu dunklem Modus wechseln",
+    "themeToggle": "Thema umschalten"
+  },
+  "footer": {
+    "credits": "Built with Fractal Template"
+  },
+  "landing": {
+    "headingPrefix": "Schneller und intelligenter bauen mit dem",
+    "headingAccent": "Modernen Stack",
+    "subtitleLine1": "Eine Agent-bereite Next.js-Vorlage mit HeroUI & Biome.",
+    "subtitleLine2": "Beginnen Sie in Minuten mit dem Bauen.",
+    "ctaPlayground": "Spielplatz",
+    "ctaSkill": "SKILL.md lesen",
+    "ctaGithub": "Auf GitHub ansehen",
+    "ctaVercel": "Auf Vercel bereitstellen",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "Für moderne Entwicklung gebaut",
+    "featuresSubtitle": "Alles, was Sie brauchen, um produktionsreife Anwendungen zu liefern.",
+    "ctaSectionTitle": "Bereit loszulegen?",
+    "ctaSectionSubtitle": "Testen Sie den Playground oder deployen Sie mit einem Klick auf Vercel.",
+    "features": {
+      "nextjs": "App Router + Turbo",
+      "react": "Server-Komponenten",
+      "tailwind": "CSS-first Konfiguration",
+      "heroui": "Barrierefreies UI-Kit",
+      "biome": "Lint & Format",
+      "skill": "KI-Agenten-Skill"
+    }
+  },
+  "playground": {
+    "title": "Spielplatz",
+    "subtitle": "Testen Sie Server-API-Endpunkte und Zustand-Management live.",
+    "stateSection": "Zustandsmanager",
+    "stateHint": "Zustand-Store",
+    "apiSection": "API-Endpunkte",
+    "apiCount": "{count} Endpunkte",
+    "historyLabel": "Verlauf",
+    "reset": "Zurücksetzen",
+    "undo": "Rückgängig",
+    "send": "Senden",
+    "sending": "Wird gesendet...",
+    "response": "Antwort",
+    "status": {
+      "idle": "Inaktiv",
+      "loading": "Wird geladen",
+      "success": "OK",
+      "error": "Fehler"
+    },
+    "endpoints": {
+      "hello": "Gibt eine Begrüßungsnachricht mit Zeitstempel zurück.",
+      "post": "Gibt den empfangenen JSON-Body mit Zeitstempel zurück.",
+      "skill": "Stellt SKILL.md-Rohinhalt für die KI-Agenten-Erkennung bereit."
+    }
+  },
+  "error": {
+    "title": "Etwas ist schiefgelaufen",
+    "subtitle": "Beim Laden dieser Seite ist ein Fehler aufgetreten",
+    "details": "Fehlerdetails",
+    "unknown": "Unbekannter Fehler",
+    "errorId": "Fehler-ID",
+    "retry": "Erneut versuchen",
+    "home": "Zur Startseite"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Seite nicht gefunden. Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "home": "Zur Startseite"
+  }
+}

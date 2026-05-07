@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 # Sitemap location
-Sitemap: https://fractal-nextjs.vercel.app/sitemap.xml
+Sitemap: https://fractal-template.binaryeyelabs.xyz/sitemap.xml

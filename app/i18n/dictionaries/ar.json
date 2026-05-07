@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "flag": "🇸🇦",
+    "native": "العربية"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "playground": "بيئة تجريبية",
+    "skill": "SKILL.md",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "toggleMenu": "تبديل قائمة التنقل",
+    "language": "اللغة",
+    "themeToLight": "التبديل إلى الوضع الفاتح",
+    "themeToDark": "التبديل إلى الوضع الداكن",
+    "themeToggle": "تبديل السمة"
+  },
+  "footer": {
+    "credits": "Built with Fractal Template"
+  },
+  "landing": {
+    "headingPrefix": "ابنِ بشكل أسرع وأكثر ذكاءً مع",
+    "headingAccent": "المكدس الحديث",
+    "subtitleLine1": "قالب Next.js جاهز للوكلاء مع HeroUI و Biome.",
+    "subtitleLine2": "ابدأ البناء في دقائق.",
+    "ctaPlayground": "جرب بنفسك",
+    "ctaSkill": "قراءة SKILL.md",
+    "ctaGithub": "عرض على GitHub",
+    "ctaVercel": "النشر على Vercel",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "مبني للتطوير الحديث",
+    "featuresSubtitle": "كل ما تحتاجه لإطلاق تطبيقات جاهزة للإنتاج.",
+    "ctaSectionTitle": "مستعد للبدء؟",
+    "ctaSectionSubtitle": "استكشف بيئة التجريب أو انشر على Vercel بنقرة واحدة.",
+    "features": {
+      "nextjs": "App Router + Turbo",
+      "react": "مكونات الخادم",
+      "tailwind": "إعداد CSS-first",
+      "heroui": "مجموعة واجهة مستخدم متاحة",
+      "biome": "Lint وتنسيق",
+      "skill": "مهارات الوكلاء الذكيين"
+    }
+  },
+  "playground": {
+    "title": "بيئة التجريب",
+    "subtitle": "اختبر نقاط نهاية API وإدارة الحالة باستخدام Zustand مباشرة.",
+    "stateSection": "مدير الحالة",
+    "stateHint": "متجر Zustand",
+    "apiSection": "نقاط نهاية API",
+    "apiCount": "{count} نقطة نهاية",
+    "historyLabel": "السجل",
+    "reset": "إعادة تعيين",
+    "undo": "تراجع",
+    "send": "إرسال",
+    "sending": "جاري الإرسال...",
+    "response": "الاستجابة",
+    "status": {
+      "idle": "خامل",
+      "loading": "جاري التحميل",
+      "success": "موافق",
+      "error": "خطأ"
+    },
+    "endpoints": {
+      "hello": "يعود برسالة ترحيب مع الطابع الزمني.",
+      "post": "يرد بنفس JSON مع الطابع الزمني.",
+      "skill": "يقدم محتوى SKILL.md الخام لاكتشاف الوكلاء الذكيين."
+    }
+  },
+  "error": {
+    "title": "حدث خطأ ما",
+    "subtitle": "حدث خطأ أثناء تحميل هذه الصفحة",
+    "details": "تفاصيل الخطأ",
+    "unknown": "خطأ غير معروف",
+    "errorId": "معرف الخطأ",
+    "retry": "إعادة المحاولة",
+    "home": "العودة للرئيسية"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "الصفحة غير موجودة. الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "home": "العودة للرئيسية"
+  }
+}

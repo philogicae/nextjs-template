@@ -40,9 +40,16 @@ export const siteConfig = {
   name: "Fractal Template",
   shortName: "Fractal Template",
   description:
-    "A modern Next.js template with HeroUI, Tailwind CSS, and TypeScript",
-  keywords: ["Next.js", "React", "TypeScript", "Tailwind CSS", "HeroUI"],
-  url: "https://fractal-nextjs.vercel.app/",
+    "A modern Next.js template with HeroUI, Tailwind CSS, TypeScript, and Biome",
+  keywords: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "HeroUI",
+    "Biome",
+  ],
+  url: "https://fractal-template.binaryeyelabs.xyz",
   license: "MIT License",
   themeColor: {
     light: "#ffffff", // Pure White canvas
@@ -54,7 +61,7 @@ export const siteConfig = {
     { href: "/skill.md", labelKey: "skill", external: true },
   ] as const satisfies readonly NavLink[],
   social: [
-    { label: "GitHub", href: "https://github.com/philogicae/nextjs-template" },
+    { label: "GitHub", href: "https://github.com/philogicae/fractal-template" },
     { label: "X", href: "https://x.com/philogicae" },
   ] as const satisfies readonly SocialLink[],
 } as const

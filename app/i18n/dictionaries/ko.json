@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "flag": "🇰🇷",
+    "native": "한국어"
+  },
+  "nav": {
+    "home": "홈",
+    "playground": "플레이그라운드",
+    "skill": "SKILL.md",
+    "openMenu": "메뉴 열기",
+    "closeMenu": "메뉴 닫기",
+    "toggleMenu": "네비게이션 메뉴 전환",
+    "language": "언어",
+    "themeToLight": "라이트 모드로 전환",
+    "themeToDark": "다크 모드로 전환",
+    "themeToggle": "테마 전환"
+  },
+  "footer": {
+    "credits": "Built with Fractal Template"
+  },
+  "landing": {
+    "headingPrefix": "더 빠르고 스마트하게 구축하세요",
+    "headingAccent": "모던 스택",
+    "subtitleLine1": "HeroUI와 Biome을 갖춘 에이전트-준비 Next.js 템플릿.",
+    "subtitleLine2": "몇 분 만에 구축을 시작하세요.",
+    "ctaPlayground": "플레이그라운드",
+    "ctaSkill": "SKILL.md 읽기",
+    "ctaGithub": "GitHub에서 보기",
+    "ctaVercel": "Vercel에 배포",
+    "announcement": "Next.js 16 + React 19",
+    "featuresTitle": "모던 개발을 위해 구축됨",
+    "featuresSubtitle": "프로덕션-준비 애플리케이션을 제공하는 데 필요한 모든 것.",
+    "ctaSectionTitle": "시작할 준비가 되셨나요?",
+    "ctaSectionSubtitle": "플레이그라운드를 탐색하거나 한 클릭으로 Vercel에 배포하세요.",
+    "features": {
+      "nextjs": "App Router + Turbo",
+      "react": "서버 컴포넌트",
+      "tailwind": "CSS-first 구성",
+      "heroui": "접근 가능한 UI 키트",
+      "biome": "린트 및 포맷",
+      "skill": "AI 에이전트 스킬"
+    }
+  },
+  "playground": {
+    "title": "플레이그라운드",
+    "subtitle": "서버사이드 API 엔드포인트와 Zustand 상태 관리를 실시간으로 테스트하세요.",
+    "stateSection": "상태 관리자",
+    "stateHint": "Zustand 스토어",
+    "apiSection": "API 엔드포인트",
+    "apiCount": "{count} 엔드포인트",
+    "historyLabel": "기록",
+    "reset": "재설정",
+    "undo": "실행 취소",
+    "send": "전송",
+    "sending": "전송 중...",
+    "response": "응답",
+    "status": {
+      "idle": "대기 중",
+      "loading": "로딩 중",
+      "success": "확인",
+      "error": "오류"
+    },
+    "endpoints": {
+      "hello": "타임스탬프가 포함된 인사말 메시지를 반환합니다.",
+      "post": "받은 JSON 본문을 타임스탬프와 함께 반환합니다.",
+      "skill": "AI 에이전트 검색을 위한 SKILL.md 원본 콘텐츠를 제공합니다."
+    }
+  },
+  "error": {
+    "title": "문제가 발생했습니다",
+    "subtitle": "이 페이지를 로드하는 동안 오류가 발생했습니다",
+    "details": "오류 상세 정보",
+    "unknown": "알 수 없는 오류",
+    "errorId": "오류 ID",
+    "retry": "다시 시도",
+    "home": "홈으로 가기"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "페이지를 찾을 수 없습니다. 찾으시는 페이지가 존재하지 않거나 이동되었습니다.",
+    "home": "홈으로 가기"
+  }
+}

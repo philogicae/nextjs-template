@@ -1,6 +1,6 @@
 # Project Bootstrap Checklist
 
-> **Audience.** AI agents (and humans) customizing a new project from `philogicae/nextjs-template`. Tick boxes as you go so the next agent picking up the work sees exactly what is left.
+> **Audience.** AI agents (and humans) customizing a new project from `philogicae/fractal-template`. Tick boxes as you go so the next agent picking up the work sees exactly what is left.
 >
 > **How to use.** Work top to bottom. Every unchecked box is something a fresh clone of the template still ships with. Do not skip §6 (Sanity checks).
 >
@@ -109,7 +109,7 @@ Choose one path:
 ## 6. Environment & infrastructure
 
 - [ ] `.env.example` → prune placeholders, add real variables, document each
-- [ ] `compose.yaml` → no edits needed; set `DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT` in `.env` to override the `nextjs-template` / `3000` defaults
+- [ ] `compose.yaml` → no edits needed; set `DOCKER_PROJECT_NAME`, `DOCKER_CONTAINER_NAME`, `DOCKER_IMAGE_NAME`, `DOCKER_IMAGE_TAG`, `DOCKER_PORT` in `.env` to override the `fractal-template` / `3000` defaults
 - [ ] `Dockerfile` → no change needed unless you customize the build (multi-stage, standalone output, non-root runner with HEALTHCHECK)
 - [ ] `.github/workflows/ci-cd.yml` → ready to use as-is; review only if you add tests or deploy targets
 - [ ] `next.config.mjs` → tighten `images.remotePatterns` to your actual image hosts and add a page-level CSP header if your app needs one (SVG responses already get a strict per-image CSP)
@@ -134,7 +134,7 @@ Run these and fix anything that fails.
 - [ ] No leftover template branding — grep should return only intentional matches:
 
   ```bash
-  rg -i "next\.js template|philogicae|fractal-nextjs|playground|counter"
+  rg -i "next\.js template|philogicae|fractal-template|playground|counter"
   ```
 
 - [ ] `AGENTS.md` customization checklist no longer lists items that have been completed
